@@ -10,3 +10,6 @@ def paginaPrincipal(request):
 
 def analisisVenta(request):
     return render(request, 'analisisVentas.html')
+
+def registrarse(request):
+    return render(request, 'registrarse.html')

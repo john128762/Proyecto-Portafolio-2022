@@ -22,4 +22,5 @@ urlpatterns = [
     path('', frontend_views.login),
     path('paginaPrincipal/', frontend_views.paginaPrincipal),
     path('analisisVenta/', frontend_views.analisisVenta),
+    path('registrar/', frontend_views.registrarse)
 ]

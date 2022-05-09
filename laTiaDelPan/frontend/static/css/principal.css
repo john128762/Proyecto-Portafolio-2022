@@ -1,0 +1,49 @@
+#ag_categoria{
+    height:100px; 
+    width: 300px;
+    position: absolute;
+    top: 25%;
+    left: 50px;
+    display: table-cell;
+    text-align: center;
+}
+
+#ag_proveedor{
+    height:100px; 
+    width: 300px;
+    position: absolute;
+    top: 25%;
+    left: 525px;
+    display: table-cell;
+    text-align: center;
+}
+
+#ag_producto{
+    height:100px; 
+    width: 300px;
+    position: absolute;
+    top: 25%;
+    left: 990px;
+    display: table-cell;
+    text-align: center;
+}
+
+#analisis{
+    height:100px; 
+    width: 300px;
+    position: absolute;
+    top: 60%;
+    left: 280px;
+    display: table-cell;
+    text-align: center;
+}
+
+#venta{
+    height:100px; 
+    width: 300px;
+    position: absolute;
+    top: 60%;
+    left: 780px;
+    display: table-cell;
+    text-align: center;
+}

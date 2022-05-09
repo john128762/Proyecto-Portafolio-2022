@@ -16,11 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from frontend import views as frontend_views
+from backend import views as backend_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', frontend_views.login),
-    path('paginaPrincipal/', frontend_views.paginaPrincipal),
-    path('analisisVenta/', frontend_views.analisisVenta),
-    path('registrar/', frontend_views.registrarse)
+    path('principal/', frontend_views.paginaPrincipal),
+    path('analisis/', frontend_views.analisisVenta),
+    path('registrar/', backend_views.registrarse),
+    path('categoria/', backend_views.categoria),
 ]

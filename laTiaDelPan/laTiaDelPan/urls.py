@@ -25,4 +25,7 @@ urlpatterns = [
     path('analisis/', frontend_views.analisisVenta),
     path('registrar/', backend_views.registrarse),
     path('categoria/', backend_views.categoria),
+    path('proveedor/', backend_views.proveedor),
+    path('producto/', backend_views.producto),
+    path('venta/', backend_views.venta),
 ]

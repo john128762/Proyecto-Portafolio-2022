@@ -89,7 +89,14 @@ class GastosPorMes:
     Periodo = ""
     GastosProveedor = 0
     GastosIva = 0
-    def __init(self, periodo, gastosProveedor, gastosIva):
+    def __init__(self, periodo, gastosProveedor, gastosIva):
         Periodo = periodo
         gastosProveedor = gastosProveedor
         GastosIva = gastosIva
+
+class Resultado:
+    CodigoOperacion = 0
+    Mensaje = ""
+    def __init__(self, codigo, mensaje):
+        CodigoOperacion = codigo
+        Mensaje = mensaje

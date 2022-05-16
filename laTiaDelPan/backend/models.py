@@ -6,10 +6,12 @@ class Proveedor(models.Model):
     PROV_DV = models.CharField(max_length = 1)
     PROV_NOMBRE = models.CharField(max_length=40)
     PROV_CONTACTO = models.CharField(max_length=40)
+    PROV_ESTADO = models.BooleanField()
 
 class Categoria(models.Model):
     CAT_ID = models.AutoField()
     CAT_NOMBRE = models.CharField(max_length=20)
+    CAT_ESTADO = models.BooleanField()
 
 class Usuario (models.Model):
     USU_RUT = models.IntegerField(primary_key=True)
@@ -38,6 +40,7 @@ class Producto(models.Model):
     PROD_STOCK = models.IntegerField()
     PROV_RUT = models.ForeignKey(Proveedor, on_delete=models.RESTRICT)
     CAT_ID = models.ForeignKey(Categoria, on_delete=models.RESTRICT)
+    PROD_ESTADO = models.BooleanField()
 
 class Detalle_Boleta(models.Model):
     BOL_NUMERO = models.ForeignKey(Boleta, on_delete=models.RESTRICT)

@@ -1,0 +1,89 @@
+from datetime import date, time, datetime
+
+class Proveedor:
+    RUT = ""
+    Nombre = ""
+    Contacto = ""
+    def __init__(self, rut, nombre, contacto):
+        RUT = rut
+        Nombre = nombre
+        Contacto = contacto
+
+class Categoria:
+    Id = 0
+    Nombre = ""
+    def __init__(self, id, nombre):
+        Id = id
+        Nombre = nombre
+
+class Usuario:
+    RUT = ""
+    Username = ""
+    Nombres = ""
+    Apellidos = ""
+    Password = ""
+    Vigencia = False
+    Adminitrador = False
+    def __init__(self, rut, user, nombres, apellidos, password, vigencia, administrador):
+        RUT = rut
+        Username = user
+        Nombres = nombres
+        Apellidos = apellidos
+        Password = password
+        Vigencia = vigencia
+        Administrador = administrador
+
+class Boleta:
+    Numero = 0
+    FechaVenta = datetime.min
+    Subtotal = 0
+    Iva = 0
+    Vigencia = False
+    Vendedor = None
+    def __init__(self, numero, fechaventa, subtotal, iva, vigencia, vendedor):
+        if isinstance(vendedor, Usuario):
+            Numero = numero
+            FechaVenta = fechaventa
+            Subtotal = subtotal
+            Iva = iva
+            Vigencia = vigencia
+            Vendedor = vendedor
+        else:
+            raise TypeError ("El parametro vendedor ingresado no es de tipo Usuario")
+
+class Producto:
+    Codigo = 0
+    Nombre = ""
+    Valor = 0
+    Stock = 0
+    Rut = ""
+    Categoria = None
+    def __init__(self, codigo, nombre, valor, stock, categoria):
+        if isinstance(categoria, Categoria):
+            Codigo = codigo
+            Nombre = nombre
+            Valor = valor
+            Stock = stock
+            Categoria = categoria
+        else:
+            raise TypeError("El parametro categoria ingresado no es de tipo Categoria")
+
+
+
+
+class Detalle_Boleta:
+    BOL_NUMERO = models.ForeignKey(Boleta, on_delete=models.RESTRICT)
+    PROD_CODIGO = models.ForeignKey(Producto, on_delete=models.RESTRICT)
+    DET_CANTIDAD = models.IntegerField()
+    DET_VALOR = models.DecimalField()
+
+class Fact_Proveedor:
+    FAC_NUMERO = models.AutoField()
+    FAC_FECHA_VENTA = models.DateTimeField()
+    FAC_TOTAL = models.DecimalField()
+
+class Det_Fact_Proveedor:
+    FAC_NUMERO = models.ForeignKey(Fact_Proveedor, on_delete=models.RESTRICT)
+    PROD_CODIGO = models.ForeignKey(Producto, on_delete=models.RESTRICT)
+    DFT_CANTIDAD = models.IntegerField()
+    DFT_VALOR = models.DecimalField()

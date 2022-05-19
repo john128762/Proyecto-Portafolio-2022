@@ -28,15 +28,15 @@ class Usuario (models.Model):
 class Boleta (models.Model):
     BOL_NUMERO = models.AutoField(primary_key=True)
     BOL_FECHA_VENTA = models.DateTimeField()
-    BOL_SUBTOTAL = models.DecimalField()
-    BOL_IVA = models.DecimalField()
+    BOL_SUBTOTAL = models.DecimalField(decimal_places=3, max_digits=10)
+    BOL_IVA = models.DecimalField(decimal_places=3, max_digits=10)
     BOL_VIGENCIA = models.BooleanField()
     USU_RUT = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
 class Producto(models.Model):
     PROD_CODIGO = models.CharField(max_length = 15, primary_key=True)
     PROD_NOMBRE = models.CharField(max_length=40)
-    PROD_VALOR = models.DecimalField()
+    PROD_VALOR = models.DecimalField(decimal_places=3, max_digits=10)
     PROD_STOCK = models.IntegerField()
     PROV_RUT = models.ForeignKey(Proveedor, on_delete=models.RESTRICT)
     CAT_ID = models.ForeignKey(Categoria, on_delete=models.RESTRICT)
@@ -46,15 +46,15 @@ class Detalle_Boleta(models.Model):
     BOL_NUMERO = models.ForeignKey(Boleta, on_delete=models.RESTRICT)
     PROD_CODIGO = models.ForeignKey(Producto, on_delete=models.RESTRICT)
     DET_CANTIDAD = models.IntegerField()
-    DET_VALOR = models.DecimalField()
+    DET_VALOR = models.DecimalField(decimal_places=3, max_digits=10)
 
 class Fact_Proveedor(models.Model):
     FAC_NUMERO = models.AutoField(primary_key=True)
     FAC_FECHA_VENTA = models.DateTimeField()
-    FAC_TOTAL = models.DecimalField()
+    FAC_TOTAL = models.DecimalField(decimal_places=3, max_digits=10)
 
 class Det_Fact_Proveedor(models.Model):
     FAC_NUMERO = models.ForeignKey(Fact_Proveedor, on_delete=models.RESTRICT)
     PROD_CODIGO = models.ForeignKey(Producto, on_delete=models.RESTRICT)
     DFT_CANTIDAD = models.IntegerField()
-    DFT_VALOR = models.DecimalField()
+    DFT_VALOR = models.DecimalField(decimal_places=3, max_digits=10)

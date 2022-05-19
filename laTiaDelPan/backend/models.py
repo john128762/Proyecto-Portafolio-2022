@@ -8,7 +8,7 @@ class Proveedor(models.Model):
     PROV_CONTACTO = models.CharField(max_length=40)
 
 class Categoria(models.Model):
-    CAT_ID = models.AutoField()
+    CAT_ID = models.AutoField(primary_key=True)
     CAT_NOMBRE = models.CharField(max_length=20)
 
 class Usuario (models.Model):
@@ -24,7 +24,7 @@ class Usuario (models.Model):
     USU_FECHA_MODIFICACION = models.DateTimeField()
 
 class Boleta (models.Model):
-    BOL_NUMERO = models.AutoField()
+    BOL_NUMERO = models.AutoField(primary_key=True)
     BOL_FECHA_VENTA = models.DateTimeField()
     BOL_SUBTOTAL = models.DecimalField()
     BOL_IVA = models.DecimalField()
@@ -46,7 +46,7 @@ class Detalle_Boleta(models.Model):
     DET_VALOR = models.DecimalField()
 
 class Fact_Proveedor(models.Model):
-    FAC_NUMERO = models.AutoField()
+    FAC_NUMERO = models.AutoField(primary_key=True)
     FAC_FECHA_VENTA = models.DateTimeField()
     FAC_TOTAL = models.DecimalField()
 

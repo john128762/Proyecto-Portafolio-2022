@@ -1,0 +1,76 @@
+#ventaVolver{
+    height:50px; 
+    width:200px; 
+    margin-top: 20px;
+    float: right;
+}
+
+#ventaCancelar{
+    height:50px; 
+    width:200px; 
+    margin-left: 10px;
+    margin-top: 20px;
+    float: right;
+}
+
+#ventaRealizar{
+    height:50px; 
+    width:200px; 
+    margin-left: 10px;
+    margin-top: 20px;
+    float: right;
+}
+
+#venCodigoPro{
+    width: 200px;
+    height: 30px;
+    right: 680px;
+    top: 127px;
+    position: absolute;
+}
+
+#inCodProd{
+    display: block;
+    padding-top: 20px;
+}
+
+#subtotal{
+    top: 335px;
+    right: 130px;
+    position: absolute;
+    width: 150px;
+    height: 30px;
+}
+
+#iva{
+    top: 375px;
+    right: 130px;
+    position: absolute;
+    width: 150px;
+    height: 30px;
+}
+
+#total{
+    top: 415px;
+    right: 130px;
+    position: absolute;
+    width: 150px;
+    height: 30px;
+}
+
+#laSubtotal{
+    display: block;
+    padding-left: 892px;
+}
+
+#laIva{
+    display: block;
+    padding-left: 925px;
+    padding-top: 7px;
+}
+
+#laTotal{
+    display: block;
+    padding-left: 915px;
+    padding-top: 7px;
+}

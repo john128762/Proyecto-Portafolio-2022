@@ -11,6 +11,7 @@ class Proveedor(models.Model):
 class Categoria(models.Model):
     CAT_ID = models.AutoField(primary_key=True)
     CAT_NOMBRE = models.CharField(max_length=20)
+    CAT_DESCRIPCION = models.CharField(max_length=100)
     CAT_ESTADO = models.BooleanField()
 
 class Usuario (models.Model):

@@ -86,20 +86,20 @@
             <thead style="background-color: #00aae4; color: white;">
                 <tr>
                     <th>Nombre Proveedor</th>
-                    <th>DV Proveedor</th>
                     <th>Contacto</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody style="background-color: white; color: black;">
+              {% for proveedor in proveedorT %}
                 <tr>
-                    <td>hola</td>
-                    <td>5</td>
-                    <td>500</td>
-                    <td>loco</td>
+                    <td>{{proveedor.PROV_NOMBRE}}</td>
+                    <td>{{proveedor.PROV_CONTACTO}}</td>
+                    <td>{{proveedor.PROV_ESTADO}}</td>
                     <td></td>
                 </tr>
+              {% endfor %}
             </tbody>
         </table>
         <hr>

@@ -6,7 +6,7 @@ $(document).ready(function() {
           autoWidth: false,
           columnDefs:[
               {targets:2,ordenable:true,width:'20%'},
-              {targets:4,ordenable:false,width: '22%'},
+              {targets:3,ordenable:false,width: '22%'},
             ],
           select: {
                style:    'os',
@@ -16,7 +16,6 @@ $(document).ready(function() {
 
            "columns":[
             {"data":"nombreProveedor"},
-            {"data":"dvProveedor"},
             {"data":"contactoProveedor"},
             {"data":"estadoProveedor"},
             {

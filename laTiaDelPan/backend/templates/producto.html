@@ -99,15 +99,17 @@
                 </tr>
             </thead>
             <tbody style="background-color: white; color: black;">
+              {% for producto in productoT %}
                 <tr>
-                    <td>hola</td>
-                    <td>5</td>
-                    <td>500</td>
-                    <td>loco</td>
-                    <td>2020</td>
-                    <td>uccusbf</td>
+                    <td>{{producto.PROD_NOMBRE}}</td>
+                    <td>{{producto.CAT_ID}}</td>
+                    <td>{{producto.PROV_RUT}}</td>
+                    <td>{{producto.PROD_STOCK}}</td>
+                    <td>{{producto.PROD_VALOR}}</td>
+                    <td>{{producto.PROD_ESTADO}}</td>
                     <td></td>
                 </tr>
+              {% endfor %}
             </tbody>
         </table>
         <hr>

@@ -14,10 +14,12 @@ class Proveedor:
 class Categoria:
     Id = 0
     Nombre = ""
+    Descripcion = ""
     Estado = False
-    def __init__(self, id, nombre, estado):
+    def __init__(self, id, nombre, descripcion, estado):
         Id = id
         Nombre = nombre
+        Descripcion = descripcion
         Estado = estado
 
 class Usuario:

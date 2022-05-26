@@ -11,7 +11,7 @@ class MantenedorCategorias:
             nuevaCategoria = models.Categoria()
             nuevaCategoria.CAT_ESTADO = categoria.Estado
             nuevaCategoria.CAT_NOMBRE = categoria.Nombre
-
+            nuevaCategoria.CAT_DESCRIPCION = categoria.Descripcion
             try:
                 nuevaCategoria.save()
                 resultado.CodigoOperacion = 200
@@ -34,6 +34,7 @@ class MantenedorCategorias:
                 resCategoria = models.Categoria(models.Categoria.objects.get(CAT_ID = categoria.Id))
                 resCategoria.CAT_ESTADO = categoria.Estado
                 resCategoria.CAT_NOMBRE = categoria.Nombre
+                resCategoria.CAT_DESCRIPCION = categoria.Descripcion
                 resCategoria.Save()
                 resultado.CodigoOperacion = 200
                 resultado.Mensaje = "Categoria actualizada."

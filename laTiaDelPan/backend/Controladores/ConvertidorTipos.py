@@ -14,7 +14,7 @@ class ConvertidorTipos:
 
     @staticmethod
     def ConvertirCategoria(categoriaBDD: models.Categoria) -> modelsApp.Categoria:
-        categoria = modelsApp.Categoria(categoriaBDD.CAT_ID, categoriaBDD.CAT_NOMBRE, categoriaBDD.CAT_ESTADO)
+        categoria = modelsApp.Categoria(categoriaBDD.CAT_ID, categoriaBDD.CAT_NOMBRE, categoriaBDD.CAT_DESCRIPCION, categoriaBDD.CAT_ESTADO)
         return categoria
     
     @staticmethod

@@ -31,3 +31,7 @@ class ConvertidorTipos:
     def ConvertirBoleta(boletaBDD: models.Boleta) -> modelsApp.Boleta:
         boleta = modelsApp.Boleta(boletaBDD.BOL_NUMERO, boletaBDD.BOL_FECHA_VENTA, boletaBDD.BOL_SUBTOTAL, boletaBDD.BOL_IVA, boletaBDD.BOL_VIGENCIA, ConvertidorTipos.ConvertirUsuario(models.Usuario.objects.get(USU_USUARIO = boletaBDD.USU_USERNAME)))
         return boleta
+    
+    def ConvertirDetalleBoleta(detalleBDD: models.Detalle_Boleta) -> modelsApp.DetalleBoleta:
+        detalle = modelsApp.DetalleBoleta(ConvertidorTipos.ConvertirProducto(models.Producto.objects.get(COD_PRODUCTO = detalleBDD.PROD_CODIGO)), detalleBDD.DET_CANTIDAD, detalleBDD.DET_VALOR)
+        return detalle

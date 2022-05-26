@@ -1,5 +1,7 @@
 from datetime import date, time, datetime
 
+from laTiaDelPan.backend.models import Producto
+
 class Proveedor:
     RUT = ""
     Nombre = ""
@@ -39,6 +41,15 @@ class Usuario:
         Vigencia = vigencia
         Administrador = administrador
 
+class DetalleBoleta:
+    Prod = Producto()
+    Cantidad = 0
+    Valor = 0
+    def __init__(self, producto: Producto, cantidad, valor):
+        Prod = producto
+        Cantidad = cantidad
+        Valor = valor
+
 class Boleta:
     Numero = 0
     FechaVenta = datetime.min
@@ -46,7 +57,8 @@ class Boleta:
     Iva = 0
     Vigencia = False
     Vendedor = Usuario()
-    def __init__(self, numero, fechaventa, subtotal, iva, vigencia, vendedor):
+    Detalle = [DetalleBoleta]
+    def __init__(self, numero, fechaventa, subtotal, iva, vigencia, vendedor, detalle):
         if isinstance(vendedor, Usuario):
             Numero = numero
             FechaVenta = fechaventa
@@ -54,6 +66,7 @@ class Boleta:
             Iva = iva
             Vigencia = vigencia
             Vendedor = vendedor
+            Detalle = detalle
         else:
             raise TypeError ("El parametro vendedor ingresado no es de tipo Usuario")
 
@@ -77,6 +90,26 @@ class Producto:
             Estado = estado
         else:
             raise TypeError("El parametro categoria ingresado no es de tipo Categoria")
+
+class DetalleFacturaProveedor:
+    Prod = Producto()
+    Cantidad = 0
+    Valor = 0
+    def __init__(self, producto: Producto, cantidad, valor):
+        Prod = producto,
+        Cantidad = cantidad,
+        Valor = valor
+
+class FacturaProveedor():
+    Numero = 0
+    FechaVenta = datetime.min
+    Total = 0
+    Detalle = [DetalleFacturaProveedor]
+    def __init__(self, numero, fechaventa: datetime, total, detalle: list):
+        Numero = numero
+        FechaVenta = fechaventa
+        Total = total
+        Detalle = detalle
 
 class VistaVentasPorMes:
     Periodo = ""

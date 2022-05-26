@@ -1,4 +1,4 @@
-#ag_categoria{
+#agCategoria{
     height:100px; 
     width: 300px;
     position: absolute;
@@ -8,7 +8,7 @@
     text-align: center;
 }
 
-#ag_proveedor{
+#agProveedor{
     height:100px; 
     width: 300px;
     position: absolute;
@@ -18,7 +18,7 @@
     text-align: center;
 }
 
-#ag_producto{
+#agProducto{
     height:100px; 
     width: 300px;
     position: absolute;

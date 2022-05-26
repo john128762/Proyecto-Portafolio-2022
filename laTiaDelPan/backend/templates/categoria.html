@@ -108,12 +108,14 @@
                 </tr>
             </thead>
             <tbody style="background-color: white; color: black;">
+              {% for categoria in categoriaT %}
                 <tr>
-                    <td>hola</td>
-                    <td>5</td>
-                    <td>500</td>
+                    <td>{{categoria.CAT_NOMBRE}}</td>
+                    <td>{{categoria.CAT_DESCRIPCION}}</td>
+                    <td>{{categoria.CAT_ESTADO}}</td>
                     <td></td>
                 </tr>
+              {% endfor %}
             </tbody>
         </table>
         <hr>

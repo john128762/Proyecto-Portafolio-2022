@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'backend',
     'frontend',
-    'ajax_datatable'
+    "corsheaders",
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'laTiaDelPan.urls'
@@ -78,8 +81,12 @@ WSGI_APPLICATION = 'laTiaDelPan.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'latiadelpan', 
+        'USER': 'postgres', 
+        'PASSWORD': 'jobeca10',
+        'HOST': '127.0.0.1', 
+        'PORT': '5432',
     }
 }
 

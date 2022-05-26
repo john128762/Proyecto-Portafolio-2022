@@ -1,6 +1,6 @@
 $(document).ready(function() {
     var selected = [];
-      var tabla= $('#table-analisis').DataTable({
+      var tabla= $('#tablaAnalisis').DataTable({
           pageLength: '25',
           destroy: true,
           autoWidth: false,

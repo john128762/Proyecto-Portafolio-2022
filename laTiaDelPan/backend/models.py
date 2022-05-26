@@ -14,9 +14,9 @@ class Categoria(models.Model):
     CAT_ESTADO = models.BooleanField()
 
 class Usuario (models.Model):
-    USU_RUT = models.IntegerField(primary_key=True)
+    USU_RUT = models.IntegerField()
     USU_DV = models.CharField(max_length=1)
-    USU_USERNAME = models.CharField(max_length = 20)
+    USU_USERNAME = models.CharField(primary_key=True, max_length = 20)
     USU_NOMBRES = models.CharField(max_length = 40)
     USU_APELLIDOS = models.CharField(max_length = 40)
     USU_PASSWORD = models.CharField(max_length = 40)
@@ -31,7 +31,7 @@ class Boleta (models.Model):
     BOL_SUBTOTAL = models.DecimalField(decimal_places=3, max_digits=10)
     BOL_IVA = models.DecimalField(decimal_places=3, max_digits=10)
     BOL_VIGENCIA = models.BooleanField()
-    USU_RUT = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    USU_USERNAME = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
 class Producto(models.Model):
     PROD_CODIGO = models.CharField(max_length = 15, primary_key=True)

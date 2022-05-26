@@ -4,17 +4,21 @@ class Proveedor:
     RUT = ""
     Nombre = ""
     Contacto = ""
-    def __init__(self, rut, nombre, contacto):
+    Estado = False
+    def __init__(self, rut, nombre, contacto, estado):
         RUT = rut
         Nombre = nombre
         Contacto = contacto
+        Estado = estado
 
 class Categoria:
     Id = 0
     Nombre = ""
-    def __init__(self, id, nombre):
+    Estado = False
+    def __init__(self, id, nombre, estado):
         Id = id
         Nombre = nombre
+        Estado = estado
 
 class Usuario:
     RUT = ""
@@ -39,7 +43,7 @@ class Boleta:
     Subtotal = 0
     Iva = 0
     Vigencia = False
-    Vendedor = None
+    Vendedor = Usuario()
     def __init__(self, numero, fechaventa, subtotal, iva, vigencia, vendedor):
         if isinstance(vendedor, Usuario):
             Numero = numero
@@ -57,14 +61,18 @@ class Producto:
     Valor = 0
     Stock = 0
     Rut = ""
-    Categoria = None
-    def __init__(self, codigo, nombre, valor, stock, categoria):
+    Prov = Proveedor()
+    Cat = Categoria()
+    Estado = False
+    def __init__(self, codigo, nombre, valor, stock, proveedor: Proveedor, categoria: Categoria, estado):
         if isinstance(categoria, Categoria):
             Codigo = codigo
             Nombre = nombre
             Valor = valor
             Stock = stock
-            Categoria = categoria
+            Prov = proveedor
+            Cat = categoria
+            Estado = estado
         else:
             raise TypeError("El parametro categoria ingresado no es de tipo Categoria")
 

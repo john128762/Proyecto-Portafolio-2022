@@ -1,5 +1,6 @@
 import models
 import modelsApp
+from ConvertidorTipos import ConvertidorTipos
 from datetime import datetime
 
 class ControladorUsuarios:
@@ -55,7 +56,8 @@ class ControladorUsuarios:
         if isinstance(username, str):
             res = modelsApp.Resultado()
             try:
-                resUsuario = models.Usuario(models.Usuario.objects.get(USU_USERNAME = username))
+                respuesta = models.Usuario(models.Usuario.objects.get(USU_USERNAME = username))
+                resUsuario = ConvertidorTipos.ConvertirUsuario(respuesta)
                 return resUsuario
             except models.Usuario.DoesNotExist:
                 res.CodigoOperacion = -2
@@ -80,7 +82,7 @@ class ControladorUsuarios:
 
                 resUsuario.save()                
                 res.CodigoOperacion = 200
-                res.Mensaje = "Usuario ingresado."
+                res.Mensaje = "Usuario actualizado."
                 return res
             except models.Usuario.DoesNotExist:
                 res.CodigoOperacion = -2
@@ -106,9 +108,9 @@ class ControladorUsuarios:
             raise TypeError("El parametro username no es del tipo esperado")
 
     def ListarUsuarios():
-        res = modelsApp.Restulado()
+        res = modelsApp.Resultado()
         try:
-            resUsuarios = list(models.Usuario.objects.all())
+            resUsuarios = map(ConvertidorTipos.ConvertirUsuario, list(models.Usuario.objects.all()))
             return resUsuarios
         except Exception as e:
             res.CodigoOperacion = -9

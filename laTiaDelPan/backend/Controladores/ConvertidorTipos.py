@@ -1,9 +1,5 @@
-from nis import cat
-from smtplib import SMTPAuthenticationError
-from urllib.request import CacheFTPHandler
-from laTiaDelPan.backend.Controladores.MantenedorCategorias import MantenedorCategorias
-import models
-import modelsApp
+from backend import models
+from backend import modelsApp
 
 class ConvertidorTipos:
 

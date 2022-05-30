@@ -1,7 +1,7 @@
 from re import M
-import modelsApp
-import models
-from ConvertidorTipos import ConvertidorTipos
+import backend.modelsApp
+import backend.models
+from backend.Controladores.ConvertidorTipos import ConvertidorTipos
 
 class MantenedorProveedores:
     def AgregarProveedor(proveedor: modelsApp.Proveedor):

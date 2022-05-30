@@ -1,7 +1,7 @@
 from ConvertidorTipos import ConvertidorTipos
 from datetime import datetime
-import models
-import modelsApp
+import backend.models
+import backend.modelsApp
 
 class ControladorFacturasProveedor:
     def AgregarFactura(factura: modelsApp.Factura):

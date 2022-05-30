@@ -1,6 +1,6 @@
 from datetime import date, time, datetime
 
-from laTiaDelPan.backend.models import Producto
+from backend.models import Producto
 
 class Proveedor:
     RUT = ""
@@ -121,7 +121,7 @@ class Producto:
             Estado = estado
         else:
             raise TypeError("El parametro categoria ingresado no es de tipo Categoria")
-    def __init__():
+    def __init__(self):
         Codigo = 0
         Nombre = ""
         Valor = 0

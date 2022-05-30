@@ -1,6 +1,6 @@
 from pyexpat import model
-import models
-import modelsApp
+import backend.models
+import backend.modelsApp
 from django.db import connection
 
 class ControladorInformes:

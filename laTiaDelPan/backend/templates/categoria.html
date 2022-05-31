@@ -46,13 +46,16 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
-            <input type="text" class="form-control" id="nombreCategoria" placeholder="Ingrese Nombre Categoría" required autofocus>
-            <textarea class="form-control" style="margin-top: 10px;" id="categoriaDescripcion" rows="5px" placeholder="Ingrese Descripcion Categoría" required></textarea>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Crear categoría</button>
-        </div>
+        <form method="POST" action="/crearCate/">
+          {% csrf_token %}
+          <div class="modal-body">
+            <input type="text" class="form-control" id="nombreCategoria" placeholder="Ingrese Nombre Categoría" name="nombreCategoria" required autofocus>
+            <textarea class="form-control" style="margin-top: 10px;" id="categoriaDescripcion" rows="5px" placeholder="Ingrese Descripcion Categoría" name="categoriaDescripcion" required></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Crear categoría</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -67,8 +70,8 @@
             </button>
         </div>
         <div class="modal-body">
-            <input type="text" class="form-control" id="nombreCategoria" placeholder="Ingrese Nombre Categoría" required autofocus>
-            <textarea class="form-control" style="margin-top: 10px;" id="categoriaDescripcion" rows="5px" placeholder="Ingrese Descripcion Categoría" required></textarea>
+            <input type="text" class="form-control" id="nombreCategoriaEdit" placeholder="Ingrese Nombre Categoría" required autofocus>
+            <textarea class="form-control" style="margin-top: 10px;" id="categoriaDescripcionEdit" rows="5px" placeholder="Ingrese Descripcion Categoría" required></textarea>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary">Guardar cambios</button>

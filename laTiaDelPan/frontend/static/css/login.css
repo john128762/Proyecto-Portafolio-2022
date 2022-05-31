@@ -73,3 +73,7 @@
     display: block;
     margin-top: 10px;
 }
+
+input[type=checkbox] {
+    transform: scale(1.5);
+}

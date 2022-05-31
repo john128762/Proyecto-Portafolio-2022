@@ -1,9 +1,8 @@
-from laTiaDelPan.backend.Controladores.ConvertidorTipos import ConvertidorTipos
 import models
 import modelsApp
 from datetime import datetime
-from ConvertidorTipos import ConvertidorTipos
-
+from backend.Controladores.ConvertidorTipos import ConvertidorTipos
+#import ConvertidorTipos
 class MantenedorCategorias:
     def AgregarCategoria(categoria):
         resultado = modelsApp.Resultado()

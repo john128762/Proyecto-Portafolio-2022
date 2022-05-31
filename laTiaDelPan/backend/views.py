@@ -1,5 +1,9 @@
 from django.shortcuts import render
 from backend import models
+#from backend import modelsApp
+#from backend.Controladores import MantenedorCategorias
+#from backend.Controladores import ControladorUsuarios
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 
@@ -10,6 +14,18 @@ def categoria(request):
     data = models.Categoria.objects.all()
     cat = {'categoriaT':data}
     return render(request, 'categoria.html', cat)
+
+def nuevaCategoria(request):
+    if request.method=='POST':
+        nombreCat = request.POST.get("nombreCategoria")
+        descripcionCat = request.POST.get('categoriaDescripcion')
+
+        #nuevaCategoria = modelsApp.Categoria(Nombre=nombreCat, Descripcion=descripcionCat)
+        #MantenedorCategorias.AgregarCategoria(nuevaCategoria)
+
+        return HttpResponseRedirect('/categoria/')
+    else:
+        return HttpResponseRedirect('/categoria.html/')
 
 def proveedor(request):
     dataP = models.Proveedor.objects.all()

@@ -1,8 +1,7 @@
 from itertools import product
-import models
-import modelsApp
+import backend.models
+import backend.modelsApp
 from ConvertidorTipos import ConvertidorTipos
-
 class ControladorProductos:
     
     def AgregarProducto(producto: modelsApp.Producto):

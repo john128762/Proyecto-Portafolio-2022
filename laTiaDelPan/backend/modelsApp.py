@@ -1,6 +1,6 @@
 from datetime import date, time, datetime
 
-from backend.models import Producto
+#from backend.models import Producto
 
 class Proveedor:
     RUT = ""
@@ -60,6 +60,36 @@ class Usuario:
         Vigencia = False
         Administrador = False
 
+class Producto:
+    Codigo = 0
+    Nombre = ""
+    Valor = 0
+    Stock = 0
+    Rut = ""
+    Prov = Proveedor()
+    Cat = Categoria()
+    Estado = False
+    def __init__(self, codigo, nombre, valor, stock, proveedor: Proveedor, categoria: Categoria, estado):
+        if isinstance(categoria, Categoria):
+            Codigo = codigo
+            Nombre = nombre
+            Valor = valor
+            Stock = stock
+            Prov = proveedor
+            Cat = categoria
+            Estado = estado
+        else:
+            raise TypeError("El parametro categoria ingresado no es de tipo Categoria")
+    def __init__(self):
+        Codigo = 0
+        Nombre = ""
+        Valor = 0
+        Stock = 0
+        Rut = ""
+        Prov = Proveedor()
+        Cat = Categoria()
+        Estado = False
+
 class DetalleBoleta:
     Prod = Producto()
     Cantidad = 0
@@ -100,36 +130,6 @@ class Boleta:
         Vigencia = False
         Vendedor = Usuario()
         Detalle = [DetalleBoleta]
-
-class Producto:
-    Codigo = 0
-    Nombre = ""
-    Valor = 0
-    Stock = 0
-    Rut = ""
-    Prov = Proveedor()
-    Cat = Categoria()
-    Estado = False
-    def __init__(self, codigo, nombre, valor, stock, proveedor: Proveedor, categoria: Categoria, estado):
-        if isinstance(categoria, Categoria):
-            Codigo = codigo
-            Nombre = nombre
-            Valor = valor
-            Stock = stock
-            Prov = proveedor
-            Cat = categoria
-            Estado = estado
-        else:
-            raise TypeError("El parametro categoria ingresado no es de tipo Categoria")
-    def __init__(self):
-        Codigo = 0
-        Nombre = ""
-        Valor = 0
-        Stock = 0
-        Rut = ""
-        Prov = Proveedor()
-        Cat = Categoria()
-        Estado = False
 
 class DetalleFacturaProveedor:
     Prod = Producto()

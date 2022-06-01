@@ -1,9 +1,10 @@
+from distutils.log import debug
 from django.shortcuts import render
 from backend import models
-#from backend import modelsApp
-#from backend.Controladores import MantenedorCategorias
-#from backend.Controladores import ControladorUsuarios
+from backend import modelsApp
+from backend.Controladores import MantenedorCategorias
 from django.http import HttpResponseRedirect
+import logging
 
 # Create your views here.
 
@@ -17,15 +18,14 @@ def categoria(request):
 
 def nuevaCategoria(request):
     if request.method=='POST':
-        nombreCat = request.POST.get("nombreCategoria")
-        descripcionCat = request.POST.get('categoriaDescripcion')
+        nombre = request.POST["nombreCategoria"]
+        descripcion = request.POST["categoriaDescripcion"]
 
-        #nuevaCategoria = modelsApp.Categoria(Nombre=nombreCat, Descripcion=descripcionCat)
-        #MantenedorCategorias.AgregarCategoria(nuevaCategoria)
-
-        return HttpResponseRedirect('/categoria/')
-    else:
-        return HttpResponseRedirect('/categoria.html/')
+        categoria = modelsApp.Categoria
+        categoria.Nombre = nombre
+        categoria.Descripcion = descripcion
+        nuevaCategoria = categoria
+        MantenedorCategorias.MantenedorCategorias.AgregarCategoria(nuevaCategoria)
 
 def proveedor(request):
     dataP = models.Proveedor.objects.all()

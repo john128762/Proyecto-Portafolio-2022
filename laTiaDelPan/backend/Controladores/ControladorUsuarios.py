@@ -1,6 +1,6 @@
-import models
-import modelsApp
-from ConvertidorTipos import ConvertidorTipos
+from backend import models
+from backend import modelsApp
+from backend.Controladores.ConvertidorTipos import ConvertidorTipos
 from datetime import datetime
 
 class ControladorUsuarios:

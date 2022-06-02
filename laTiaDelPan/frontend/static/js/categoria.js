@@ -7,7 +7,7 @@ $(document).ready(function() {
           autoWidth: false,
           columnDefs:[
               {targets:2,ordenable:true,width:'20%'},
-              {targets:3,ordenable:false,width: '32%'},
+              {targets:3,ordenable:false,width: '20%'},
             ],
           select: {
                style:    'os',
@@ -19,12 +19,6 @@ $(document).ready(function() {
             {"data":"nombreCategoria"},
             {"data":"descripcionCategoria"},
             {"data":"estadoCategoria"},
-            {
-                "data": null,
-                "className": "button",
-                "defaultContent": 
-                "<button value='id' style='margin-left: 10px;' class='btn btn-success' data-toggle='modal' data-target='#EditarCategoria'>Editar</button><button value='id' style='margin-left: 10px;' class='btn btn-danger' data-toggle='modal' data-target='#EliminarCategoria'>Eliminar</button><button style='margin-left: 10px;' class='btn btn-primary'>Cambiar Estado</button"
-            }
           ],
 
           language : {

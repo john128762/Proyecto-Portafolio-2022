@@ -26,6 +26,7 @@ urlpatterns = [
     path('registrar/', backend_views.registrarse),
     path('categoria/', backend_views.categoria),
     path('crearCate/', backend_views.nuevaCategoria),
+    path('editCate/', backend_views.editarCategoria),
     path('proveedor/', backend_views.proveedor),
     path('producto/', backend_views.producto),
     path('venta/', backend_views.venta),

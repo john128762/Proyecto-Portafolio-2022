@@ -69,13 +69,17 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
+        <form id="formEditCate" method="POST" action="/editCate/">
+          {% csrf_token %}
+          <div class="modal-body">
+            <input type="hidden" id="idEdit">
             <input type="text" class="form-control" id="nombreCategoriaEdit" placeholder="Ingrese Nombre Categoría" required autofocus>
             <textarea class="form-control" style="margin-top: 10px;" id="categoriaDescripcionEdit" rows="5px" placeholder="Ingrese Descripcion Categoría" required></textarea>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Guardar cambios</button>
-        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+          </div>
+        </form>  
       </div>
     </div>
   </div>
@@ -116,7 +120,11 @@
                     <td>{{categoria.CAT_NOMBRE}}</td>
                     <td>{{categoria.CAT_DESCRIPCION}}</td>
                     <td>{{categoria.CAT_ESTADO}}</td>
-                    <td></td>
+                    <td>
+                      <button value="{{ categoria.CAT_ID }}" id="editCat" style='margin-left: 10px;' class='btn btn-success' data-toggle='modal' data-target='#EditarCategoria'>Editar</button>
+                      <button value='id' style='margin-left: 10px;' class='btn btn-danger' data-toggle='modal' data-target='#EliminarCategoria'>Eliminar</button>
+                      <button style='margin-left: 10px;' class='btn btn-primary'>Cambiar Estado</button>
+                    </td>
                 </tr>
               {% endfor %}
             </tbody>

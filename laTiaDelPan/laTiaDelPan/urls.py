@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from frontend import views as frontend_views
 from backend import views as backend_views
+from backend.Vistas import VistaCategoria
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,12 +25,13 @@ urlpatterns = [
     path('principal/', frontend_views.paginaPrincipal),
     path('analisis/', frontend_views.analisisVenta),
     path('registrar/', backend_views.registrarse),
-    path('categoria/', backend_views.categoria),
-    path('crearCate/', backend_views.nuevaCategoria),
-    path('editCate/', backend_views.editarCategoria),
+    path('categoria/', VistaCategoria.categoria),
+    path('crearCate/', VistaCategoria.nuevaCategoria),
+    path('editCate/', VistaCategoria.editarCategoria),
+    path('eliminarCate/', VistaCategoria.eliminarCategoria),
     path('proveedor/', backend_views.proveedor),
     path('nuevoProv/', backend_views.nuevoProv),
     path('producto/', backend_views.producto),
-    path('venta/', backend_views.venta),
-    path('eliminarCate/', backend_views.eliminarCategoria)
+    path('venta/', backend_views.venta)
+    
 ]

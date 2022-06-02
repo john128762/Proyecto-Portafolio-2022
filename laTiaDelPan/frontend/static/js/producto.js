@@ -25,7 +25,7 @@ $(document).ready(function() {
                 "data": null,
                 "className": "button",
                 "defaultContent": 
-                "<button value='id' class='btn btn-success' data-toggle='modal' data-target='#editarCategoria'>Editar</button><button style='margin-left: 10px;' class='btn btn-primary'>Cambiar Estado</button"
+                "<button value='id' class='btn btn-success' data-toggle='modal' data-target='#editarProducto'>Editar</button><button style='margin-left: 10px;' class='btn btn-primary'>Cambiar Estado</button"
             }
           ],
 

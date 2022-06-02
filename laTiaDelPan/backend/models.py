@@ -39,13 +39,13 @@ class Producto(models.Model):
     PROD_NOMBRE = models.CharField(max_length=40)
     PROD_VALOR = models.DecimalField(decimal_places=3, max_digits=10)
     PROD_STOCK = models.IntegerField()
-    PROV_RUT = models.ForeignKey(Proveedor, on_delete=models.RESTRICT)
-    CAT_ID = models.ForeignKey(Categoria, on_delete=models.RESTRICT)
+    PROV_RUT = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    CAT_ID = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     PROD_ESTADO = models.BooleanField()
 
 class Detalle_Boleta(models.Model):
-    BOL_NUMERO = models.ForeignKey(Boleta, on_delete=models.RESTRICT)
-    PROD_CODIGO = models.ForeignKey(Producto, on_delete=models.RESTRICT)
+    BOL_NUMERO = models.ForeignKey(Boleta, on_delete=models.CASCADE)
+    PROD_CODIGO = models.ForeignKey(Producto, on_delete=models.CASCADE)
     DET_CANTIDAD = models.IntegerField()
     DET_VALOR = models.DecimalField(decimal_places=3, max_digits=10)
 
@@ -55,7 +55,7 @@ class Fact_Proveedor(models.Model):
     FAC_TOTAL = models.DecimalField(decimal_places=3, max_digits=10)
 
 class Det_Fact_Proveedor(models.Model):
-    FAC_NUMERO = models.ForeignKey(Fact_Proveedor, on_delete=models.RESTRICT)
-    PROD_CODIGO = models.ForeignKey(Producto, on_delete=models.RESTRICT)
+    FAC_NUMERO = models.ForeignKey(Fact_Proveedor, on_delete=models.CASCADE)
+    PROD_CODIGO = models.ForeignKey(Producto, on_delete=models.CASCADE)
     DFT_CANTIDAD = models.IntegerField()
     DFT_VALOR = models.DecimalField(decimal_places=3, max_digits=10)

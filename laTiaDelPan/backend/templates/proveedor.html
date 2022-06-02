@@ -99,7 +99,9 @@
                     <td>{{proveedor.PROV_NOMBRE}}</td>
                     <td>{{proveedor.PROV_CONTACTO}}</td>
                     <td>{{proveedor.PROV_ESTADO}}</td>
-                    <td></td>
+                    <td>
+                      <button value='id' class='btn btn-success' data-toggle='modal' data-target='#editarProveedor'>Editar</button>
+                    </td>
                 </tr>
               {% endfor %}
             </tbody>

@@ -114,7 +114,9 @@
                     <td>{{producto.PROD_STOCK}}</td>
                     <td>{{producto.PROD_VALOR}}</td>
                     <td>{{producto.PROD_ESTADO}}</td>
-                    <td></td>
+                    <td>
+                      <button value='id' class='btn btn-success' data-toggle='modal' data-target='#editarProducto'>Editar</button>
+                    </td>
                 </tr>
               {% endfor %}
             </tbody>

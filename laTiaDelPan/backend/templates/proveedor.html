@@ -99,9 +99,7 @@
                     <td>{{proveedor.PROV_CONTACTO}}</td>
                     <td>{{proveedor.PROV_ESTADO}}</td>
                     <td>
-                      <button value="" id="editCat" style='margin-left: 10px;' class='btn btn-success' data-toggle='modal' data-target='#EditarCategoria' onclick="mostrarCategoriaModal('{{ categoria.CAT_ID }}','{{categoria.CAT_NOMBRE}}', '{{categoria.CAT_DESCRIPCION}}', '{{categoria.CAT_ESTADO}}')">Editar</button>
-                      <button value="" id="eliminarCat" style='margin-left: 10px;' class='btn btn-danger' data-toggle='modal' data-target='#EliminarCategoria' onclick="modalEliminarCategoria('{{ categoria.CAT_ID }}')">Eliminar</button>
-
+                      <button value='id' class='btn btn-success' data-toggle='modal' data-target='#editarProveedor'>Editar</button>
                     </td>
                 </tr>
               {% endfor %}

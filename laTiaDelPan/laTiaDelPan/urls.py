@@ -31,4 +31,5 @@ urlpatterns = [
     path('nuevoProv/', backend_views.nuevoProv),
     path('producto/', backend_views.producto),
     path('venta/', backend_views.venta),
+    path('eliminarCate/', backend_views.eliminarCategoria)
 ]

@@ -1,4 +1,3 @@
-from distutils.log import debug
 from django.shortcuts import render
 from backend import models
 from backend import modelsApp
@@ -25,6 +24,7 @@ def nuevaCategoria(request):
         categoria = modelsApp.Categoria()
         categoria.Nombre = nombre
         categoria.Descripcion = descripcion
+        categoria.Estado = True
         MantenedorCategorias.MantenedorCategorias.AgregarCategoria(categoria)
 
         return HttpResponseRedirect('/categoria/')
@@ -32,15 +32,32 @@ def nuevaCategoria(request):
 
 def editarCategoria(request):
     if request.method=='POST':
+        print(request.POST)
         idCat = request.POST["idEdit"]
-        MantenedorCategorias.MantenedorCategorias.LeerCategoria(idCat)
-        nombreCat = request.POST["nombreCategoria"]
-        descripcionCat = request.POST["categoriaDescripcion"]
-
+        #catAntigua = MantenedorCategorias.MantenedorCategorias.LeerCategoria(idCat)
+        nombreCat = request.POST["nombreCategoriaEdit"]
+        descripcionCat = request.POST["categoriaDescripcionEdit"]
+        if request.POST.get("vigenciaEdit"):
+            estadoCat = True
+        else:
+            estadoCat = False
         cate = modelsApp.Categoria()
+        cate.Id = idCat
         cate.Nombre = nombreCat
         cate.Descripcion = descripcionCat
-        MantenedorCategorias.MantenedorCategorias.ActualizarCategoria(cate)
+        cate.Estado = estadoCat
+        respuesta = MantenedorCategorias.MantenedorCategorias.ActualizarCategoria(cate)
+        print("Codigo: " + str(respuesta.CodigoOperacion)) 
+        print("Mensaje: " + respuesta.Mensaje)
+        return HttpResponseRedirect('/categoria/')
+
+def eliminarCategoria(request):
+    if request.method =='POST':
+        print(request.POST)
+        idCat = request.POST["idCategoria"]
+        respuesta = MantenedorCategorias.MantenedorCategorias.EliminarCategoria(idCat)
+        print("Codigo: " + str(respuesta.CodigoOperacion)) 
+        print("Mensaje: " + respuesta.Mensaje)
         return HttpResponseRedirect('/categoria/')
 
 def proveedor(request):
@@ -59,7 +76,7 @@ def nuevoProv(request):
         proveedor.Nombre = nombreProv
         proveedor.Contacto = contactoProv
         MantenedorProveedores.MantenedorProveedores.AgregarProveedor(proveedor)
-
+        
         return HttpResponseRedirect('/proveedor/')
 
 def producto(request):

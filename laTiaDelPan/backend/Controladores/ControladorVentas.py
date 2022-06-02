@@ -1,8 +1,8 @@
 from datetime import datetime
 from ConvertidorTipos import ConvertidorTipos
 from backend.models import Boleta
-import backend.modelsApp
-import backend.models
+from backend import models
+from backend import modelsApp
 
 class ControladorVentas():
     def RealizarVenta(boleta: modelsApp.Boleta):

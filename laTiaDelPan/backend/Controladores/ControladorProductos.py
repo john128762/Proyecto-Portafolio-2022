@@ -1,6 +1,6 @@
 from itertools import product
-import backend.models
-import backend.modelsApp
+from backend import models
+from backend import modelsApp
 from ConvertidorTipos import ConvertidorTipos
 class ControladorProductos:
     

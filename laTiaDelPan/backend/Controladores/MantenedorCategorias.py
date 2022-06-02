@@ -2,6 +2,7 @@ from backend import models
 from backend import modelsApp
 from datetime import datetime
 from backend.Controladores.ConvertidorTipos import ConvertidorTipos
+from laTiaDelPan.backend.models import Categoria
 #import ConvertidorTipos
 class MantenedorCategorias:
     def AgregarCategoria(categoria):
@@ -24,6 +25,17 @@ class MantenedorCategorias:
             raise TypeError("El parametro categoria no es del tipo esperado.")
     
     def LeerCategoria(id):
+        resultado = modelsApp.Resultado
+        try:
+            respuesta = models.Categoria(models.Categoria.objects.get(CAT_ID = id))
+            resCategoria = modelsApp.Categoria()
+            resCategoria.Id = respuesta.CAT_ID
+            resCategoria.Descripcion = respuesta.CAT_DESCRIPCION
+            resCategoria.Nombre = respuesta.CAT_NOMBRE
+            resCategoria.Estado = respuesta.CAT_ESTADO
+        except models.Categoria.DoesNotExist:
+            resultado.CodigoOperacion = -2
+            resultado.Mensaje = "La categoria no existe"
         return None
     
     def ActualizarCategoria(categoria):
@@ -53,7 +65,7 @@ class MantenedorCategorias:
                 resultado.CodigoOperacion = 200
                 resultado.Mensaje = "Categoria eliminada"
                 return resultado
-            except models.Usuario.DoesNotExist:
+            except models.Categoria.DoesNotExist:
                 resultado.CodigoOperacion = -1
                 resultado.Mensaje = "Categoria no existe"
                 return resultado

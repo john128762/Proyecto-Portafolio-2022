@@ -1,6 +1,5 @@
-from re import M
-import backend.modelsApp
-import backend.models
+from backend import models
+from backend import modelsApp
 from backend.Controladores.ConvertidorTipos import ConvertidorTipos
 
 class MantenedorProveedores:

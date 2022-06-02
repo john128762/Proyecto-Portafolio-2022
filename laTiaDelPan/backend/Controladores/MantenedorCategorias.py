@@ -24,7 +24,7 @@ class MantenedorCategorias:
         else:
             raise TypeError("El parametro categoria no es del tipo esperado.")
     
-    def LeerCategoria(id):
+    def LeerCategoria(id) -> modelsApp.Categoria:
         resultado = modelsApp.Resultado
         try:
             respuesta = models.Categoria(models.Categoria.objects.get(CAT_ID = id))
@@ -38,21 +38,22 @@ class MantenedorCategorias:
             resultado.Mensaje = "La categoria no existe"
         return None
     
-    def ActualizarCategoria(categoria):
+    def ActualizarCategoria(categoria: modelsApp.Categoria):
         resultado = modelsApp.Resultado()
         if isinstance(categoria, modelsApp.Categoria):
             try:
-                resCategoria = models.Categoria(models.Categoria.objects.get(CAT_ID = categoria.Id))
+                resCategoria = models.Categoria.objects.get(CAT_ID = categoria.Id)
+                print(resCategoria.CAT_ID)
                 resCategoria.CAT_ESTADO = categoria.Estado
                 resCategoria.CAT_NOMBRE = categoria.Nombre
                 resCategoria.CAT_DESCRIPCION = categoria.Descripcion
-                resCategoria.Save()
+                resCategoria.save()
                 resultado.CodigoOperacion = 200
                 resultado.Mensaje = "Categoria actualizada."
                 return resultado
-            except:
+            except models.Categoria.DoesNotExist as e:
                 resultado.CodigoOperacion = -2
-                resultado.Mensaje = "Error al actualizar categoria"
+                resultado.Mensaje = "Categoria no existe"
                 return resultado
         else:
             raise TypeError("El parametro categoria no es del tipo esperado")
@@ -61,7 +62,8 @@ class MantenedorCategorias:
         resultado = modelsApp.Resultado()
         if isinstance(id, int) or (isinstance(id, str) and id.isnumeric()):
             try:
-                models.Categoria.delete(CATID = id)
+                resCategoria = models.Categoria.objects.get(CAT_ID = id)
+                resCategoria.delete()
                 resultado.CodigoOperacion = 200
                 resultado.Mensaje = "Categoria eliminada"
                 return resultado

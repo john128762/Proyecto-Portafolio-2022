@@ -72,9 +72,11 @@
         <form id="formEditCate" method="POST" action="/editCate/">
           {% csrf_token %}
           <div class="modal-body">
-            <input type="hidden" id="idEdit">
-            <input type="text" class="form-control" id="nombreCategoriaEdit" placeholder="Ingrese Nombre Categoría" required autofocus>
-            <textarea class="form-control" style="margin-top: 10px;" id="categoriaDescripcionEdit" rows="5px" placeholder="Ingrese Descripcion Categoría" required></textarea>
+            <input type="hidden" id="idEdit" name="idEdit" class="form-control">
+            <input type="text" class="form-control" id="nombreCategoriaEdit" name="nombreCategoriaEdit" placeholder="Ingrese Nombre Categoría" required autofocus>
+            <textarea class="form-control" style="margin-top: 10px;" id="categoriaDescripcionEdit" name="categoriaDescripcionEdit" rows="5px" placeholder="Ingrese Descripcion Categoría" required></textarea>
+            <p></p>
+            <input type="checkbox" id="vigenciaEdit" name="vigenciaEdit" style="height:unset; margin-right: 5px;"><label for ="vigenciaEdit">¿Se encuentra vigente?</label>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Guardar cambios</button>
@@ -97,8 +99,11 @@
             <label>¿Desea eliminar esta categoría?</label>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Eliminar Categoría</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancelar</button>
+          <form id="formEliminarCate" method="POST" action="/eliminarCate/">
+            {% csrf_token %}
+            <button type="submit" id ="btnEliminarCategoria" name="idCategoria" class="btn btn-primary" >Eliminar Categoría</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancelar</button>
+          </form>
         </div>
       </div>
     </div>
@@ -110,7 +115,7 @@
                 <tr>
                     <th>Nombre Categoría</th>
                     <th>Descripción </th>
-                    <th>Estado</th>
+                    <th>Vigencia</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -119,11 +124,16 @@
                 <tr>
                     <td>{{categoria.CAT_NOMBRE}}</td>
                     <td>{{categoria.CAT_DESCRIPCION}}</td>
-                    <td>{{categoria.CAT_ESTADO}}</td>
+                    <td>{% if categoria.CAT_ESTADO %}
+                          Vigente
+                        {% endif %}
+                        {% if not categoria.CAT_ESTADO %}
+                          No Vigente
+                        {% endif %}
+                    </td>
                     <td>
-                      <button value="{{ categoria.CAT_ID }}" id="editCat" style='margin-left: 10px;' class='btn btn-success' data-toggle='modal' data-target='#EditarCategoria'>Editar</button>
-                      <button value='id' style='margin-left: 10px;' class='btn btn-danger' data-toggle='modal' data-target='#EliminarCategoria'>Eliminar</button>
-                      <button style='margin-left: 10px;' class='btn btn-primary'>Cambiar Estado</button>
+                      <button value="{{ categoria.CAT_ID }}" id="editCat" style='margin-left: 10px;' class='btn btn-success' data-toggle='modal' data-target='#EditarCategoria' onclick="mostrarCategoriaModal('{{ categoria.CAT_ID }}','{{categoria.CAT_NOMBRE}}', '{{categoria.CAT_DESCRIPCION}}', '{{categoria.CAT_ESTADO}}')">Editar</button>
+                      <button value="{{ categoria.CAT_ID }}" id="eliminarCat" style='margin-left: 10px;' class='btn btn-danger' data-toggle='modal' data-target='#EliminarCategoria' onclick="modalEliminarCategoria('{{ categoria.CAT_ID }}')">Eliminar</button>
                     </td>
                 </tr>
               {% endfor %}
@@ -135,5 +145,22 @@
     
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
     <script type="text/javascript" src="{% static 'js/categoria.js' %}"></script>
+    <script>
+      function mostrarCategoriaModal(id, nombre, descripcion, estado){
+        document.getElementById('nombreCategoriaEdit').value = nombre;
+        document.getElementById('categoriaDescripcionEdit').value = descripcion;
+        document.getElementById('idEdit').value = id
+        if (estado == "True"){
+          document.getElementById('vigenciaEdit').checked = true
+        }
+        else if (estado == "False") {
+          document.getElementById('vigenciaEdit').checked = false
+        }
+        //$("modal-div").modal();
+      }
+      function modalEliminarCategoria(id){
+        document.getElementById('btnEliminarCategoria').value = id
+      }
+    </script>
 </body>
 </html>

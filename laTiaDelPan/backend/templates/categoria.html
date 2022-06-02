@@ -134,7 +134,6 @@
                     <td>
                       <button value="{{ categoria.CAT_ID }}" id="editCat" style='margin-left: 10px;' class='btn btn-success' data-toggle='modal' data-target='#EditarCategoria' onclick="mostrarCategoriaModal('{{ categoria.CAT_ID }}','{{categoria.CAT_NOMBRE}}', '{{categoria.CAT_DESCRIPCION}}', '{{categoria.CAT_ESTADO}}')">Editar</button>
                       <button value="{{ categoria.CAT_ID }}" id="eliminarCat" style='margin-left: 10px;' class='btn btn-danger' data-toggle='modal' data-target='#EliminarCategoria' onclick="modalEliminarCategoria('{{ categoria.CAT_ID }}')">Eliminar</button>
-                      <button style='margin-left: 10px;' class='btn btn-primary'>Cambiar Estado</button>
                     </td>
                 </tr>
               {% endfor %}

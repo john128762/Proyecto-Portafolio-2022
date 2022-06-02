@@ -46,15 +46,15 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form action="">
+        <form action="/nuevoProv/" method="POST">
+          {% csrf_token %}
           <div class="modal-body">
-            <input type="text" class="form-control" id="rutProveedor" placeholder="Ingrese Rut Proveedor" required autofocus>
-            <input type="text" style="margin-top: 10px;" class="form-control" id="dvProveedor" placeholder="Ingrese DV Proveedor" required>
-            <input type="text" style="margin-top: 10px;" class="form-control" id="nombreProveedor" placeholder="Ingrese Nombre Proveedor" required>
-            <input type="text" style="margin-top: 10px;" class="form-control" id="contactoProveedor" placeholder="Ingrese Contacto Proveedor" required>
+            <input type="text" class="form-control" name="rutProveedor" id="rutProveedor" placeholder="Ingrese Rut Proveedor" required autofocus>
+            <input type="text" style="margin-top: 10px;" name="nombreProveedor" class="form-control" id="nombreProveedor" placeholder="Ingrese Nombre Proveedor" required>
+            <input type="text" style="margin-top: 10px;" name="contactoProveedor" class="form-control" id="contactoProveedor" placeholder="Ingrese Contacto Proveedor" required>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Crear proveedor</button>
+            <button type="submit" class="btn btn-primary">Crear proveedor</button>
           </div>
         </form>
       </div>

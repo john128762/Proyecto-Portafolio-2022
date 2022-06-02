@@ -49,8 +49,15 @@
         <div class="modal-body">
             <input type="text" class="form-control" id="codigoProducto" placeholder="Ingrese Codigo Producto" required autofocus>
             <input type="text" style="margin-top: 10px;" class="form-control" id="nombreProducto" placeholder="Ingrese Nombre Producto" required>
-            <select class="form-control" style="margin-top: 10px;" name="idCatProd" id="idCatProd" aria-placeholder="Elija una Categoría"></select>
-            <select class="form-control" style="margin-top: 10px;" name="idProvProd" id="idProvProd" aria-placeholder="Elija un Proveedor"></select>
+            <select class="form-control" style="margin-top: 10px;" name="idCatProd" id="idCatProd" aria-placeholder="Elija una Categoría">
+              <option value="0">--------</option>
+              {% for cat in Categoria %}
+              <option value="{{cat.CAT_ID}}">{{cat.CAT_NOMBRE}}</option>
+              {% endfor %}
+            </select>
+            <select class="form-control" style="margin-top: 10px;" name="idProvProd" id="idProvProd" aria-placeholder="Elija un Proveedor">
+              
+            </select>
             <input type="text" style="margin-top: 10px;" class=" form-control" id="stockProducto" placeholder="Ingrese Stock Producto" required>
             <input type="text" style="margin-top: 10px;" class="form-control" id="valorProducto" placeholder="Ingrese Valor Unitario del Producto" required>
         </div>

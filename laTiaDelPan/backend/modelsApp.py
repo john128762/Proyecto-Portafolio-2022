@@ -7,33 +7,22 @@ class Proveedor:
     Nombre = ""
     Contacto = ""
     Estado = False
-    def __init__(self, rut, nombre, contacto, estado):
+    def __init__(self, rut = "", nombre = "", contacto = "", estado = False):
         RUT = rut
         Nombre = nombre
         Contacto = contacto
         Estado = estado
-    def __init__(self):
-        RUT = ""
-        Nombre = ""
-        Contacto = ""
-        Estado = False
 
 class Categoria:
     Id = 0
     Nombre = ""
     Descripcion = ""
     Estado = False
-    def __init__(self, id, nombre, descripcion, estado):
+    def __init__(self, id = 0, nombre = "", descripcion = "", estado = False):
         Id = id
         Nombre = nombre
         Descripcion = descripcion
         Estado = estado
-    
-    def __init__(self):
-        Id = 0
-        Nombre = ""
-        Descripcion = ""
-        Estado = False
 
 class Usuario:
     RUT = ""
@@ -43,7 +32,7 @@ class Usuario:
     Password = ""
     Vigencia = False
     Administrador = False
-    def __init__(self, rut, user, nombres, apellidos, password, vigencia, administrador):
+    def __init__(self, rut = "", user = "", nombres = "", apellidos = "", password = "", vigencia = False, administrador = False):
         RUT = rut
         Username = user
         Nombres = nombres
@@ -51,25 +40,16 @@ class Usuario:
         Password = password
         Vigencia = vigencia
         Administrador = administrador
-    def __init__(self):
-        RUT = ""
-        Username = ""
-        Nombres = ""
-        Apellidos = ""
-        Password = ""
-        Vigencia = False
-        Administrador = False
 
 class Producto:
     Codigo = 0
     Nombre = ""
     Valor = 0
     Stock = 0
-    Rut = ""
     Prov = Proveedor()
     Cat = Categoria()
     Estado = False
-    def __init__(self, codigo, nombre, valor, stock, proveedor: Proveedor, categoria: Categoria, estado):
+    def __init__(self, codigo = 0, nombre = "", valor = 0, stock = 0, proveedor: Proveedor = Proveedor(), categoria: Categoria = Categoria(), estado = False):
         if isinstance(categoria, Categoria):
             Codigo = codigo
             Nombre = nombre
@@ -80,21 +60,12 @@ class Producto:
             Estado = estado
         else:
             raise TypeError("El parametro categoria ingresado no es de tipo Categoria")
-    def __init__(self):
-        Codigo = 0
-        Nombre = ""
-        Valor = 0
-        Stock = 0
-        Rut = ""
-        Prov = Proveedor()
-        Cat = Categoria()
-        Estado = False
 
 class DetalleBoleta:
     Prod = Producto()
     Cantidad = 0
     Valor = 0
-    def __init__(self, producto: Producto, cantidad, valor):
+    def __init__(self, producto: Producto = Producto(), cantidad = 0, valor = 0):
         Prod = producto
         Cantidad = cantidad
         Valor = valor
@@ -111,7 +82,7 @@ class Boleta:
     Vigencia = False
     Vendedor = Usuario()
     Detalle = [DetalleBoleta]
-    def __init__(self, numero, fechaventa, subtotal, iva, vigencia, vendedor, detalle):
+    def __init__(self, numero = 0, fechaventa = datetime.min, subtotal = 0, iva = 0, vigencia = False, vendedor = Usuario(), detalle = None):
         if isinstance(vendedor, Usuario):
             Numero = numero
             FechaVenta = fechaventa
@@ -122,43 +93,26 @@ class Boleta:
             Detalle = detalle
         else:
             raise TypeError ("El parametro vendedor ingresado no es de tipo Usuario")
-    def __init__(self):
-        Numero = 0
-        FechaVenta = datetime.min
-        Subtotal = 0
-        Iva = 0
-        Vigencia = False
-        Vendedor = Usuario()
-        Detalle = [DetalleBoleta]
 
 class DetalleFacturaProveedor:
     Prod = Producto()
     Cantidad = 0
     Valor = 0
-    def __init__(self, producto: Producto, cantidad, valor):
+    def __init__(self, producto: Producto = Producto(), cantidad = 0, valor = 0):
         Prod = producto,
         Cantidad = cantidad,
         Valor = valor
-    def __init__(self):
-        Prod = Producto()
-        Cantidad = 0
-        Valor = 0
 
 class FacturaProveedor():
     Numero = 0
     FechaVenta = datetime.min
     Total = 0
     Detalle = [DetalleFacturaProveedor]
-    def __init__(self, numero, fechaventa: datetime, total, detalle: list):
+    def __init__(self, numero = 0, fechaventa: datetime = datetime.min, total = 0, detalle = None):
         Numero = numero
         FechaVenta = fechaventa
         Total = total
         Detalle = detalle
-    def __init__(self):
-        Numero = 0
-        FechaVenta = datetime.min
-        Total = 0
-        Detalle = [DetalleFacturaProveedor]
 
 class VistaVentasPorMes:
     Periodo = ""

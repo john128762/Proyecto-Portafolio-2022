@@ -72,8 +72,8 @@ class ControladorUsuarios:
         if isinstance(usuario, modelsApp.Usuario):
             try:
                 resUsuario = models.Usuario(models.Usuario.objects.get(USU_USERNAME = usuario.Username))
-                resUsuario.USU_RUT = usuario.RUT.split("-")[0]
-                resUsuario.USU_DV = usuario.RUT.split("-")[1]
+                resUsuario.USU_RUT = usuario.RUT.split("-")[0].replace(".","")
+                resUsuario.USU_DV = usuario.RUT.split("-")[1].replace(".","")
                 resUsuario.USU_PASSWORD = usuario.Password
                 resUsuario.USU_NOMBRES = usuario.Nombres
                 resUsuario.USU_APELLIDOS = usuario.Apellidos

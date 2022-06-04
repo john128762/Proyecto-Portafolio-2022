@@ -33,7 +33,7 @@
     width: 300px;
     position: absolute;
     top: 60%;
-    left: 280px;
+    left: 50px;
     display: table-cell;
     text-align: center;
 }
@@ -43,7 +43,17 @@
     width: 300px;
     position: absolute;
     top: 60%;
-    left: 780px;
+    left: 525px;
+    display: table-cell;
+    text-align: center;
+}
+
+#agUsuario{
+    height:100px; 
+    width: 300px;
+    position: absolute;
+    top: 60%;
+    left: 990px;
     display: table-cell;
     text-align: center;
 }

@@ -18,13 +18,17 @@ from django.urls import path
 from frontend import views as frontend_views
 from backend import views as backend_views
 from backend.Vistas import VistaCategoria
+from backend.Vistas import VistaUsuario
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', frontend_views.login),
     path('principal/', frontend_views.paginaPrincipal),
     path('analisis/', frontend_views.analisisVenta),
-    path('registrar/', backend_views.registrarse),
+    path('usuario/', VistaUsuario.usuario),
+    path('crearUsu/', VistaUsuario.nuevoUsuario),
+    path('editUsu/', VistaUsuario.editarUsuario),
+    path('eliminarUsu/', VistaUsuario.eliminarUsuario),
     path('categoria/', VistaCategoria.categoria),
     path('crearCate/', VistaCategoria.nuevaCategoria),
     path('editCate/', VistaCategoria.editarCategoria),

@@ -8,8 +8,10 @@ import logging
 
 # Create your views here.
 
-def registrarse(request):
-    return render(request, 'registrarse.html')
+def usuario(request):
+    dataUsu = models.Usuario.objects.all()
+    usu = {'usuarioT':dataUsu}
+    return render(request, 'usuario.html', usu)
 
 def categoria(request):
     data = models.Categoria.objects.all()

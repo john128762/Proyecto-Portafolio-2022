@@ -53,7 +53,7 @@ def editarUsuario(request):
         password = request.POST["passwordEdit"]
         vigencia = "usuVigenciaEdit" in request.POST
         admin = "usuAdminEdit" in request.POST
-        
+
         nuevoUsu = modelsApp.Usuario(rutUsu, username, nombre, apellido, password, vigencia, admin)
         respuesta = ControladorUsuarios.ActualizarUsuario(nuevoUsu)
         if isinstance(respuesta, modelsApp.Resultado):
@@ -68,6 +68,9 @@ def eliminarUsuario(request):
         print(request.POST)
         username = request.POST["idUsuario"]
         respuesta = ControladorUsuarios.EliminarUsuario(username)
-        print("Codigo: " + str(respuesta.CodigoOperacion)) 
-        print("Mensaje: " + respuesta.Mensaje)
+        if isinstance(respuesta, modelsApp.Resultado):
+            if respuesta.CodigoOperacion == 200:
+                messages.success(request, respuesta.Mensaje)
+            else:
+                messages.error(request, respuesta.Mensaje)
         return HttpResponseRedirect('/usuario/')

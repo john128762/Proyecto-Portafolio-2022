@@ -7,12 +7,15 @@ class ControladorProductos:
     def AgregarProducto(producto: modelsApp.Producto):
         res = modelsApp.Resultado()
         nuevoProducto = models.Producto()
+
+        rutProv = producto.Prov.RUT.replace(".","")
+
         nuevoProducto.PROD_CODIGO = producto.Codigo
         nuevoProducto.PROD_ESTADO = producto.Estado
         nuevoProducto.PROD_NOMBRE = producto.Nombre
         nuevoProducto.PROD_STOCK = producto.Stock
         nuevoProducto.PROD_VALOR = producto.Valor
-        nuevoProducto.PROV_RUT = producto.Prov.RUT.split("-")[0]
+        nuevoProducto.PROV_RUT = rutProv.split("-")[0]
         nuevoProducto.CAT_ID = producto.Cat.Id
         try:
             nuevoProducto.save()
@@ -26,7 +29,7 @@ class ControladorProductos:
     def LeerProducto(codigo: str):
         res = modelsApp.Resultado()
         try:
-            respuesta = models.Producto(models.Producto.objects.get(PROD_CODIGO = codigo))
+            respuesta = models.Producto.objects.get(PROD_CODIGO = codigo)
             resProducto = ConvertidorTipos.ConvertirProducto(respuesta)
             return resProducto
         except models.Producto.DoesNotExist:
@@ -37,7 +40,7 @@ class ControladorProductos:
     def ActualizarProducto(producto: modelsApp.Producto):
         res = modelsApp.Resultado()
         try:
-            resProducto = models.Producto(models.Producto.objects.get(PROD_CODIGO = producto.Codigo))
+            resProducto = models.Producto.objects.get(PROD_CODIGO = producto.Codigo)
             resProducto.PROD_ESTADO = producto.Estado
             resProducto.PROD_NOMBRE = producto.Nombre
             resProducto.PROD_STOCK = producto.Stock
@@ -57,7 +60,8 @@ class ControladorProductos:
     def EliminarProducto(codigo: str):
         res = modelsApp.Resultado()
         try:
-            models.Producto.delete(PROD_CODIGO = codigo)
+            resProducto = models.Producto.objects.get(PROD_CODIGO = codigo)
+            resProducto.delete()
             res.CodigoOperacion = 200
             res.Mensaje = "Producto eliminado"
             return res
@@ -69,7 +73,7 @@ class ControladorProductos:
     def ListarProductos():
         res = modelsApp.Resultado()
         try:
-            resProductos = map(ConvertidorTipos.ConvertirProducto, list(models.Producto.objects.all()))
+            resProductos = list(map(ConvertidorTipos.ConvertirProducto, list(models.Producto.objects.all())))
             return resProductos
         except Exception as e:
             res.CodigoOperacion = -9

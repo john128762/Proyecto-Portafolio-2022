@@ -3,7 +3,6 @@ from backend import modelsApp
 from backend.Controladores.ConvertidorTipos import ConvertidorTipos
 from datetime import datetime
 
-from laTiaDelPan.backend.views import usuario
 
 class ControladorUsuarios:
 

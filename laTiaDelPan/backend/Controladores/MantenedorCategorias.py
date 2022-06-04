@@ -15,7 +15,7 @@ class MantenedorCategorias:
             try:
                 nuevaCategoria.save()
                 resultado.CodigoOperacion = 200
-                resultado.Mensaje = "Categoria agregada."
+                resultado.Mensaje = "Categoria ingresada."
                 return resultado
             except:
                 resultado.CodigoOperacion = -1
@@ -77,9 +77,10 @@ class MantenedorCategorias:
     def ListarCategorias():
         res = modelsApp.Resultado
         try:
-            resCategorias = map(ConvertidorTipos.ConvertirCategoria, list(models.Categoria.objects.all))
+            resCategorias = list(map(ConvertidorTipos.ConvertirCategoria, list(models.Categoria.objects.all())))
             return resCategorias
         except Exception as e:
             res.CodigoOperacion = -9
             res.Mensaje = str(e)
+            print(str(e))
             return res

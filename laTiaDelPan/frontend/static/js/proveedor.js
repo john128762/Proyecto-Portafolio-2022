@@ -6,7 +6,7 @@ $(document).ready(function() {
           autoWidth: false,
           columnDefs:[
               {targets:2,ordenable:true,width:'20%'},
-              {targets:3,ordenable:false,width: '22%'},
+              {targets:4,ordenable:false,width: '22%'},
             ],
           select: {
                style:    'os',
@@ -15,6 +15,7 @@ $(document).ready(function() {
            order: [[ 0, 'asc' ]],
 
            "columns":[
+            {"data":"rutProveedor"},
             {"data":"nombreProveedor"},
             {"data":"contactoProveedor"},
             {"data":"estadoProveedor"},

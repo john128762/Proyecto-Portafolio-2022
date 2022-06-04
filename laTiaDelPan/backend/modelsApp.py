@@ -1,3 +1,4 @@
+from ctypes import Union
 from datetime import date, time, datetime
 
 #from backend.models import Producto
@@ -12,6 +13,7 @@ class Proveedor:
         self.Nombre = nombre
         self.Contacto = contacto
         self.Estado = estado
+    
 
 class Categoria:
     Id = 0
@@ -149,12 +151,8 @@ class GastosPorMes:
         GastosIva = 0
 
 class Resultado:
-    CodigoOperacion = 0
-    Mensaje = ""
-    def __init__(self, codigo, mensaje):
+    CodigoOperacion: int
+    Mensaje: str
+    def __init__(self, codigo = 0, mensaje = ""):
         self.CodigoOperacion = codigo
         self.Mensaje = mensaje
-    def __init__(self):
-        Periodo = ""
-        GastosProveedor = 0
-        GastosIva = 0

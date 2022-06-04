@@ -4,8 +4,18 @@ from backend import modelsApp
 class ConvertidorTipos:
 
     @staticmethod
+    def FormatearRUT(rut: str):
+        if "-" in rut:
+            cuerpo = int(rut.split("-")[0])
+            dv = rut.split("-")[1]
+            cuerpo = "{:,}".format(cuerpo).replace(",",".")
+            return cuerpo + "-" + dv
+        else:
+            return rut
+
+    @staticmethod
     def ConvertirUsuario(usuarioBDD: models.Usuario) -> modelsApp.Usuario:
-        usuario = modelsApp.Usuario(usuarioBDD.USU_RUT + "-" + usuarioBDD.USU_DV, usuarioBDD.USU_USERNAME, usuarioBDD.USU_NOMBRES, usuarioBDD.USU_APELLIDOS, usuarioBDD.USU_PASSWORD, usuarioBDD.USU_VIGENCIA, usuarioBDD.USU_ADMINISTRADOR)
+        usuario = modelsApp.Usuario(ConvertidorTipos.FormatearRUT(str(usuarioBDD.USU_RUT) + "-" + usuarioBDD.USU_DV), usuarioBDD.USU_USERNAME, usuarioBDD.USU_NOMBRES, usuarioBDD.USU_APELLIDOS, usuarioBDD.USU_PASSWORD, usuarioBDD.USU_VIGENCIA, usuarioBDD.USU_ADMINISTRADOR)
         return usuario
 
     @staticmethod
@@ -15,7 +25,7 @@ class ConvertidorTipos:
     
     @staticmethod
     def ConvertirProveedor(proveedorBDD: models.Proveedor) -> modelsApp.Proveedor:
-        proveedor = modelsApp.Proveedor(proveedorBDD.PROV_RUT + "-" + proveedorBDD.PROV_DV, proveedorBDD.PROV_NOMBRE, proveedorBDD.PROV_CONTACTO, proveedorBDD.PROV_ESTADO)
+        proveedor = modelsApp.Proveedor(ConvertidorTipos.FormatearRUT(str(proveedorBDD.PROV_RUT) + "-" + str(proveedorBDD.PROV_DV)), proveedorBDD.PROV_NOMBRE, proveedorBDD.PROV_CONTACTO, proveedorBDD.PROV_ESTADO)
         return proveedor
     
     @staticmethod
@@ -28,6 +38,8 @@ class ConvertidorTipos:
         boleta = modelsApp.Boleta(boletaBDD.BOL_NUMERO, boletaBDD.BOL_FECHA_VENTA, boletaBDD.BOL_SUBTOTAL, boletaBDD.BOL_IVA, boletaBDD.BOL_VIGENCIA, ConvertidorTipos.ConvertirUsuario(models.Usuario.objects.get(USU_USUARIO = boletaBDD.USU_USERNAME)))
         return boleta
     
+    @staticmethod
     def ConvertirDetalleBoleta(detalleBDD: models.Detalle_Boleta) -> modelsApp.DetalleBoleta:
         detalle = modelsApp.DetalleBoleta(ConvertidorTipos.ConvertirProducto(models.Producto.objects.get(COD_PRODUCTO = detalleBDD.PROD_CODIGO)), detalleBDD.DET_CANTIDAD, detalleBDD.DET_VALOR)
         return detalle
+    

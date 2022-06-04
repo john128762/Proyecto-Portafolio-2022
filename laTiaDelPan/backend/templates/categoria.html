@@ -75,7 +75,7 @@
             <input type="hidden" id="idEdit" name="idEdit" class="form-control">
             <input type="text" class="form-control" id="nombreCategoriaEdit" name="nombreCategoriaEdit" placeholder="Ingrese Nombre Categoría" required autofocus>
             <textarea class="form-control" style="margin-top: 10px;" id="categoriaDescripcionEdit" name="categoriaDescripcionEdit" rows="5px" placeholder="Ingrese Descripcion Categoría" required></textarea>
-            <p></p>
+            <br>
             <input type="checkbox" id="vigenciaEdit" name="vigenciaEdit" style="height:unset; margin-right: 5px;"><label for ="vigenciaEdit">¿Se encuentra vigente?</label>
           </div>
           <div class="modal-footer">
@@ -122,18 +122,19 @@
             <tbody style="background-color: white; color: black;">
               {% for categoria in categoriaT %}
                 <tr>
-                    <td>{{categoria.CAT_NOMBRE}}</td>
-                    <td>{{categoria.CAT_DESCRIPCION}}</td>
-                    <td>{% if categoria.CAT_ESTADO %}
+                    <td>{{categoria.Nombre}}</td>
+                    <td>{{categoria.Descripcion}}</td>
+                    <td>
+                        {% if categoria.Estado %}
                           Vigente
                         {% endif %}
-                        {% if not categoria.CAT_ESTADO %}
+                        {% if not categoria.Estado %}
                           No Vigente
                         {% endif %}
                     </td>
                     <td>
-                      <button value="{{ categoria.CAT_ID }}" id="editCat" style='margin-left: 10px;' class='btn btn-success' data-toggle='modal' data-target='#EditarCategoria' onclick="mostrarCategoriaModal('{{ categoria.CAT_ID }}','{{categoria.CAT_NOMBRE}}', '{{categoria.CAT_DESCRIPCION}}', '{{categoria.CAT_ESTADO}}')">Editar</button>
-                      <button value="{{ categoria.CAT_ID }}" id="eliminarCat" style='margin-left: 10px;' class='btn btn-danger' data-toggle='modal' data-target='#EliminarCategoria' onclick="modalEliminarCategoria('{{ categoria.CAT_ID }}')">Eliminar</button>
+                      <button value="{{ categoria.Id }}" id="editCat" style='margin-left: 10px;' class='btn btn-success' data-toggle='modal' data-target='#EditarCategoria' onclick="mostrarCategoriaModal('{{ categoria.Id }}','{{categoria.Nombre}}', '{{categoria.Descripcion}}', '{{categoria.Estado}}')">Editar</button>
+                      <button value="{{ categoria.Id }}" id="eliminarCat" style='margin-left: 10px;' class='btn btn-danger' data-toggle='modal' data-target='#EliminarCategoria' onclick="modalEliminarCategoria('{{ categoria.Id }}')">Eliminar</button>
                     </td>
                 </tr>
               {% endfor %}

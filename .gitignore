@@ -1,3 +1,4 @@
 *.pyc
 __pycache__/
 laTiaDelPan/frontend/migrations/__pycache__/__init__.cpython-310.pyc
+laTiaDelPan/backend/Vistas/__pycache__/VistaUsuario.cpython-310.pyc

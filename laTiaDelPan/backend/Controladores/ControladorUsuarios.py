@@ -71,7 +71,7 @@ class ControladorUsuarios:
         res = modelsApp.Resultado()
         if isinstance(usuario, modelsApp.Usuario):
             try:
-                resUsuario = models.Usuario(models.Usuario.objects.get(USU_USERNAME = usuario.Username))
+                resUsuario = models.Usuario.objects.get(USU_USERNAME = usuario.Username)
                 resUsuario.USU_RUT = usuario.RUT.split("-")[0].replace(".","")
                 resUsuario.USU_DV = usuario.RUT.split("-")[1].replace(".","")
                 resUsuario.USU_PASSWORD = usuario.Password
@@ -79,8 +79,8 @@ class ControladorUsuarios:
                 resUsuario.USU_APELLIDOS = usuario.Apellidos
                 resUsuario.USU_VIGENCIA = usuario.Vigencia
                 resUsuario.USU_ADMINISTRADOR = usuario.Administrador
-                resUsuario.USU_FECHA_MODIFICACION = datetime.now
-
+                resUsuario.USU_FECHA_MODIFICACION = datetime.now()
+                print(resUsuario.USU_FECHA_MODIFICACION)
                 resUsuario.save()                
                 res.CodigoOperacion = 200
                 res.Mensaje = "Usuario actualizado."

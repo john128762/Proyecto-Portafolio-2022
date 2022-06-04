@@ -26,17 +26,21 @@ urlpatterns = [
     path('', frontend_views.login),
     path('principal/', frontend_views.paginaPrincipal),
     path('analisis/', frontend_views.analisisVenta),
+
     path('usuario/', VistaUsuario.usuario),
     path('crearUsu/', VistaUsuario.nuevoUsuario),
     path('editUsu/', VistaUsuario.editarUsuario),
     path('eliminarUsu/', VistaUsuario.eliminarUsuario),
+
     path('categoria/', VistaCategoria.categoria),
     path('crearCate/', VistaCategoria.nuevaCategoria),
     path('editCate/', VistaCategoria.editarCategoria),
     path('eliminarCate/', VistaCategoria.eliminarCategoria),
+
     path('proveedor/', VistaProveedor.proveedor),
     path('nuevoProv/', VistaProveedor.nuevoProv),
     path('editProv/', VistaProveedor.editarProv),
+    
     path('producto/', backend_views.producto),
     path('venta/', backend_views.venta)
     

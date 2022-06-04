@@ -18,25 +18,6 @@ def categoria(request):
     cat = {'categoriaT':data}
     return render(request, 'categoria.html', cat)
 
-def proveedor(request):
-    dataP = models.Proveedor.objects.all()
-    prov = {'proveedorT':dataP}
-    return render(request, 'proveedor.html', prov)
-
-def nuevoProv(request):
-    if request.method=='POST':
-        rutProv = request.POST["rutProveedor"]
-        nombreProv = request.POST["nombreProveedor"]
-        contactoProv = request.POST["contactoProveedor"]
-
-        proveedor = modelsApp.Proveedor()
-        proveedor.RUT = rutProv
-        proveedor.Nombre = nombreProv
-        proveedor.Contacto = contactoProv
-        MantenedorProveedores.MantenedorProveedores.AgregarProveedor(proveedor)
-        
-        return HttpResponseRedirect('/proveedor/')
-
 def producto(request):
     dataPro = models.Producto.objects.all()
     prod = {'productoT':dataPro}

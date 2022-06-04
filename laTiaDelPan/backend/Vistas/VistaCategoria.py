@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from backend import models
 from backend import modelsApp
-from backend.Controladores import MantenedorCategorias
+from backend.Controladores.MantenedorCategorias import MantenedorCategorias
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 # Create your views here.
 
 def categoria(request):
-    data = models.Categoria.objects.all()
+    data = MantenedorCategorias.ListarCategorias()
     cat = {'categoriaT':data}
     return render(request, 'categoria.html', cat)
 
@@ -20,36 +21,42 @@ def nuevaCategoria(request):
         categoria.Nombre = nombre
         categoria.Descripcion = descripcion
         categoria.Estado = True
-        MantenedorCategorias.MantenedorCategorias.AgregarCategoria(categoria)
-
+        respuesta = MantenedorCategorias.AgregarCategoria(categoria)
+        if isinstance(respuesta, modelsApp.Resultado):
+            if respuesta.CodigoOperacion == 200:
+                messages.success(request, respuesta.Mensaje)
+            else:
+                messages.error(request, respuesta.Mensaje)
         return HttpResponseRedirect('/categoria/')
 
 def editarCategoria(request):
     if request.method=='POST':
-        print(request.POST)
         idCat = request.POST["idEdit"]
         #catAntigua = MantenedorCategorias.MantenedorCategorias.LeerCategoria(idCat)
         nombreCat = request.POST["nombreCategoriaEdit"]
         descripcionCat = request.POST["categoriaDescripcionEdit"]
-        if request.POST.get("vigenciaEdit"):
-            estadoCat = True
-        else:
-            estadoCat = False
+        estadoCat = "vigenciaEdit" in request.POST
+
         cate = modelsApp.Categoria()
         cate.Id = idCat
         cate.Nombre = nombreCat
         cate.Descripcion = descripcionCat
         cate.Estado = estadoCat
-        respuesta = MantenedorCategorias.MantenedorCategorias.ActualizarCategoria(cate)
-        print("Codigo: " + str(respuesta.CodigoOperacion)) 
-        print("Mensaje: " + respuesta.Mensaje)
+        respuesta = MantenedorCategorias.ActualizarCategoria(cate)
+        if isinstance(respuesta, modelsApp.Resultado):
+            if respuesta.CodigoOperacion == 200:
+                messages.success(request, respuesta.Mensaje)
+            else:
+                messages.error(request, respuesta.Mensaje)        
         return HttpResponseRedirect('/categoria/')
 
 def eliminarCategoria(request):
     if request.method =='POST':
-        print(request.POST)
         idCat = request.POST["idCategoria"]
-        respuesta = MantenedorCategorias.MantenedorCategorias.EliminarCategoria(idCat)
-        print("Codigo: " + str(respuesta.CodigoOperacion)) 
-        print("Mensaje: " + respuesta.Mensaje)
+        respuesta = MantenedorCategorias.EliminarCategoria(idCat)
+        if isinstance(respuesta, modelsApp.Resultado):
+            if respuesta.CodigoOperacion == 200:
+                messages.success(request, respuesta.Mensaje)
+            else:
+                messages.error(request, respuesta.Mensaje)
         return HttpResponseRedirect('/categoria/')

@@ -11,8 +11,9 @@ class ControladorUsuarios:
 
             nuevoUsuario = models.Usuario()
             nuevoUsuario.USU_USERNAME = usuario.Username
-            nuevoUsuario.USU_RUT = usuario.RUT.split("-")[0]
-            nuevoUsuario.USU_DV = usuario.RUT.split("-")[1]
+            rut = usuario.RUT.replace(".","")
+            nuevoUsuario.USU_RUT = rut.split("-")[0]
+            nuevoUsuario.USU_DV = rut.split("-")[1]
             nuevoUsuario.USU_NOMBRES = usuario.Nombres
             nuevoUsuario.USU_APELLIDOS = usuario.Apellidos
             nuevoUsuario.USU_PASSWORD = usuario.Password

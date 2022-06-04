@@ -18,7 +18,11 @@ from django.urls import path
 from frontend import views as frontend_views
 from backend import views as backend_views
 from backend.Vistas import VistaCategoria
+<<<<<<< HEAD
 from backend.Vistas import VistaUsuario
+=======
+from backend.Vistas import VistaProveedor
+>>>>>>> 4c49090fcffb4595337fd2b0d32d9cb798d52ba5
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,8 +37,9 @@ urlpatterns = [
     path('crearCate/', VistaCategoria.nuevaCategoria),
     path('editCate/', VistaCategoria.editarCategoria),
     path('eliminarCate/', VistaCategoria.eliminarCategoria),
-    path('proveedor/', backend_views.proveedor),
-    path('nuevoProv/', backend_views.nuevoProv),
+    path('proveedor/', VistaProveedor.proveedor),
+    path('nuevoProv/', VistaProveedor.nuevoProv),
+    path('editProv/', VistaProveedor.editarProv),
     path('producto/', backend_views.producto),
     path('venta/', backend_views.venta)
     

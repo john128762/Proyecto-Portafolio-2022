@@ -4,7 +4,7 @@ from backend import modelsApp
 from backend.Controladores.MantenedorProveedores import MantenedorProveedores
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib import messages
-import jsons
+#import jsons
 
 
 def proveedor(request, respuesta=None):

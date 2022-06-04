@@ -18,11 +18,8 @@ from django.urls import path
 from frontend import views as frontend_views
 from backend import views as backend_views
 from backend.Vistas import VistaCategoria
-<<<<<<< HEAD
-from backend.Vistas import VistaUsuario
-=======
 from backend.Vistas import VistaProveedor
->>>>>>> 4c49090fcffb4595337fd2b0d32d9cb798d52ba5
+from backend.Vistas import VistaUsuario
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -1,12 +1,21 @@
 from django.shortcuts import render
 from backend import models
 from backend import modelsApp
-from backend.Controladores import ControladorUsuarios
+from backend.Controladores.ControladorUsuarios import ControladorUsuarios
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
-def usuario(request):
-    dataUsu = models.Usuario.objects.all()
+def usuario(request, respuesta=None):
+    list(messages.get_messages(request))
+    dataUsu = ControladorUsuarios.ListarUsuarios()
+    if(isinstance(dataUsu, modelsApp.Resultado)):
+        print(dataUsu.Mensaje)
     usu = {'usuarioT':dataUsu}
+    if isinstance(respuesta, modelsApp.Resultado):
+        if respuesta.CodigoOperacion == 200:
+            messages.success(request, respuesta.Mensaje)
+        else:
+            messages.error(request, respuesta.Mensaje)
     return render(request, 'usuario.html', usu)
 
 def nuevoUsuario(request):
@@ -25,45 +34,40 @@ def nuevoUsuario(request):
         usuario.Password = password
         usuario.Vigencia = True
         usuario.Administrador = True
-        ControladorUsuarios.ControladorUsuarios.AgregarUsuario(usuario)
+        respuesta = ControladorUsuarios.AgregarUsuario(usuario)
+        if isinstance(respuesta, modelsApp.Resultado):
+            if respuesta.CodigoOperacion == 200:
+                messages.success(request, respuesta.Mensaje)
+            else:
+                messages.error(request, respuesta.Mensaje)
 
         return HttpResponseRedirect('/usuario/')
 
 def editarUsuario(request):
     if request.method=='POST':
-        print(request.POST)
+
         rutUsu = request.POST["rutUsuarioEdit"]
-        #catAntigua = MantenedorCategorias.MantenedorCategorias.LeerCategoria(idCat)
         username = request.POST["userNameEdit"]
         nombre = request.POST["nombreUsuEdit"]
         apellido = request.POST["apellidoUsuEdit"]
         password = request.POST["passwordEdit"]
-        if request.POST.get("usuVigenciaEdit"):
-            vigencia = True
-        else:
-            vigencia = False
-        if request.POST.get("usuAdminEdit"):
-            admin = True
-        else:
-            admin = False
-        usu = modelsApp.Usuario()
-        usu.RUT = rutUsu
-        usu.Username = username
-        usu.Nombres = nombre
-        usu.Apellidos = apellido
-        usu.Password = password
-        usu.Vigencia = vigencia
-        usu.Administrador = admin
-        respuesta = ControladorUsuarios.ControladorUsuarios.ActualizarUsuario(usu)
-        print("Codigo: " + str(respuesta.CodigoOperacion)) 
-        print("Mensaje: " + respuesta.Mensaje)
+        vigencia = "usuVigenciaEdit" in request.POST
+        admin = "usuAdminEdit" in request.POST
+        
+        nuevoUsu = modelsApp.Usuario(rutUsu, username, nombre, apellido, password, vigencia, admin)
+        respuesta = ControladorUsuarios.ActualizarUsuario(nuevoUsu)
+        if isinstance(respuesta, modelsApp.Resultado):
+            if respuesta.CodigoOperacion == 200:
+                messages.success(request, respuesta.Mensaje)
+            else:
+                messages.error(request, respuesta.Mensaje)
         return HttpResponseRedirect('/usuario/')
 
 def eliminarUsuario(request):
     if request.method =='POST':
         print(request.POST)
         username = request.POST["idUsuario"]
-        respuesta = ControladorUsuarios.ControladorUsuarios.EliminarUsuario(username)
+        respuesta = ControladorUsuarios.EliminarUsuario(username)
         print("Codigo: " + str(respuesta.CodigoOperacion)) 
         print("Mensaje: " + respuesta.Mensaje)
         return HttpResponseRedirect('/usuario/')

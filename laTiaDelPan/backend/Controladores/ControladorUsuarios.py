@@ -3,6 +3,8 @@ from backend import modelsApp
 from backend.Controladores.ConvertidorTipos import ConvertidorTipos
 from datetime import datetime
 
+from laTiaDelPan.backend.views import usuario
+
 class ControladorUsuarios:
 
     def AgregarUsuario(usuario):
@@ -97,7 +99,8 @@ class ControladorUsuarios:
         res = modelsApp.Resultado()
         if isinstance(username, str):
             try:
-                models.Usuario.delete(USU_USERNAME = username)
+                resUsuario = models.Usuario.objects.get(USU_USERNAME = usuario)
+                resUsuario.delete()
                 res.CodigoOperacion = 200
                 res.Mensaje = "Usuario eliminado."
                 return res

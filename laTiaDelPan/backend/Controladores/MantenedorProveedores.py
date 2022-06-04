@@ -27,7 +27,7 @@ class MantenedorProveedores:
     def LeerProveedor(rut: str):
         res = modelsApp.Resultado()
         try:
-            respuesta = models.Proveedor(models.Proveedor.objects.get(PROV_RUT = str.split(rut, "-")[0]))
+            respuesta = models.Proveedor.objects.get(PROV_RUT = str.split(rut, "-")[0])
             resProveedor = ConvertidorTipos.ConvertirProveedor(respuesta)
             return resProveedor
         except models.Proveedor.DoesNotExist:

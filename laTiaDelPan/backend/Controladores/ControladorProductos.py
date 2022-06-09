@@ -1,7 +1,7 @@
 from itertools import product
 from backend import models
 from backend import modelsApp
-from ConvertidorTipos import ConvertidorTipos
+from backend.Controladores.ConvertidorTipos import ConvertidorTipos
 class ControladorProductos:
     
     def AgregarProducto(producto: modelsApp.Producto):
@@ -9,6 +9,7 @@ class ControladorProductos:
         nuevoProducto = models.Producto()
 
         rutProv = producto.Prov.RUT.replace(".","")
+        print(rutProv)
 
         nuevoProducto.PROD_CODIGO = producto.Codigo
         nuevoProducto.PROD_ESTADO = producto.Estado

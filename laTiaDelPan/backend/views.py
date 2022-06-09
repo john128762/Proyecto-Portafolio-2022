@@ -20,7 +20,9 @@ def categoria(request):
 
 def producto(request):
     dataPro = models.Producto.objects.all()
-    prod = {'productoT':dataPro}
+    dataCat = models.Categoria.objects.all()
+    dataProv = models.Proveedor.objects.all()
+    prod = {'productoT':dataPro, 'categoriaSelect':dataCat, 'proveedorSelect':dataProv}
     return render(request, 'producto.html', prod)
 
 def venta(request):

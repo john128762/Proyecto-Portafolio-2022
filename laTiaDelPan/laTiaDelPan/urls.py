@@ -20,6 +20,7 @@ from backend import views as backend_views
 from backend.Vistas import VistaCategoria
 from backend.Vistas import VistaProveedor
 from backend.Vistas import VistaUsuario
+from backend.Vistas import VistasProducto
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -41,7 +42,8 @@ urlpatterns = [
     path('nuevoProv/', VistaProveedor.nuevoProv),
     path('editProv/', VistaProveedor.editarProv),
     
-    path('producto/', backend_views.producto),
+    path('producto/', VistasProducto.producto),
+    path('crearProd/', VistasProducto.nuevoProducto),
     path('venta/', backend_views.venta)
     
 ]

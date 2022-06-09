@@ -46,24 +46,30 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
-            <input type="text" class="form-control" id="codigoProducto" placeholder="Ingrese Codigo Producto" required autofocus>
-            <input type="text" style="margin-top: 10px;" class="form-control" id="nombreProducto" placeholder="Ingrese Nombre Producto" required>
-            <select class="form-control" style="margin-top: 10px;" name="idCatProd" id="idCatProd" aria-placeholder="Elija una Categoría">
+        <form method="POST" action="/crearProd/">
+          {% csrf_token %}
+          <div class="modal-body">
+            <input type="text" class="form-control" id="codigoProducto" name="codigoProducto" placeholder="Ingrese Codigo Producto" required autofocus>
+            <input type="text" style="margin-top: 10px;" class="form-control" name="nombreProducto" id="nombreProducto" placeholder="Ingrese Nombre Producto" required>
+            <select class="form-control" style="margin-top: 10px;" name="idCatProd" id="idCatProd" requerid>
               <option value="0">--------</option>
-              {% for cat in Categoria %}
-              <option value="{{cat.CAT_ID}}">{{cat.CAT_NOMBRE}}</option>
+              {% for categoria in categoriaSelect %}
+              <option value="{{categoria.CAT_ID}}">{{categoria.CAT_NOMBRE}}</option>
               {% endfor %}
             </select>
-            <select class="form-control" style="margin-top: 10px;" name="idProvProd" id="idProvProd" aria-placeholder="Elija un Proveedor">
-              
+            <select class="form-control" style="margin-top: 10px;" name="idProvProd" id="idProvProd" required>
+              <option value="0">--------</option>
+              {% for proveedor in proveedorSelect %}
+              <option value="{{proveedor.RUT}}">{{proveedor.Nombre}}</option>
+              {% endfor %}
             </select>
-            <input type="text" style="margin-top: 10px;" class=" form-control" id="stockProducto" placeholder="Ingrese Stock Producto" required>
-            <input type="text" style="margin-top: 10px;" class="form-control" id="valorProducto" placeholder="Ingrese Valor Unitario del Producto" required>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Crear producto</button>
-        </div>
+            <input type="number" style="margin-top: 10px;" class=" form-control" name="stockProducto" id="stockProducto" placeholder="Ingrese Stock Producto" required>
+            <input type="number" style="margin-top: 10px;" class="form-control" name="valorProducto" id="valorProducto" placeholder="Ingrese Valor Unitario del Producto" required>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Crear producto</button>
+          </div>
+        </form>  
       </div>
     </div>
   </div>
@@ -88,6 +94,29 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-primary">Guardar Cambios</button>
         </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Informacion -->
+  <div class="modal fade" id="infoRespuesta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+          <div class="modal-body">
+            {% if messages %}
+                {% for message in messages %}
+                  {{ message }}
+                {% endfor %}
+            {% endif %}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          </div>
       </div>
     </div>
   </div>
@@ -127,5 +156,12 @@
     
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
     <script type="text/javascript" src="{% static 'js/producto.js' %}"></script>
+    {% if messages %}
+  <script>
+    $(document).ready(function(){
+      $("#infoRespuesta").modal('show');
+    });
+  </script>
+  {% endif %}
 </body>
 </html>

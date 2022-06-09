@@ -6,7 +6,7 @@ $(document).ready(function() {
           autoWidth: false,
           columnDefs:[
               {targets:2,ordenable:true,width:'20%'},
-              {targets:4,ordenable:false,width: '15%'},
+              {targets:6,ordenable:false,width: '15%'},
             ],
           select: {
                style:    'os',

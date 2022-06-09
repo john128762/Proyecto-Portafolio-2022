@@ -27,7 +27,8 @@ class MantenedorProveedores:
     def LeerProveedor(rut: str):
         res = modelsApp.Resultado()
         try:
-            respuesta = models.Proveedor.objects.get(PROV_RUT = str.split(rut, "-")[0])
+            
+            respuesta = models.Proveedor.objects.get(PROV_RUT = str.split(rut.replace(".", ""), "-")[0])
             resProveedor = ConvertidorTipos.ConvertirProveedor(respuesta)
             return resProveedor
         except models.Proveedor.DoesNotExist:
@@ -39,7 +40,7 @@ class MantenedorProveedores:
         res = modelsApp.Resultado()
         try:
             rut = proveedor.RUT.replace(".","")
-            resProveedor = models.Proveedor.objects.get(PROV_RUT = rut.split("-")[0])
+            resProveedor = models.Proveedor.objects.get(PROV_RUT = rut.split("-","")[0])
             resProveedor.PROV_NOMBRE = proveedor.Nombre
             resProveedor.PROV_CONTACTO = proveedor.Contacto
             resProveedor.PROV_ESTADO = proveedor.Estado

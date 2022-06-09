@@ -27,15 +27,17 @@ class MantenedorCategorias:
     def LeerCategoria(id) -> modelsApp.Categoria:
         resultado = modelsApp.Resultado
         try:
-            respuesta = models.Categoria(models.Categoria.objects.get(CAT_ID = id))
+            respuesta = models.Categoria.objects.get(CAT_ID = id)
             resCategoria = modelsApp.Categoria()
             resCategoria.Id = respuesta.CAT_ID
             resCategoria.Descripcion = respuesta.CAT_DESCRIPCION
             resCategoria.Nombre = respuesta.CAT_NOMBRE
             resCategoria.Estado = respuesta.CAT_ESTADO
+            return resCategoria
         except models.Categoria.DoesNotExist:
             resultado.CodigoOperacion = -2
             resultado.Mensaje = "La categoria no existe"
+            return resultado
         return None
     
     def ActualizarCategoria(categoria: modelsApp.Categoria):

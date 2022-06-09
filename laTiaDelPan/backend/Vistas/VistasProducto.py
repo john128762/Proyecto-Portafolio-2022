@@ -3,6 +3,7 @@ from backend import models
 from backend import modelsApp
 from backend.Controladores.ControladorProductos import ControladorProductos
 from backend.Controladores.MantenedorProveedores import MantenedorProveedores
+from backend.Controladores.MantenedorCategorias import MantenedorCategorias
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
@@ -29,14 +30,19 @@ def nuevoProducto(request):
         prodProve = request.POST["idProvProd"]
         prodCate = request.POST["idCatProd"]
         
+        
+
         producto = modelsApp.Producto()
         producto.Codigo = codigo
         producto.Nombre = nombre
         producto.Stock = stock
         producto.Valor = valor
-        producto.Cat = prodCate
-        producto.Prov = prodProve
+        producto.Prov = MantenedorProveedores.LeerProveedor(prodProve)
+        print(prodCate)
+        producto.Cat = MantenedorCategorias.LeerCategoria(prodCate)
+        #producto.Cat.Id = prodCate
         producto.Estado = True
+        print(producto.Cat)
         respuesta = ControladorProductos.AgregarProducto(producto)
         if isinstance(respuesta, modelsApp.Resultado):
             if respuesta.CodigoOperacion == 200:

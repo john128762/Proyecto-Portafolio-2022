@@ -2,6 +2,7 @@ from itertools import product
 from backend import models
 from backend import modelsApp
 from backend.Controladores.ConvertidorTipos import ConvertidorTipos
+
 class ControladorProductos:
     
     def AgregarProducto(producto: modelsApp.Producto):
@@ -9,15 +10,17 @@ class ControladorProductos:
         nuevoProducto = models.Producto()
 
         rutProv = producto.Prov.RUT.replace(".","")
-        print(rutProv)
+        print(producto.Cat)
+
 
         nuevoProducto.PROD_CODIGO = producto.Codigo
         nuevoProducto.PROD_ESTADO = producto.Estado
         nuevoProducto.PROD_NOMBRE = producto.Nombre
         nuevoProducto.PROD_STOCK = producto.Stock
         nuevoProducto.PROD_VALOR = producto.Valor
-        nuevoProducto.PROV_RUT = rutProv.split("-")[0]
-        nuevoProducto.CAT_ID = producto.Cat.Id
+        #nuevoProducto.PROV_RUT = rutProv.split("-")[0]
+        nuevoProducto.PROV_RUT = models.Proveedor.objects.get(PROV_RUT = rutProv.split("-")[0])
+        nuevoProducto.CAT_ID = models.Categoria.objects.get(CAT_ID = producto.Cat.Id)
         try:
             nuevoProducto.save()
             res.CodigoOperacion = 200

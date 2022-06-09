@@ -35,7 +35,8 @@ class Boleta (models.Model):
     USU_USERNAME = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
 class Producto(models.Model):
-    PROD_CODIGO = models.CharField(max_length = 15, primary_key=True)
+    #PROD_CODIGO = models.CharField(max_length = 15, primary_key=True)
+    PROD_CODIGO = models.AutoField(primary_key=True)
     PROD_NOMBRE = models.CharField(max_length=40)
     PROD_VALOR = models.DecimalField(decimal_places=3, max_digits=10)
     PROD_STOCK = models.IntegerField()

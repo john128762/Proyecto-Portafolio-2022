@@ -44,6 +44,7 @@ urlpatterns = [
     
     path('producto/', VistasProducto.producto),
     path('crearProd/', VistasProducto.nuevoProducto),
+    
     path('venta/', backend_views.venta)
     
 ]

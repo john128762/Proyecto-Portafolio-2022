@@ -83,17 +83,32 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
-            <input type="text" class="form-control" id="codigoProducto" placeholder="Ingrese Codigo Producto" required autofocus>
-            <input type="text" style="margin-top: 10px;" class="form-control" id="nombreProducto" placeholder="Ingrese Nombre Producto" required>
-            <select class="form-control" style="margin-top: 10px;" name="idCatProd" id="idCatProd" aria-placeholder="Elija una Categoría"></select>
-            <select class="form-control" style="margin-top: 10px;" name="idProvProd" id="idProvProd" aria-placeholder="Elija un Proveedor"></select>
-            <input type="text" style="margin-top: 10px;" class=" form-control" id="stockProducto" placeholder="Ingrese Stock Producto" required>
-            <input type="text" style="margin-top: 10px;" class="form-control" id="valorProducto" placeholder="Ingrese Valor Unitario del Producto" required>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Guardar Cambios</button>
-        </div>
+        <form method="POST" action="">
+          {% csrf_token %}
+          <div class="modal-body">
+            <input type="text" class="form-control" name="codigoProductoEdit" id="codigoProductoEdit" placeholder="Ingrese Codigo Producto" required autofocus readonly>
+            <input type="text" style="margin-top: 10px;" name="nombreProductoEdit" class="form-control" id="nombreProductoEdit" placeholder="Ingrese Nombre Producto" required>
+            <select class="form-control" style="margin-top: 10px;" name="idCatProdEdit" id="idCatProdEdit" aria-placeholder="Elija una Categoría">
+              <option value="0">--------</option>
+              {% for  categoria in categoriaSelect%}
+              <option value="{{categoria.CAT_ID}}">{{categoria.CAT_NOMBRE}}</option>
+              {% endfor %}
+            </select>
+            <select class="form-control" style="margin-top: 10px;" name="idProvProdEdit" id="idProvProdEdit" aria-placeholder="Elija un Proveedor">
+              <option value="0">--------</option>
+              {% for proveedor in proveedorSelect %}
+              <option value="{{proveedor.RUT}}">{{proveedor.Nombre}}</option>
+              {% endfor %}
+            </select>
+            <input type="number" style="margin-top: 10px;" class=" form-control" name="stockProductoEdit" id="stockProductoEdit" placeholder="Ingrese Stock Producto" required>
+            <input type="number" style="margin-top: 10px;" class="form-control" name="valorProductoEdit" id="valorProductoEdit" placeholder="Ingrese Valor Unitario del Producto" required>
+            <br>
+            <input type="checkbox" id="vigenciaProdEdit" name="vigenciaProdEdit" style="height:unset; margin-right: 5px;"><label for ="vigenciaEdit">¿Se encuentra vigente?</label>
+          </div>
+          <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -137,14 +152,21 @@
             <tbody style="background-color: white; color: black;">
               {% for producto in productoT %}
                 <tr>
-                    <td>{{producto.PROD_NOMBRE}}</td>
-                    <td>{{producto.CAT_ID}}</td>
-                    <td>{{producto.PROV_RUT}}</td>
-                    <td>{{producto.PROD_STOCK}}</td>
-                    <td>{{producto.PROD_VALOR}}</td>
-                    <td>{{producto.PROD_ESTADO}}</td>
+                  <td>{{producto.Nombre}}</td>
+                  <td>{{producto.Cat.Id}}</td>
+                  <td>{{producto.Prov.RUT}}</td>
+                  <td>{{producto.Stock}}</td>
+                  <td>{{producto.Valor}}</td>
                     <td>
-                      <button value='id' class='btn btn-success' data-toggle='modal' data-target='#editarProducto'>Editar</button>
+                      {% if producto.Estado %}
+                        Vigente
+                      {% endif %}
+                      {% if not producto.Estado %}
+                        No Vigente
+                      {% endif %}
+                    </td>
+                    <td>
+                      <button value='id' class='btn btn-success' data-toggle='modal' data-target='#editarProducto' onclick="mostrarProductoModal('{{producto.PROD_CODIGO}}', '{{producto.PROD_NOMBRE}}', '{{producto.CAT_ID}}', '{{producto.PROV_RUT}}', '{{producto.PROD_STOCK}}', '{{producto.PROD_VALOR}}', '{{producto.PROD_ESTADO}}')">Editar</button>
                     </td>
                 </tr>
               {% endfor %}
@@ -163,5 +185,23 @@
     });
   </script>
   {% endif %}
+  <script>
+    function mostrarProductoModal(codigo, nombre, prodCat, prodProv, stock, valor, estado){
+      document.getElementById('codigoProductoEdit').value = codigo
+      document.getElementById('nombreProductoEdit').value = nombre;
+      document.getElementById('idCatProdEdit').value = prodCat;
+      document.getElementById('idProvProdEdit').value = prodProv;
+      document.getElementById('stockProductoEdit').value = stock;
+      document.getElementById('valorProductoEdit').value = valor;
+      
+      if (estado == "True"){
+        document.getElementById('vigenciaProdEdit').checked = true
+      }
+      else if (estado == "False") {
+        document.getElementById('vigenciaProdEdit').checked = false
+      }
+      //$("modal-div").modal();
+    }
+  </script>
 </body>
 </html>

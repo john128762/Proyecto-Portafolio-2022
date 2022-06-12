@@ -10,10 +10,9 @@ class ControladorProductos:
         nuevoProducto = models.Producto()
 
         rutProv = producto.Prov.RUT.replace(".","")
-        print(producto.Cat)
 
 
-        nuevoProducto.PROD_CODIGO = producto.Codigo
+        #nuevoProducto.PROD_CODIGO = producto.Codigo
         nuevoProducto.PROD_ESTADO = producto.Estado
         nuevoProducto.PROD_NOMBRE = producto.Nombre
         nuevoProducto.PROD_STOCK = producto.Stock
@@ -25,9 +24,9 @@ class ControladorProductos:
             nuevoProducto.save()
             res.CodigoOperacion = 200
             res.Mensaje = "Producto ingresado"
-        except:
+        except Exception as e:
             res.CodigoOperacion = -1
-            res.Mensaje = "Error al ingresar producto"
+            res.Mensaje = "Error al ingresar el producto."
             return res
 
     def LeerProducto(codigo: str):
@@ -82,4 +81,5 @@ class ControladorProductos:
         except Exception as e:
             res.CodigoOperacion = -9
             res.Mensaje = str(e)
+            print("res: "+ res.Mensaje)
             return res

@@ -30,7 +30,7 @@ class ConvertidorTipos:
     
     @staticmethod
     def ConvertirProducto(productoBDD: models.Producto) -> modelsApp.Producto:
-        producto = modelsApp.Producto(productoBDD.PROD_CODIGO, productoBDD.PROD_NOMBRE, productoBDD.PROD_VALOR, productoBDD.PROD_STOCK, ConvertidorTipos.ConvertirProveedor(models.Proveedor.objects.get(PROV_RUT = productoBDD.PROV_RUT)), ConvertidorTipos.ConvertirCategoria(models.Categoria.objects.get(CAT_ID = productoBDD.CAT_ID)), productoBDD.PROD_ESTADO)
+        producto = modelsApp.Producto(productoBDD.PROD_CODIGO, productoBDD.PROD_NOMBRE, productoBDD.PROD_VALOR, productoBDD.PROD_STOCK, ConvertidorTipos.ConvertirProveedor(models.Proveedor.objects.get(PROV_RUT = productoBDD.PROV_RUT.PROV_RUT)), ConvertidorTipos.ConvertirCategoria(models.Categoria.objects.get(CAT_ID = productoBDD.CAT_ID.CAT_ID)), productoBDD.PROD_ESTADO)
         return producto
     
     @staticmethod

@@ -11,7 +11,7 @@ from backend.Vistas.VistaProveedor import proveedor
 
 def producto(request, respuesta=None):
     dataprov = MantenedorProveedores.ListarProveedores()
-    dataPro = models.Producto.objects.all()
+    dataPro = ControladorProductos.ListarProductos()
     dataCat = models.Categoria.objects.all()
     prod = {'productoT':dataPro, 'categoriaSelect':dataCat, 'proveedorSelect':dataprov}
     if isinstance(respuesta, modelsApp.Resultado):

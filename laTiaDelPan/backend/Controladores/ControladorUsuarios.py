@@ -98,7 +98,7 @@ class ControladorUsuarios:
         res = modelsApp.Resultado()
         if isinstance(username, str):
             try:
-                resUsuario = models.Usuario.objects.get(USU_USERNAME = usuario)
+                resUsuario = models.Usuario.objects.get(USU_USERNAME = username)
                 resUsuario.delete()
                 res.CodigoOperacion = 200
                 res.Mensaje = "Usuario eliminado."

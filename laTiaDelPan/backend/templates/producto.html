@@ -54,7 +54,7 @@
             <select class="form-control" style="margin-top: 10px;" name="idCatProd" id="idCatProd" requerid>
               <option value="0">--------</option>
               {% for categoria in categoriaSelect %}
-              <option value="{{categoria.CAT_ID}}">{{categoria.CAT_NOMBRE}}</option>
+              <option value="{{categoria.Id}}">{{categoria.Nombre}}</option>
               {% endfor %}
             </select>
             <select class="form-control" style="margin-top: 10px;" name="idProvProd" id="idProvProd" required>
@@ -83,7 +83,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form method="POST" action="">
+        <form method="POST" action="/editProd/">
           {% csrf_token %}
           <div class="modal-body">
             <input type="text" class="form-control" name="codigoProductoEdit" id="codigoProductoEdit" placeholder="Ingrese Codigo Producto" required autofocus readonly>
@@ -91,7 +91,7 @@
             <select class="form-control" style="margin-top: 10px;" name="idCatProdEdit" id="idCatProdEdit" aria-placeholder="Elija una Categoría">
               <option value="0">--------</option>
               {% for  categoria in categoriaSelect%}
-              <option value="{{categoria.CAT_ID}}">{{categoria.CAT_NOMBRE}}</option>
+              <option value="{{categoria.Id}}">{{categoria.Nombre}}</option>
               {% endfor %}
             </select>
             <select class="form-control" style="margin-top: 10px;" name="idProvProdEdit" id="idProvProdEdit" aria-placeholder="Elija un Proveedor">
@@ -153,8 +153,8 @@
               {% for producto in productoT %}
                 <tr>
                   <td>{{producto.Nombre}}</td>
-                  <td>{{producto.Cat.Id}}</td>
-                  <td>{{producto.Prov.RUT}}</td>
+                  <td>{{producto.Cat.Nombre}}</td>
+                  <td>{{producto.Prov.Nombre}}</td>
                   <td>{{producto.Stock}}</td>
                   <td>{{producto.Valor}}</td>
                     <td>
@@ -166,7 +166,7 @@
                       {% endif %}
                     </td>
                     <td>
-                      <button value='id' class='btn btn-success' data-toggle='modal' data-target='#editarProducto' onclick="mostrarProductoModal('{{producto.PROD_CODIGO}}', '{{producto.PROD_NOMBRE}}', '{{producto.CAT_ID}}', '{{producto.PROV_RUT}}', '{{producto.PROD_STOCK}}', '{{producto.PROD_VALOR}}', '{{producto.PROD_ESTADO}}')">Editar</button>
+                      <button value='id' class='btn btn-success' data-toggle='modal' data-target='#editarProducto' onclick="mostrarProductoModal('{{producto.Codigo}}', '{{producto.Nombre}}', '{{producto.Cat.Id}}', '{{producto.Prov.RUT}}', '{{producto.Stock}}', '{{producto.Valor}}', '{{producto.Estado}}')">Editar</button>
                     </td>
                 </tr>
               {% endfor %}

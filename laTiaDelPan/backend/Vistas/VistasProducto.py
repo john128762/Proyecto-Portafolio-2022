@@ -12,7 +12,7 @@ from backend.Vistas.VistaProveedor import proveedor
 def producto(request, respuesta=None):
     dataprov = MantenedorProveedores.ListarProveedores()
     dataPro = ControladorProductos.ListarProductos()
-    dataCat = models.Categoria.objects.all()
+    dataCat = MantenedorCategorias.ListarCategorias()
     prod = {'productoT':dataPro, 'categoriaSelect':dataCat, 'proveedorSelect':dataprov}
     if isinstance(respuesta, modelsApp.Resultado):
         if respuesta.CodigoOperacion == 200:
@@ -38,9 +38,7 @@ def nuevoProducto(request):
         producto.Stock = stock
         producto.Valor = valor
         producto.Prov = MantenedorProveedores.LeerProveedor(prodProve)
-        print(prodCate)
         producto.Cat = MantenedorCategorias.LeerCategoria(prodCate)
-        #producto.Cat.Id = prodCate
         producto.Estado = True
         print(producto.Cat)
         respuesta = ControladorProductos.AgregarProducto(producto)
@@ -49,4 +47,32 @@ def nuevoProducto(request):
                 messages.success(request, respuesta.Mensaje)
             else:
                 messages.error(request, respuesta.Mensaje)
+        return HttpResponseRedirect('/producto/')
+
+def editProducto(request):
+    if request.method=='POST':
+        codigo = request.POST["codigoProductoEdit"]
+        nombre = request.POST["nombreProductoEdit"]
+        stock = request.POST["stockProductoEdit"]
+        valor = request.POST["valorProductoEdit"]
+        prodProve = request.POST["idProvProdEdit"]
+        prodCate = request.POST["idCatProdEdit"]
+        estadoProd = "vigenciaProdEdit" in request.POST
+
+        nuevoProducto = modelsApp.Producto()
+        nuevoProducto.Codigo = codigo
+        nuevoProducto.Nombre = nombre
+        nuevoProducto.Stock = stock
+        nuevoProducto.Valor = valor
+        nuevoProducto.Prov.RUT = prodProve
+        nuevoProducto.Cat.Id = prodCate
+        nuevoProducto.Estado = estadoProd
+        
+        respuesta = ControladorProductos.ActualizarProducto(nuevoProducto)
+        if isinstance(respuesta, modelsApp.Resultado):
+            if respuesta.CodigoOperacion == 200:
+                messages.success(request, respuesta.Mensaje)
+            else:
+                messages.error(request, respuesta.Mensaje)
+
         return HttpResponseRedirect('/producto/')

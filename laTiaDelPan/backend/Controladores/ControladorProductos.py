@@ -43,16 +43,17 @@ class ControladorProductos:
 
     def ActualizarProducto(producto: modelsApp.Producto):
         res = modelsApp.Resultado()
+        rutProv = producto.Prov.RUT.replace(".","")
         try:
             resProducto = models.Producto.objects.get(PROD_CODIGO = producto.Codigo)
             resProducto.PROD_ESTADO = producto.Estado
             resProducto.PROD_NOMBRE = producto.Nombre
             resProducto.PROD_STOCK = producto.Stock
             resProducto.PROD_VALOR = producto.Valor
-            resProducto.CAT_ID = producto.Cat.Id
-            resProducto.PROV_RUT = producto.Prov.Id
+            resProducto.CAT_ID = models.Categoria.objects.get(CAT_ID = producto.Cat.Id)
+            resProducto.PROV_RUT = models.Proveedor.objects.get(PROV_RUT = rutProv.split("-")[0])
 
-            resProducto.Save()
+            resProducto.save()
             res.CodigoOperacion = 200
             res.Mensaje = "Producto actualizado"
             return res

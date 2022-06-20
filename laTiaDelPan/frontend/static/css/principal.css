@@ -1,59 +1,47 @@
 #agCategoria{
-    height:100px; 
-    width: 300px;
-    position: absolute;
-    top: 25%;
-    left: 50px;
-    display: table-cell;
+    font-size: 30px;
     text-align: center;
+    margin: 30px;
+    width: 300px;
+    padding: 35px 20px;
 }
 
 #agProveedor{
-    height:100px; 
-    width: 300px;
-    position: absolute;
-    top: 25%;
-    left: 525px;
-    display: table-cell;
+    font-size: 30px;
     text-align: center;
+    margin: 30px;
+    width: 300px;
+    padding: 35px 20px;
 }
 
 #agProducto{
-    height:100px; 
-    width: 300px;
-    position: absolute;
-    top: 25%;
-    left: 990px;
-    display: table-cell;
+    font-size: 30px;
     text-align: center;
+    margin: 30px;
+    width: 300px;
+    padding: 35px 30px;
 }
 
 #analisis{
-    height:100px; 
-    width: 300px;
-    position: absolute;
-    top: 60%;
-    left: 50px;
-    display: table-cell;
+    font-size: 30px;
     text-align: center;
+    margin: 30px;
+    width: 300px;
+    padding: 35px 40px;
 }
 
 #venta{
-    height:100px; 
-    width: 300px;
-    position: absolute;
-    top: 60%;
-    left: 525px;
-    display: table-cell;
+    font-size: 30px;
     text-align: center;
+    margin: 30px;
+    width: 300px;
+    padding: 35px 40px;
 }
 
 #agUsuario{
-    height:100px; 
-    width: 300px;
-    position: absolute;
-    top: 60%;
-    left: 990px;
-    display: table-cell;
+    font-size: 30px;
     text-align: center;
+    margin: 30px;
+    width: 300px;
+    padding: 35px 40px;
 }

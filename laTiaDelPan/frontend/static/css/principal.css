@@ -45,3 +45,11 @@
     width: 300px;
     padding: 35px 40px;
 }
+
+#facProv{
+    font-size: 30px;
+    text-align: center;
+    margin: 30px;
+    width: 300px;
+    padding: 35px 20px;
+}

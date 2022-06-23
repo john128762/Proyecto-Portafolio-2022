@@ -1,0 +1,46 @@
+#factVolver{
+    height:50px; 
+    width:200px; 
+    margin-top: 20px;
+    float: right;
+}
+
+#factCancelar{
+    height:50px; 
+    width:200px; 
+    margin-left: 10px;
+    margin-top: 20px;
+    float: right;
+}
+
+#factRealizar{
+    height:50px; 
+    width:200px; 
+    margin-left: 10px;
+    margin-top: 20px;
+    float: right;
+}
+
+#factCodigoPro{
+    width: 200px;
+    height: 25px;
+    margin-left: 10px;
+    float: right;
+}
+
+#inCodProd{
+    display: block;
+    padding-top: 50px;
+}
+
+#factInTotal{
+    width: 150px;
+    height: 25px;
+    float: right;
+}
+
+#factTotal{
+    display: block;
+    padding-left: 890px;
+    padding-top: 7px;
+}

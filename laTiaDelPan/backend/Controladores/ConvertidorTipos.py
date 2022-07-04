@@ -30,7 +30,7 @@ class ConvertidorTipos:
     
     @staticmethod
     def ConvertirProducto(productoBDD: models.Producto) -> modelsApp.Producto:
-        producto = modelsApp.Producto(productoBDD.PROD_CODIGO, productoBDD.PROD_NOMBRE, productoBDD.PROD_VALOR, productoBDD.PROD_STOCK, ConvertidorTipos.ConvertirProveedor(models.Proveedor.objects.get(PROV_RUT = productoBDD.PROV_RUT.PROV_RUT)), ConvertidorTipos.ConvertirCategoria(models.Categoria.objects.get(CAT_ID = productoBDD.CAT_ID.CAT_ID)), productoBDD.PROD_ESTADO)
+        producto = modelsApp.Producto(productoBDD.PROD_CODIGO, productoBDD.PROD_NOMBRE, productoBDD.PROD_VALOR, productoBDD.PROD_STOCK, ConvertidorTipos.ConvertirProveedor(productoBDD.PROV_RUT), ConvertidorTipos.ConvertirCategoria( productoBDD.CAT_ID), productoBDD.PROD_ESTADO)
         return producto
     
     @staticmethod
@@ -41,5 +41,15 @@ class ConvertidorTipos:
     @staticmethod
     def ConvertirDetalleBoleta(detalleBDD: models.Detalle_Boleta) -> modelsApp.DetalleBoleta:
         detalle = modelsApp.DetalleBoleta(ConvertidorTipos.ConvertirProducto(models.Producto.objects.get(COD_PRODUCTO = detalleBDD.PROD_CODIGO)), detalleBDD.DET_CANTIDAD, detalleBDD.DET_VALOR)
+        return detalle
+
+    @staticmethod
+    def ConvertirFacturaProveedor(facturaBDD: models.Fact_Proveedor) -> modelsApp.FacturaProveedor:
+        factura = modelsApp.FacturaProveedor(facturaBDD.FAC_NUMERO, facturaBDD.FAC_FECHA_VENTA, facturaBDD.FAC_TOTAL)
+        return factura
+    
+    @staticmethod
+    def ConvertirDetalleFacturaProveedor(detalleBDD: models.Det_Fact_Proveedor) -> modelsApp.DetalleFacturaProveedor:
+        detalle = modelsApp.DetalleFacturaProveedor(ConvertidorTipos.ConvertirProducto(models.Producto.objects.get(COD_PRODUCTO = detalleBDD.PROD_CODIGO)), detalleBDD.DFT_CANTIDAD, detalleBDD.DFT_VALOR)
         return detalle
     

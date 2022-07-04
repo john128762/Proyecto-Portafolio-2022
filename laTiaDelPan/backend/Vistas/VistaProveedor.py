@@ -31,6 +31,7 @@ def nuevoProv(request):
         nuevoProveedor.RUT = rutProv
         nuevoProveedor.Nombre = nombreProv
         nuevoProveedor.Contacto = contactoProv
+        nuevoProveedor.Estado = True
         respuesta = MantenedorProveedores.AgregarProveedor(nuevoProveedor)
 
         if isinstance(respuesta, modelsApp.Resultado):

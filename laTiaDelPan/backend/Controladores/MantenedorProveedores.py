@@ -40,7 +40,7 @@ class MantenedorProveedores:
         res = modelsApp.Resultado()
         try:
             rut = proveedor.RUT.replace(".","")
-            resProveedor = models.Proveedor.objects.get(PROV_RUT = rut.split("-","")[0])
+            resProveedor = models.Proveedor.objects.get(PROV_RUT = rut.split("-")[0])
             resProveedor.PROV_NOMBRE = proveedor.Nombre
             resProveedor.PROV_CONTACTO = proveedor.Contacto
             resProveedor.PROV_ESTADO = proveedor.Estado

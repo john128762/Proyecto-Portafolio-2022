@@ -33,7 +33,8 @@
         </div>
     </nav>
     <div class="container">
-         <h1 style=" text-align: center;">Categorías</h1>
+         <h1 style=" text-align: center; margin-top: 10px">Categorías</h1>
+         <hr>
         <button class="btn btn-outline-primary btn-lg active" id="catNuevo" data-toggle="modal" data-target="#nuevaCategoria"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
     </div>
     <!-- Modal Nueva Categoria -->
@@ -49,8 +50,8 @@
         <form method="POST" action="/crearCate/">
           {% csrf_token %}
           <div class="modal-body">
-            <input type="text" class="form-control" id="nombreCategoria" placeholder="Ingrese Nombre Categoría" name="nombreCategoria" required autofocus>
-            <textarea class="form-control" style="margin-top: 10px;" id="categoriaDescripcion" rows="5px" placeholder="Ingrese Descripcion Categoría" name="categoriaDescripcion" required></textarea>
+            <input type="text" class="form-control" id="nombreCategoria" pattern="^[A-Za-z]+$" placeholder="Ingrese Nombre Categoría" name="nombreCategoria" minlength="4" required autofocus>
+            <textarea class="form-control" style="margin-top: 10px;" pattern="^[A-Za-z]+$" id="categoriaDescripcion" rows="5px" placeholder="Ingrese Descripcion Categoría" name="categoriaDescripcion" minlength="15" required></textarea>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Crear categoría</button>

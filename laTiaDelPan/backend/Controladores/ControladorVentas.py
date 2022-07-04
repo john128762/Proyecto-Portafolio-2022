@@ -1,5 +1,5 @@
 from datetime import datetime
-from ConvertidorTipos import ConvertidorTipos
+from backend.Controladores.ConvertidorTipos import ConvertidorTipos
 from backend.models import Boleta
 from backend import models
 from backend import modelsApp
@@ -16,7 +16,7 @@ class ControladorVentas():
         nuevaBoleta.USU_USERNAME = boleta.Vendedor.Username
 
         try:
-            nuevaBoleta.Save()
+            nuevaBoleta.save()
 
             for detalle in boleta.Detalle:
                 nuevoDetalle = models.Detalle_Boleta()

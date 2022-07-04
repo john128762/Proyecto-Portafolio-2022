@@ -13,6 +13,8 @@ class Categoria(models.Model):
     CAT_NOMBRE = models.CharField(max_length=20)
     CAT_DESCRIPCION = models.CharField(max_length=100)
     CAT_ESTADO = models.BooleanField()
+    def __str__(self):
+        return self.CAT_NOMBRE
 
 class Usuario (models.Model):
     USU_RUT = models.IntegerField()
@@ -42,6 +44,8 @@ class Producto(models.Model):
     PROV_RUT = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
     CAT_ID = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     PROD_ESTADO = models.BooleanField()
+    def __str__(self):
+        return self.PROD_NOMBRE
 
 class Detalle_Boleta(models.Model):
     BOL_NUMERO = models.ForeignKey(Boleta, on_delete=models.CASCADE)
@@ -59,3 +63,4 @@ class Det_Fact_Proveedor(models.Model):
     PROD_CODIGO = models.ForeignKey(Producto, on_delete=models.CASCADE)
     DFT_CANTIDAD = models.IntegerField()
     DFT_VALOR = models.DecimalField(decimal_places=3, max_digits=10)
+

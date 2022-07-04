@@ -21,12 +21,17 @@
     float: right;
 }
 
-#venCodigoPro{
+#id_codigo{
     width: 200px;
     height: 30px;
-    right: 680px;
-    top: 127px;
-    position: absolute;
+
+    display: inline;
+}
+
+#btnBuscar{
+    vertical-align: unset;
+    height:30px;
+    padding-top: unset;
 }
 
 #inCodProd{
@@ -34,43 +39,27 @@
     padding-top: 20px;
 }
 
-#subtotal{
-    top: 335px;
-    right: 130px;
-    position: absolute;
+.textValor{
+    display: inline-block;
     width: 150px;
     height: 30px;
-}
-
-#iva{
-    top: 375px;
-    right: 130px;
-    position: absolute;
-    width: 150px;
-    height: 30px;
-}
-
-#total{
-    top: 415px;
-    right: 130px;
-    position: absolute;
-    width: 150px;
-    height: 30px;
+    border:0px;
+    text-align: right;
 }
 
 #laSubtotal{
-    display: block;
-    padding-left: 892px;
+    display: inline;
+    padding-left: 75%;
 }
 
 #laIva{
-    display: block;
-    padding-left: 925px;
-    padding-top: 7px;
+    display: inline;
+    padding-left: 75%;
+    padding-top: 10px;
 }
 
 #laTotal{
-    display: block;
-    padding-left: 915px;
-    padding-top: 7px;
+    display: inline;
+    padding-left: 75%;
+    padding-top: 10px;
 }

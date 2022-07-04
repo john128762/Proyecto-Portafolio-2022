@@ -1,5 +1,7 @@
-from ctypes import Union
 from datetime import date, time, datetime
+import json
+from json import JSONEncoder
+from decimal import Decimal
 
 #from backend.models import Producto
 
@@ -44,13 +46,13 @@ class Usuario:
         self.Administrador = administrador
 
 class Producto:
-    Codigo = 0
-    Nombre = ""
-    Valor = 0
-    Stock = 0
-    Prov = Proveedor()
-    Cat = Categoria()
-    Estado = False
+    Codigo: int
+    Nombre: str
+    Valor: int
+    Stock: int
+    Prov: Proveedor
+    Cat: Categoria
+    Estado: bool
     def __init__(self, codigo = 0, nombre = "", valor = 0, stock = 0, proveedor: Proveedor = Proveedor(), categoria: Categoria = Categoria(), estado = False):
         if isinstance(categoria, Categoria):
             self.Codigo = codigo
@@ -62,6 +64,12 @@ class Producto:
             self.Estado = estado
         else:
             raise TypeError("El parametro categoria ingresado no es de tipo Categoria")
+
+class ProductoEncoder(JSONEncoder):
+    def default(self, o):
+        if isinstance(o, Decimal):
+            return int(o)
+        return o.__dict__
 
 class DetalleBoleta:
     Prod = Producto()

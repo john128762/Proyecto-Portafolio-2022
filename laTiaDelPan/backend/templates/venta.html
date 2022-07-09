@@ -52,26 +52,7 @@
         </div>
       </div>
     </div>
-    <!-- Modal Realizar Venta -->
-    <div class="modal fade" id="realizarVenta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Realizar Venta</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-              <label>¿Esta seguro de realizar la venta?</label>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Aceptar</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancelar</button>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <div class="container">
       <form id="producto-form">
         {% csrf_token %}
@@ -87,7 +68,8 @@
     </div>
     
     <!-- Tabla Venta -->
-    <form>
+    <form id ="venta-form">
+      {% csrf_token %}
       <div class="container" style="margin-top: 20px">
         <table class="table table-striped table-bordered table-hover" id="tablaVenta">
             <thead style="background-color: #00aae4; color: white;">
@@ -105,9 +87,29 @@
         </table>
         <hr>
         <div style="text-align:right">
-          <label for="subtotal" id="laSubtotal">Subtotal:</label>&nbsp;<input type="text" class="textValor" id="subtotal" value="$ 0" readonly>
+          <label for="subtotal" id="laSubtotal">Subtotal:</label>&nbsp;<input type="text" class="textValor" id="subtotal" value="$ 0">
           <label for="iva" id="laIva">IVA:</label>&nbsp;<input type="text" class="textValor" id="iva" value="$ 0" readonly>
           <label for="total" id="laTotal">Total:</label>&nbsp;<input type="text" class="textValor" id="total" value="$ 0" readonly>
+        </div>
+      </div>
+      <!-- Modal Realizar Venta -->
+      <div class="modal fade" id="realizarVenta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Realizar Venta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>¿Esta seguro de realizar la venta?</label>
+            </div>
+            <div class="modal-footer">
+              <input type="submit" class="btn btn-primary" value="Aceptar"></input>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancelar</button>
+            </div>
+          </div>
         </div>
       </div>
     </form>
@@ -116,15 +118,42 @@
       <button class="btn btn-outline-danger btn-lg active" id="ventaCancelar" data-toggle="modal" data-target="#cancelarVenta">Cancelar Venta</button>
       <a href="/principal/" role="button" class="btn btn-outline-primary btn-lg active" id="ventaVolver">Volver</a>
     </div>
-        
-    </div>
-    
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
     <script type="text/javascript" src="{% static 'js/venta.js' %}"></script>
+    {% csrf_token %}
     <script>
+      const csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+      function csrfSafeMethod(method) {
+          // these HTTP methods do not require CSRF protection
+          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+
+      $(window).on('load', function (){
+        document.getElementById("subtotal").value = "$ 0";
+        document.getElementById("iva").value = "$ 0";
+        document.getElementById("total").value = "$ 0";
+      });
 
       function actualizarTotales(){
+        var table = document.getElementById("tablaVenta");
+        var subTotal = 0
+        var IVA = 0
+        var total = 0
+        for (var i = 1, row; i < table.rows.length - 1 ; i++){
+          //Columna 2 para cantidad y 3 valor por cantidad
+          row = table.rows[i]
+          var cantidad = row.cells[2].querySelectorAll('input[type=number]')[0].value;
+          var valor = row.cells[3].innerText.replace("$", "").trim();
 
+          subTotal += cantidad * valor;
+        }
+        IVA = Math.round(subTotal * 0.19);
+        total = subTotal + IVA;
+
+        document.getElementById("subtotal").value = "$ " + subTotal;
+        document.getElementById("iva").value = "$ " + IVA;
+        document.getElementById("total").value = "$ " + total;
       }
 
       $("#tablaVenta").on('click', '.close', function(){
@@ -132,9 +161,67 @@
         actualizarTotales()
       });
 
+      function generarDatosTabla(){
+        var rows = [];
+        var headers = [];
+        var table = document.getElementById("tablaVenta");
+
+        for (var i = 1, row; i < table.rows.length - 1 ; i++){
+          row = table.rows[i];
+          rows[i - 1] = {};
+
+          headers[0] = "codigo";
+          headers[1] = "cantidad";
+          headers[2] = "valor";
+
+          var codigo = row.id.split("-")[1];
+          var cantidad = row.cells[2].querySelectorAll('input[type=number]')[0].value;
+          var valor = row.cells[3].innerText.replace("$", "").trim();
+
+          rows[i - 1][headers[0]] = codigo;
+          rows[i - 1][headers[1]] = cantidad;
+          rows[i - 1][headers[2]] = valor;
+        }
+
+        var subtotal = document.getElementById("subtotal").value.replace("$", "").trim();
+        var iva = document.getElementById("iva").value.replace("$", "").trim();
+
+        var obj = {"datos": rows, "subtotal": subtotal, "iva": iva};
+        return JSON.stringify(obj);
+      }
+
+      $("#venta-form").submit(function (e){
+        e.preventDefault();
+        var tabla = generarDatosTabla();
+        console.log(tabla);
+        var serializeData = $(this).serialize();
+        //console.log(serializeData);
+        $.ajax({
+          type: 'POST',
+          url: "{% url 'post_venta' %}",
+          data: tabla,
+          success: function(response){
+            alert("success");
+          },
+          error: function(response){
+            alert("error");
+          }
+        });
+      });
+
+      $.ajaxSetup({
+          beforeSend: function(xhr, settings){
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+          }
+        });
+      
       $("#producto-form").submit(function (e){
         e.preventDefault();
         var serializeData = $(this).serialize();
+        //console.log(serializeData);
+
         $.ajax({
           type: 'POST',
           url: "{% url 'post_producto' %}",
@@ -145,15 +232,21 @@
             $("venCodigoPro").focus();
             var instance = JSON.parse(response["instance"]);
             var fields = instance[0]["fields"];
-            $("#tablaVenta tbody").prepend(
-              `<tr id=${fields["Codigo"]}>
-                <td>${fields["Nombre"]||""}</td>
-                <td>${fields["Cat"]["Nombre"]||""}</td>
-                <td><input type='number' id='${fields["Codigo"]||""}' value="1" class='form-control col-6'/></td>
-                <td>$ ${fields["Valor"]||""}</td>
+            var fila = document.getElementById(`producto-${fields["Codigo"]}`);
+            if(fila){
+              fila.cells[2].querySelectorAll('input[type=number]')[0].value++;
+            }
+            else{
+              $("#tablaVenta tbody").prepend(
+              `<tr id='producto-${fields["Codigo"]}'>
+                <td id='nombre'>${fields["Nombre"]||""}</td>
+                <td id='categoria'>${fields["Cat"]["Nombre"]||""}</td>
+                <td id='cantidad'><input type='number' id='cantidad' value="1" class='form-control col-6'/></td>
+                <td id='valor'>$ ${fields["Valor"]||""}</td>
                 <td><button class='close' arial-label='Close' ><span aria-hidden="true">&times;</span></button></td>
-              </tr>`
-            );
+              </tr>`);
+            }
+
             actualizarTotales();
           },
           error: function(response){

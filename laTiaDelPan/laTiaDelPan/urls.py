@@ -53,5 +53,6 @@ urlpatterns = [
     
 
     path('venta/', VistaVenta.venta),
-    path('venta/obtenerProducto', VistaVenta.postProducto, name="post_producto")
+    path('venta/obtenerProducto', VistaVenta.postProducto, name="post_producto"),
+    path('realizarVenta/', VistaVenta.realizarVenta, name="post_venta")
 ]

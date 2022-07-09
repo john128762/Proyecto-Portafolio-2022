@@ -9,11 +9,13 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.http import JsonResponse
 from django.core import serializers
+from django.utils import timezone
 
 #from laTiaDelPan.backend.views import Producto
 
 
 def venta(request):
+    request.session['username'] = "username"
     form = FormVenta()
     return render(request, 'venta.html', {"form": form})
 
@@ -23,14 +25,12 @@ def postProducto(request):
         if form.is_valid():
             #print(form.cleaned_data["codigo"])
             try:
-                producto2 = models.Producto.objects.get(PROD_CODIGO = form.cleaned_data["codigo"])
-                serializado2 = serializers.serialize('json', [ producto2, ])
                 producto = ControladorProductos.LeerProducto(form.cleaned_data["codigo"])
                 #print(producto.Codigo)
                 #print(json.dumps(producto, cls=modelsApp.ProductoEncoder))
                 serializado = serializarProducto(producto)
-                print(serializado)
-                print(serializado2)
+                #print(serializado)
+                #print(serializado2)
                 return JsonResponse({"instance": serializado}, status=200)
                 #return JsonResponse({"instance": serializado2}, status=200)
             except models.Producto.DoesNotExist:
@@ -43,6 +43,33 @@ def postProducto(request):
         else:
             return JsonResponse({"error":form.errors}, status=400)
     return JsonResponse({"error": ""}, status=400)
+
+def realizarVenta(request):
+    print("realizarVenta")
+    if is_ajax(request) and request.method == "POST":
+        print(request.session)
+        body = request.body
+        obj = json.loads(body)
+        
+        Boleta = modelsApp.Boleta()
+        Boleta.FechaVenta = timezone.now()
+        Boleta.Subtotal = obj["subtotal"]
+        Boleta.Iva = obj["iva"]
+        Boleta.Vigencia = True
+        Boleta.Vendedor = modelsApp.Usuario(user=request.session["username"])
+        Boleta.Detalle = []
+
+        for detalle in obj["datos"]:
+            Boleta.Detalle.append(modelsApp.DetalleBoleta(modelsApp.Producto(detalle["codigo"]), detalle["cantidad"], detalle["valor"]))
+
+        res = ControladorVentas.RealizarVenta(Boleta)
+
+        if res.CodigoOperacion == 200:
+            messages.success(request, res.Mensaje)
+        else:
+            messages.error(request, res.Mensaje)
+
+    return HttpResponseRedirect('/venta/')
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'

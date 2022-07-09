@@ -13,7 +13,7 @@ def producto(request, respuesta=None):
     dataProv = MantenedorProveedores.ListarProveedores()
     dataPro = ControladorProductos.ListarProductos()
     dataCat = MantenedorCategorias.ListarCategorias()
-    prod = {'productoT':dataPro, 'categoriaSelect':dataCat, 'proveedorSelect':dataprov}
+    prod = {'productoT':dataPro, 'categoriaSelect':dataCat, 'proveedorSelect':dataProv}
     if isinstance(respuesta, modelsApp.Resultado):
         if respuesta.CodigoOperacion == 200:
             messages.success(request, respuesta.Mensaje)

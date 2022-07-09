@@ -39,7 +39,7 @@ class Boleta (models.Model):
 class Producto(models.Model):
     PROD_CODIGO = models.AutoField(primary_key=True)
     PROD_NOMBRE = models.CharField(max_length=40)
-    PROD_VALOR = models.DecimalField(decimal_places=3, max_digits=10)
+    PROD_VALOR = models.DecimalField(decimal_places=0, max_digits=10)
     PROD_STOCK = models.IntegerField()
     PROV_RUT = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
     CAT_ID = models.ForeignKey(Categoria, on_delete=models.CASCADE)

@@ -45,7 +45,3 @@ $(document).ready(function() {
           },
        } );
 } );
-
-$("#factCodigoPro").keypress(function(){
-  console.log("hola")
-});

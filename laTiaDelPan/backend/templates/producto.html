@@ -50,9 +50,12 @@
         <form method="POST" action="/crearProd/">
           {% csrf_token %}
           <div class="modal-body">
+            <label>Codigo:</label>
             <input type="text" class="form-control" id="codigoProducto" name="codigoProducto" placeholder="Ingrese Codigo Producto" required autofocus>
-            <input type="text" style="margin-top: 10px;" class="form-control" name="nombreProducto" id="nombreProducto" placeholder="Ingrese Nombre Producto" required>
-            <select class="form-control" style="margin-top: 10px;" name="idCatProd" id="idCatProd" requerid>
+            <label style="margin-top: 10px;">Nombre:</label>
+            <input type="text" class="form-control" pattern="^[A-z0-9À-ž\s]+$" name="nombreProducto" id="nombreProducto" placeholder="Ingrese Nombre Producto" required>
+            <label style="margin-top: 10px;">Categoría:</label>
+            <select class="form-control" name="idCatProd" id="idCatProd" requerid>
               <option value="0">--------</option>
               {% for categoria in categoriaSelect %}
               {% if categoria.Estado is True %}
@@ -60,7 +63,8 @@
               {% endif %}
               {% endfor %}
             </select>
-            <select class="form-control" style="margin-top: 10px;" name="idProvProd" id="idProvProd" required>
+            <label style="margin-top: 10px;">Proveedor:</label>
+            <select class="form-control" name="idProvProd" id="idProvProd" required>
               <option value="0">--------</option>
               {% for proveedor in proveedorSelect %}
               {% if proveedor.Estado is True %}
@@ -68,8 +72,10 @@
               {% endif %}
               {% endfor %}
             </select>
-            <input type="number" style="margin-top: 10px;" class=" form-control" name="stockProducto" id="stockProducto" placeholder="Ingrese Stock Producto" required>
-            <input type="number" style="margin-top: 10px;" class="form-control" name="valorProducto" id="valorProducto" placeholder="Ingrese Valor Unitario del Producto" required>
+            <label style="margin-top: 10px;">Stock:</label>
+            <input type="number" class=" form-control" name="stockProducto" id="stockProducto" placeholder="Ingrese Stock Producto" required>
+            <label style="margin-top: 10px;">Valor Unitario:</label>
+            <input type="number" class="form-control" name="valorProducto" id="valorProducto" placeholder="Ingrese Valor Unitario del Producto" required>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Crear producto</button>
@@ -91,9 +97,12 @@
         <form method="POST" action="/editProd/">
           {% csrf_token %}
           <div class="modal-body">
-            <input type="text" class="form-control" name="codigoProductoEdit" id="codigoProductoEdit" placeholder="Ingrese Codigo Producto" required autofocus readonly>
-            <input type="text" style="margin-top: 10px;" name="nombreProductoEdit" class="form-control" id="nombreProductoEdit" placeholder="Ingrese Nombre Producto" required>
-            <select class="form-control" style="margin-top: 10px;" name="idCatProdEdit" id="idCatProdEdit" aria-placeholder="Elija una Categoría">
+            <label>Codigo:</label>
+            <input type="text" class="form-control" pattern="^[A-z0-9À-ž\s]+$" name="codigoProductoEdit" id="codigoProductoEdit" placeholder="Ingrese Codigo Producto" required autofocus readonly>
+            <label style="margin-top: 10px;">Nombre:</label>
+            <input type="text" name="nombreProductoEdit" class="form-control" id="nombreProductoEdit" placeholder="Ingrese Nombre Producto" required>
+            <label style="margin-top: 10px;">Categoría:</label>
+            <select class="form-control" name="idCatProdEdit" id="idCatProdEdit" aria-placeholder="Elija una Categoría" required>
               <option value="0">--------</option>
               {% for  categoria in categoriaSelect%}
               {% if categoria.Estado is True %}
@@ -101,7 +110,8 @@
               {% endif %}
               {% endfor %}
             </select>
-            <select class="form-control" style="margin-top: 10px;" name="idProvProdEdit" id="idProvProdEdit" aria-placeholder="Elija un Proveedor">
+            <label style="margin-top: 10px;">Proveedor:</label>
+            <select class="form-control" name="idProvProdEdit" id="idProvProdEdit" aria-placeholder="Elija un Proveedor" required>
               <option value="0">--------</option>
               {% for proveedor in proveedorSelect %}
               {% if proveedor.Estado is True %}
@@ -109,8 +119,10 @@
               {% endif %}
               {% endfor %}
             </select>
-            <input type="number" style="margin-top: 10px;" class=" form-control" name="stockProductoEdit" id="stockProductoEdit" placeholder="Ingrese Stock Producto" required>
-            <input type="number" style="margin-top: 10px;" class="form-control" name="valorProductoEdit" id="valorProductoEdit" placeholder="Ingrese Valor Unitario del Producto" required>
+            <label style="margin-top: 10px;">Stock:</label>
+            <input type="number" class=" form-control" name="stockProductoEdit" id="stockProductoEdit" placeholder="Ingrese Stock Producto" required>
+            <label style="margin-top: 10px;">Valor Unitario:</label>
+            <input type="number" class="form-control" name="valorProductoEdit" id="valorProductoEdit" placeholder="Ingrese Valor Unitario del Producto" required>
             <br>
             <input type="checkbox" id="vigenciaProdEdit" name="vigenciaProdEdit" style="height:unset; margin-right: 5px;"><label for ="vigenciaEdit">¿Se encuentra vigente?</label>
           </div>
@@ -149,6 +161,7 @@
         <table class="table table-striped table-bordered table-hover" id="tablaProducto">
             <thead style="background-color: #00aae4; color: white;">
                 <tr>
+                    <th>Codigo Producto</th>
                     <th>Nombre Producto</th>
                     <th>Categoría</th>
                     <th>Proveedor</th>
@@ -161,6 +174,7 @@
             <tbody style="background-color: white; color: black;">
               {% for producto in productoT %}
                 <tr>
+                  <td>{{producto.Codigo}}</td>
                   <td>{{producto.Nombre}}</td>
                   <td>{{producto.Cat.Nombre}}</td>
                   <td>{{producto.Prov.Nombre}}</td>

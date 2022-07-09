@@ -76,14 +76,21 @@
 
     <!-- input para ungresar codigo de producto -->
     <div class="container">
-        <label for="factForCodigoPro">Ingrese codigo del producto que se desea vender:
-            <input type="text" maxlength="5" class="form-control" id="factCodigoPro" name = "factCodigoPro" placeholder="Codigo Producto" autofocus>
-        </label>
-      
+      <form id="productos-form">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div class="form-group col-4" style="box-sizing: unset; display: inline;">
+          <label for ="id_codigo">{{ field.label }}</label>
+          {{ field }}
+        </div>
+        {% endfor %}
+        <input type="submit" id="btnBuscar" class="btn btn-primary" value="Buscar Producto"/>
+      </form>
     </div>
     
     <!-- Tabla factura -->
-    <div class="container">
+    <div class="container" style="margin-top: 20px">
         <table class="table table-striped table-bordered table-hover" id="tablaFactura">
             <thead style="background-color: #00aae4; color: white;">
                 <tr>
@@ -95,30 +102,16 @@
                 </tr>
             </thead>
             <tbody style="background-color: white; color: black;">
-                <tr>
-                    <td>hola</td>
-                    <td>5</td>
-                    <td>
-                        <input type='number' min="1" step="1" value="1" id="cantidad" style='width: 60px;'>
-                    </td>
-                    <td>
-                        <input type='number' min="1" step="1" value="1" id="precio" style='width: 100px;'>
-                    </td>
-                    <td>
-                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
-                    </td>
-                </tr>
+              
             </tbody>
         </table>
         <hr>
         <div class="container">
-            <label id="factTotal">Total: 
-                <input type="number" min="1" step="1" value="1" class="form-control" id="factInTotal">
-            </label>
+            <label for="total" id="factTotal">Total:</label>&nbsp;<input type="text" class="textValor" value="$ 0" id="factInTotal" readonly>
           
         </div>
         <!-- botones Volver, Realizar y Cancelar --> 
-        <div>
+        <div class="container">
           <button class="btn btn-outline-success btn-lg active" id="factRealizar" data-toggle="modal" data-target="#realizarFact">Realizar Factura</button>
           <button class="btn btn-outline-danger btn-lg active" id="factCancelar" data-toggle="modal" data-target="#cancelarFact">Cancelar Factura</button>
           <a href="/principal/" role="button" class="btn btn-outline-primary btn-lg active" id="factVolver">Volver</a>
@@ -128,5 +121,46 @@
     
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
     <script type="text/javascript" src="{% static 'js/factura.js' %}"></script>
+    <script>
+
+      function actualizarTotales(){
+
+      }
+
+      $("#tablaFactura").on('click', '.close', function(){
+        $(this).closest('tr').remove();
+        actualizarTotales()
+      });
+
+      $("#productos-form").submit(function (e){
+        e.preventDefault();
+        var serializeData = $(this).serialize();
+        $.ajax({
+          type: 'POST',
+          url: "{% url 'post_productos' %}",
+          data: serializeData,
+          success: function(response){
+            //alert(response["instance"]);
+            $("#producto.form").trigger('reset');
+            $("venCodigoPro").focus();
+            var instance = JSON.parse(response["instance"]);
+            var fields = instance[0]["fields"];
+            $("#tablaFactura tbody").prepend(
+              `<tr id=${fields["Codigo"]}>
+                <td>${fields["Nombre"]||""}</td>
+                <td>${fields["Cat"]["Nombre"]||""}</td>
+                <td><input type='number' id='${fields["Codigo"]||""}' value="1" class='form-control col-6'/></td>
+                <td>$ ${fields["Valor"]||""}</td>
+                <td><button class='close' arial-label='Close' ><span aria-hidden="true">&times;</span></button></td>
+              </tr>`
+            );
+            actualizarTotales();
+          },
+          error: function(response){
+            alert(response["responseJSON"]["error"]);
+          }
+        });
+      });
+    </script>
 </body>
 </html>

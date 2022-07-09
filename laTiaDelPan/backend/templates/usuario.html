@@ -50,11 +50,16 @@
         <form method="POST" action="/crearUsu/">
           {% csrf_token %}
           <div class="modal-body">
-            <input type="text" class="form-control" style="margin-top: 10px;" name="rutUsuario" id="rutUsuario" placeholder="Ingrese Rut Usuario" required autofocus>
-            <input type="text" class="form-control" style="margin-top: 10px;" id="userName" placeholder="Ingrese Nombre de Usuario" name="userName" required>
-            <input type="text" class="form-control" style="margin-top: 10px;" pattern="^[A-Za-z]+$" id="nombreUsu" placeholder="Ingrese Nombre del Usuario" name="nombreUsu" required>
-            <input type="text" class="form-control" style="margin-top: 10px;" pattern="^[A-Za-z]+$" id="ApellidoUsu" placeholder="Ingrese Apellido del Usuario" name="ApellidoUsu" required>
-            <input type="text" class="form-control" style="margin-top: 10px;" id="password" placeholder="Ingrese una Contraseña" name="password" required>
+            <label>Rut:</label>
+            <input type="text" class="form-control" name="rutUsuario" id="rutUsuario" placeholder="Ingrese Rut Usuario" required autofocus>
+            <label style="margin-top: 10px;">Nombre de Usuario:</label>
+            <input type="text" class="form-control" id="userName" pattern="^[A-z0-9À-ž]+$" placeholder="Ingrese Nombre de Usuario" name="userName" required>
+            <label style="margin-top: 10px;">Nombre:</label>
+            <input type="text" class="form-control" pattern="^[A-zÀ-ž\s]+$" id="nombreUsu" placeholder="Ingrese Nombre del Usuario" name="nombreUsu" required>
+            <label style="margin-top: 10px;">Apellido:</label>
+            <input type="text" class="form-control" pattern="^[A-zÀ-ž\s]+$" id="ApellidoUsu" placeholder="Ingrese Apellido del Usuario" name="ApellidoUsu" required>
+            <label style="margin-top: 10px;">Contraseña:</label>
+            <input type="text" class="form-control" id="password" pattern="^[A-z0-9À-ž]+$" placeholder="Ingrese una Contraseña" name="password" required>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Crear usuario</button>
@@ -76,11 +81,16 @@
         <form id="formEditUsu" method="POST" action="/editUsu/">
           {% csrf_token %}
           <div class="modal-body">
-            <input type="text" class="form-control" style="margin-top: 10px;" name="rutUsuarioEdit" id="rutUsuarioEdit" placeholder="Ingrese Rut Usuario" required autofocus readonly>
-            <input type="text" class="form-control" style="margin-top: 10px;" id="userNameEdit" placeholder="Ingrese Nombre de Usuario" name="userNameEdit" required readonly>
-            <input type="text" class="form-control" style="margin-top: 10px;" id="nombreUsuEdit" placeholder="Ingrese Nombre del Usuario" name="nombreUsuEdit" required>
-            <input type="text" class="form-control" style="margin-top: 10px;" id="apellidoUsuEdit" placeholder="Ingrese Nombre del Usuario" name="apellidoUsuEdit" required>
-            <input type="text" class="form-control" style="margin-top: 10px;" id="passwordEdit" placeholder="Ingrese una Contraseña" name="passwordEdit" required>
+            <label>Rut:</label>
+            <input type="text" class="form-control" name="rutUsuarioEdit" id="rutUsuarioEdit" placeholder="Ingrese Rut Usuario" required autofocus readonly>
+            <label style="margin-top: 10px;">Nombre de Usuario:</label>
+            <input type="text" class="form-control" id="userNameEdit" pattern="^[A-z0-9À-ž]+$" placeholder="Ingrese Nombre de Usuario" name="userNameEdit" required readonly>
+            <label style="margin-top: 10px;">Nombre:</label>
+            <input type="text" class="form-control" id="nombreUsuEdit" pattern="^[A-zÀ-ž\s]+$" placeholder="Ingrese Nombre del Usuario" name="nombreUsuEdit" required>
+            <label style="margin-top: 10px;">Apellido:</label>
+            <input type="text" class="form-control" id="apellidoUsuEdit" pattern="^[A-zÀ-ž\s]+$" placeholder="Ingrese Nombre del Usuario" name="apellidoUsuEdit" required>
+            <label style="margin-top: 10px;">Contraseña:</label>
+            <input type="text" class="form-control" id="passwordEdit" pattern="^[A-z0-9À-ž]+$" placeholder="Ingrese una Contraseña" name="passwordEdit" required>
             <p></p>
             <input type="checkbox" id="usuVigenciaEdit" name="usuVigenciaEdit" style="height:unset; margin-right: 5px;"><label for ="usuVigenciaEdit">¿Se encuentra vigente?</label>
             <p></p>
@@ -148,6 +158,7 @@
                     <th>Usuario </th>
                     <th>Nombre Usuario</th>
                     <th>Apellido Usuario</th>
+                    <th>Contraseña Usuario</th>
                     <th>Vigencia</th>
                     <th>Administrador</th>
                     <th>Acciones</th>
@@ -160,6 +171,7 @@
                     <td>{{usuario.Username}}</td>
                     <td>{{usuario.Nombres}}</td>
                     <td>{{usuario.Apellidos}}</td>
+                    <td>{{usuario.Password}}</td>
                     <td>{% if usuario.Vigencia %}
                           Vigente
                         {% endif %}

@@ -49,6 +49,7 @@ urlpatterns = [
     path('editProd/', VistasProducto.editProducto),
 
     path('facturaProveedor/', VistaFacturaProv.factura),
+    path('facturaProveedor/obtenerProducto', VistaFacturaProv.postProducto, name="post_productos"),
     
 
     path('venta/', VistaVenta.venta),

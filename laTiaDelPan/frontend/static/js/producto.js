@@ -5,8 +5,8 @@ $(document).ready(function() {
           destroy: true,
           autoWidth: false,
           columnDefs:[
-              {targets:2,ordenable:true,width:'20%'},
-              {targets:6,ordenable:false,width: '15%'},
+              {targets:0,ordenable:true,width:'20%'},
+              {targets:7,ordenable:false,width: '15%'},
             ],
           select: {
                style:    'os',
@@ -15,6 +15,7 @@ $(document).ready(function() {
            order: [[ 0, 'asc' ]],
 
            "columns":[
+            {"data":"codigo"},
             {"data":"nombreProducto"},
             {"data":"Categoria"},
             {"data":"Proveedor"},

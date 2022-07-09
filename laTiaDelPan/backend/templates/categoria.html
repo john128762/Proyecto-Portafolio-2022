@@ -50,8 +50,10 @@
         <form method="POST" action="/crearCate/">
           {% csrf_token %}
           <div class="modal-body">
+            <label>Nombre:</label>
             <input type="text" class="form-control" id="nombreCategoria" pattern="^[A-Za-z]+$" placeholder="Ingrese Nombre Categoría" name="nombreCategoria" minlength="4" required autofocus>
-            <textarea class="form-control" style="margin-top: 10px;" pattern="^[A-Za-z]+$" id="categoriaDescripcion" rows="5px" placeholder="Ingrese Descripcion Categoría" name="categoriaDescripcion" minlength="15" required></textarea>
+            <label style="margin-top: 10px;">Descripción:</label>
+            <textarea class="form-control" pattern="^[A-Za-z]+$" id="categoriaDescripcion" rows="5px" placeholder="Ingrese Descripcion Categoría" name="categoriaDescripcion" minlength="15" required></textarea>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Crear categoría</button>
@@ -74,8 +76,10 @@
           {% csrf_token %}
           <div class="modal-body">
             <input type="hidden" id="idEdit" name="idEdit" class="form-control">
-            <input type="text" class="form-control" id="nombreCategoriaEdit" name="nombreCategoriaEdit" placeholder="Ingrese Nombre Categoría" required autofocus>
-            <textarea class="form-control" style="margin-top: 10px;" id="categoriaDescripcionEdit" name="categoriaDescripcionEdit" rows="5px" placeholder="Ingrese Descripcion Categoría" required></textarea>
+            <label>Nombre:</label>
+            <input type="text" class="form-control" pattern="^[A-zÀ-ž]+$" id="nombreCategoriaEdit" name="nombreCategoriaEdit" placeholder="Ingrese Nombre Categoría" required autofocus>
+            <label style="margin-top: 10px;">Descripción:</label>
+            <textarea class="form-control" pattern="^[A-z0-9À-ž\s]+$" id="categoriaDescripcionEdit" name="categoriaDescripcionEdit" rows="5px" placeholder="Ingrese Descripcion Categoría" required></textarea>
             <br>
             <input type="checkbox" id="vigenciaEdit" name="vigenciaEdit" style="height:unset; margin-right: 5px;"><label for ="vigenciaEdit">¿Se encuentra vigente?</label>
           </div>

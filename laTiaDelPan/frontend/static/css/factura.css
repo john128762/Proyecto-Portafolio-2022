@@ -33,14 +33,23 @@
     padding-top: 50px;
 }
 
-#factInTotal{
-    width: 150px;
-    height: 25px;
-    float: right;
+#id_codigo{
+    width: 200px;
+    height: 30px;
+
+    display: inline;
 }
 
 #factTotal{
-    display: block;
-    padding-left: 890px;
-    padding-top: 7px;
+    display: inline;
+    padding-left: 75%;
+    padding-top: 10px;
+}
+
+.textValor{
+    display: inline-block;
+    width: 150px;
+    height: 30px;
+    border:0px;
+    text-align: right;
 }

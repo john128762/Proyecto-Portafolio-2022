@@ -51,9 +51,12 @@
         <form action="/nuevoProv/" method="POST">
           {% csrf_token %}
           <div class="modal-body">
+            <label>Rut:</label>
             <input type="text" class="form-control" name="rutProveedor" id="rutProveedor" placeholder="Ingrese Rut Proveedor" required autofocus>
-            <input type="text" style="margin-top: 10px;" name="nombreProveedor" class="form-control" id="nombreProveedor" placeholder="Ingrese Nombre Proveedor" required>
-            <input type="text" style="margin-top: 10px;" name="contactoProveedor" class="form-control" id="contactoProveedor" placeholder="Ingrese Contacto Proveedor" required>
+            <label style="margin-top: 10px;">Nombre:</label>
+            <input type="text" pattern="^[A-z0-9À-ž\s]+$" name="nombreProveedor" class="form-control" id="nombreProveedor" placeholder="Ingrese Nombre Proveedor" required>
+            <label style="margin-top: 10px;">Contacto:</label>
+            <input type="text" name="contactoProveedor" class="form-control" id="contactoProveedor" placeholder="Ingrese Contacto Proveedor" required>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Crear proveedor</button>
@@ -75,9 +78,12 @@
         <form id = "formEditProv" method="POST" action="/editProv/">
           {% csrf_token %}
           <div class="modal-body">
+            <label>Rut:</label>
             <input type="text" class="form-control" id="rutProveedorEdit" name="rutProveedorEdit" placeholder="Ingrese Rut Proveedor" required autofocus readonly>
-            <input type="text" style="margin-top: 10px;" class="form-control" id="nombreProveedorEdit" name="nombreProveedorEdit" placeholder="Ingrese Nombre Proveedor" required>
-            <input type="text" style="margin-top: 10px;" class="form-control" id="contactoProveedorEdit" name="contactoProveedorEdit" placeholder="Ingrese Contacto Proveedor" required>
+            <label style="margin-top: 10px;">Nombre:</label>
+            <input type="text" class="form-control" pattern="^[A-zÀ-ž\s]+$" id="nombreProveedorEdit" name="nombreProveedorEdit" placeholder="Ingrese Nombre Proveedor" required>
+            <label style="margin-top: 10px;">Contacto:</label>
+            <input type="text" class="form-control" id="contactoProveedorEdit" name="contactoProveedorEdit" placeholder="Ingrese Contacto Proveedor" required>
             <br>
             <input type="checkbox" id="vigenciaEdit" name="vigenciaEdit" style="height:unset; margin-right: 5px;"><label for ="vigenciaEdit">¿Se encuentra vigente?</label>
           </div>

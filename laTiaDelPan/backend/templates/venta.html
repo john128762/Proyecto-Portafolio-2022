@@ -174,7 +174,7 @@
           headers[1] = "cantidad";
           headers[2] = "valor";
 
-          var codigo = row.id;
+          var codigo = row.id.split("-")[1];
           var cantidad = row.cells[2].querySelectorAll('input[type=number]')[0].value;
           var valor = row.cells[3].innerText.replace("$", "").trim();
 
@@ -232,15 +232,21 @@
             $("venCodigoPro").focus();
             var instance = JSON.parse(response["instance"]);
             var fields = instance[0]["fields"];
-            $("#tablaVenta tbody").prepend(
-              `<tr id='${fields["Codigo"]}'>
+            var fila = document.getElementById(`producto-${fields["Codigo"]}`);
+            if(fila){
+              fila.cells[2].querySelectorAll('input[type=number]')[0].value++;
+            }
+            else{
+              $("#tablaVenta tbody").prepend(
+              `<tr id='producto-${fields["Codigo"]}'>
                 <td id='nombre'>${fields["Nombre"]||""}</td>
                 <td id='categoria'>${fields["Cat"]["Nombre"]||""}</td>
                 <td id='cantidad'><input type='number' id='cantidad' value="1" class='form-control col-6'/></td>
                 <td id='valor'>$ ${fields["Valor"]||""}</td>
                 <td><button class='close' arial-label='Close' ><span aria-hidden="true">&times;</span></button></td>
-              </tr>`
-            );
+              </tr>`);
+            }
+
             actualizarTotales();
           },
           error: function(response){

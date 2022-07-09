@@ -87,7 +87,7 @@ class Boleta:
     Iva = 0
     Vigencia = False
     Vendedor = Usuario()
-    Detalle = [DetalleBoleta]
+    Detalle = []
     def __init__(self, numero = 0, fechaventa = datetime.min, subtotal = 0, iva = 0, vigencia = False, vendedor = Usuario(), detalle = None):
         if isinstance(vendedor, Usuario):
             self.Numero = numero
@@ -113,8 +113,8 @@ class FacturaProveedor():
     Numero = 0
     FechaVenta = datetime.min
     Total = 0
-    Detalle = [DetalleFacturaProveedor]
-    def __init__(self, numero = 0, fechaventa: datetime = datetime.min, total = 0, detalle = None):
+    Detalle = []
+    def __init__(self, numero = 0, fechaventa: datetime = datetime.min, total = 0, detalle = []):
         self.Numero = numero
         self.FechaVenta = fechaventa
         self.Total = total

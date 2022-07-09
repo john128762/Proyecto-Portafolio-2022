@@ -50,7 +50,6 @@
         <form method="POST" action="/crearProd/">
           {% csrf_token %}
           <div class="modal-body">
-            <input type="text" class="form-control" id="codigoProducto" name="codigoProducto" placeholder="Ingrese Codigo Producto" required autofocus>
             <input type="text" style="margin-top: 10px;" class="form-control" name="nombreProducto" id="nombreProducto" placeholder="Ingrese Nombre Producto" required>
             <select class="form-control" style="margin-top: 10px;" name="idCatProd" id="idCatProd" requerid>
               <option value="0">--------</option>

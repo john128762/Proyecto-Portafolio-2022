@@ -7,31 +7,43 @@ from backend import modelsApp
 class ControladorVentas():
     def RealizarVenta(boleta: modelsApp.Boleta):
         res = modelsApp.Resultado()
-
         nuevaBoleta = models.Boleta()
+
         nuevaBoleta.BOL_FECHA_VENTA = boleta.FechaVenta
         nuevaBoleta.BOL_SUBTOTAL = boleta.Subtotal
         nuevaBoleta.BOL_IVA = boleta.Iva
         nuevaBoleta.BOL_VIGENCIA = boleta.Vigencia
-        nuevaBoleta.USU_USERNAME = boleta.Vendedor.Username
+        nuevaBoleta.USU_USERNAME = models.Usuario.objects.get(USU_USERNAME = boleta.Vendedor.Username)
 
         try:
             nuevaBoleta.save()
-
+            nuevaBoleta.refresh_from_db()
             for detalle in boleta.Detalle:
-                nuevoDetalle = models.Detalle_Boleta()
-                nuevoDetalle.BOL_NUMERO = boleta.Numero
-                nuevoDetalle.PROD_CODIGO = detalle.Prod.PROD_CODIGO
-                nuevoDetalle.DET_CANTIDAD = detalle.Cantidad
-                nuevoDetalle.DET_VALOR = detalle.Valor
-                nuevoDetalle.save()
+                try:
+                    nuevoDetalle = models.Detalle_Boleta()
+                    nuevoDetalle.BOL_NUMERO = nuevaBoleta
+                    nuevoDetalle.PROD_CODIGO = models.Producto.objects.get(PROD_CODIGO = detalle.Prod.Codigo)
+                    nuevoDetalle.DET_CANTIDAD = detalle.Cantidad
+                    nuevoDetalle.DET_VALOR = detalle.Valor
+                    nuevoDetalle.save()
+
+                except Exception as ex:
+                    obj: models.Detalle_Boleta
+                    for obj in models.Detalle_Boleta.objects.filter(BOL_NUMERO = nuevaBoleta.BOL_NUMERO) :
+                        obj.delete()
+                    nuevaBoleta.delete()
+
+                    res.CodigoOperacion = -1
+                    res.Mensaje = "Error al realizar venta: " + str(ex)
+                    #raise ex
+                    return res
 
             res.CodigoOperacion = 200
             res.Mensaje = "Venta realizada"
             return res
         except:
             res.CodigoOperacion = -1
-            res.Mensaje = "Error al realizar venta"
+            res.Mensaje = "Error al realizar venta: " + str(ex)
             return res
 
     def __ObtenerDetalleVenta(nroBoleta: int):

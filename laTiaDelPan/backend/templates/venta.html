@@ -66,7 +66,9 @@
         <input type="submit" id="btnBuscar" class="btn btn-primary" value="Buscar Producto"/>
       </form>
     </div>
-    
+    {% if messages %}
+    Prueba
+    {% endif %}
     <!-- Tabla Venta -->
     <form id ="venta-form">
       {% csrf_token %}
@@ -112,6 +114,30 @@
           </div>
         </div>
       </div>
+        <!-- Modal Informacion -->
+      <div class="modal fade" id="infoRespuesta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+              <div class="modal-body">
+                {% if messages %}
+                    {% for message in messages %}
+                      {{ message }}
+                    {% endfor %}
+                {% endif %}
+                <p id="mensaje">Prueba</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+              </div>
+          </div>
+        </div>
+      </div>
     </form>
     <div>
       <button class="btn btn-outline-success btn-lg active" id="ventaRealizar" data-toggle="modal" data-target="#realizarVenta">Realizar Venta</button>
@@ -133,6 +159,10 @@
         document.getElementById("subtotal").value = "$ 0";
         document.getElementById("iva").value = "$ 0";
         document.getElementById("total").value = "$ 0";
+      });
+
+      $("input[type=number]").change(function(){
+        console.log("event fired");
       });
 
       function actualizarTotales(){
@@ -195,16 +225,23 @@
         var tabla = generarDatosTabla();
         console.log(tabla);
         var serializeData = $(this).serialize();
+        $("#producto-form").trigger('reset');
         //console.log(serializeData);
         $.ajax({
           type: 'POST',
           url: "{% url 'post_venta' %}",
           data: tabla,
           success: function(response){
-            alert("success");
+            document.querySelectorAll('[id^=prodCod-]').forEach(function (e){e.remove()});
+            actualizarTotales();
+            $("#realizarVenta").modal('hide');
+            document.getElementById("mensaje").innerHTML = "Venta realizada.";
+            $("#infoRespuesta").modal('show');
           },
           error: function(response){
-            alert("error");
+            $("#realizarVenta").modal('hide');
+            document.getElementById("mensaje").innerHTML = "Error al realizar venta.";
+            $("#infoRespuesta").modal('show');
           }
         });
       });
@@ -230,27 +267,39 @@
             //alert(response["instance"]);
             $("#producto.form").trigger('reset');
             $("venCodigoPro").focus();
-            var instance = JSON.parse(response["instance"]);
-            var fields = instance[0]["fields"];
-            var fila = document.getElementById(`producto-${fields["Codigo"]}`);
-            if(fila){
-              fila.cells[2].querySelectorAll('input[type=number]')[0].value++;
+            if (response["instance"]){
+              var instance = JSON.parse(response["instance"]);
+              var fields = instance[0]["fields"];
+              var fila = document.getElementById(`prodCod-${fields["Codigo"]}`);
+              if(fila){
+                fila.cells[2].querySelectorAll('input[type=number]')[0].value++;
+              }
+              else{
+                $("#tablaVenta tbody").prepend(
+                `<tr id='prodCod-${fields["Codigo"]}'>
+                  <td id='nombre'>${fields["Nombre"]||""}</td>
+                  <td id='categoria'>${fields["Cat"]["Nombre"]||""}</td>
+                  <td id='cantidad'><input type='number' id='cantidad' value='1' min='1' max=${fields["Stock"]} class='form-control col-6' /></td>
+                  <td id='valor'>$ ${fields["Valor"]||""}</td>
+                  <td><button class='close' arial-label='Close' ><span aria-hidden="true">&times;</span></button></td>
+                </tr>`);
+              }
+              actualizarTotales();
             }
-            else{
-              $("#tablaVenta tbody").prepend(
-              `<tr id='producto-${fields["Codigo"]}'>
-                <td id='nombre'>${fields["Nombre"]||""}</td>
-                <td id='categoria'>${fields["Cat"]["Nombre"]||""}</td>
-                <td id='cantidad'><input type='number' id='cantidad' value="1" class='form-control col-6'/></td>
-                <td id='valor'>$ ${fields["Valor"]||""}</td>
-                <td><button class='close' arial-label='Close' ><span aria-hidden="true">&times;</span></button></td>
-              </tr>`);
+            else if (response["error"] == "doesNotExist"){
+              $("#producto-form").trigger('reset');
+              document.getElementById("mensaje").innerHTML = "El producto no existe.";
+              $("#infoRespuesta").modal('show');
             }
-
-            actualizarTotales();
+            else if (response["error"] == "noStock"){
+              $("#producto-form").trigger('reset');
+              document.getElementById("mensaje").innerHTML = "El producto no se encuentra disponible.";
+              $("#infoRespuesta").modal('show');             
+            }
           },
           error: function(response){
-            alert(response["responseJSON"]["error"]);
+            document.getElementById("mensaje").innerHTML = "Sucedio un error al realizar la consulta.";
+            $("#infoRespuesta").modal('show');   
           }
         });
       });

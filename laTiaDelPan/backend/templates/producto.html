@@ -50,13 +50,11 @@
         <form method="POST" action="/crearProd/">
           {% csrf_token %}
           <div class="modal-body">
-            <label>Codigo:</label>
-            <input type="text" class="form-control" id="codigoProducto" name="codigoProducto" placeholder="Ingrese Codigo Producto" required autofocus>
             <label style="margin-top: 10px;">Nombre:</label>
             <input type="text" class="form-control" pattern="^[A-z0-9À-ž\s]+$" name="nombreProducto" id="nombreProducto" placeholder="Ingrese Nombre Producto" required>
             <label style="margin-top: 10px;">Categoría:</label>
             <select class="form-control" name="idCatProd" id="idCatProd" requerid>
-              <option value="0">--------</option>
+              <option value="0">Seleccione Categoria</option>
               {% for categoria in categoriaSelect %}
               {% if categoria.Estado is True %}
               <option value="{{categoria.Id}}">{{categoria.Nombre}}</option>
@@ -65,7 +63,7 @@
             </select>
             <label style="margin-top: 10px;">Proveedor:</label>
             <select class="form-control" name="idProvProd" id="idProvProd" required>
-              <option value="0">--------</option>
+              <option value="0">Seleccione Proveedor</option>
               {% for proveedor in proveedorSelect %}
               {% if proveedor.Estado is True %}
               <option value="{{proveedor.RUT}}">{{proveedor.Nombre}}</option>
@@ -201,7 +199,7 @@
     
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.js"></script>
     <script type="text/javascript" src="{% static 'js/producto.js' %}"></script>
-    {% if messages %}
+  {% if messages %}
   <script>
     $(document).ready(function(){
       $("#infoRespuesta").modal('show');

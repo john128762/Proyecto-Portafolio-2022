@@ -51,7 +51,7 @@
           {% csrf_token %}
           <div class="modal-body">
             <label>Nombre:</label>
-            <input type="text" class="form-control" id="nombreCategoria" pattern="^[A-Za-z]+$" placeholder="Ingrese Nombre Categoría" name="nombreCategoria" minlength="4" required autofocus>
+            <input type="text" class="form-control" id="nombreCategoria" pattern="^[A-Za-z\d ]+$" placeholder="Ingrese Nombre Categoría" name="nombreCategoria" minlength="4" required autofocus>
             <label style="margin-top: 10px;">Descripción:</label>
             <textarea class="form-control" pattern="^[A-Za-z]+$" id="categoriaDescripcion" rows="5px" placeholder="Ingrese Descripcion Categoría" name="categoriaDescripcion" minlength="15" required></textarea>
           </div>

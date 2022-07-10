@@ -1,5 +1,6 @@
 from datetime import datetime
 from backend.Controladores.ConvertidorTipos import ConvertidorTipos
+from backend.Controladores.ControladorProductos import ControladorProductos
 from backend.models import Boleta
 from backend import models
 from backend import modelsApp
@@ -18,6 +19,7 @@ class ControladorVentas():
         try:
             nuevaBoleta.save()
             nuevaBoleta.refresh_from_db()
+            detalle: modelsApp.DetalleBoleta
             for detalle in boleta.Detalle:
                 try:
                     nuevoDetalle = models.Detalle_Boleta()
@@ -26,6 +28,7 @@ class ControladorVentas():
                     nuevoDetalle.DET_CANTIDAD = detalle.Cantidad
                     nuevoDetalle.DET_VALOR = detalle.Valor
                     nuevoDetalle.save()
+                    ControladorProductos.DisminuirStockProducto(detalle.Prod.Codigo, detalle.Cantidad)
 
                 except Exception as ex:
                     obj: models.Detalle_Boleta

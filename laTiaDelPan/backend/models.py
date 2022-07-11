@@ -57,6 +57,8 @@ class Fact_Proveedor(models.Model):
     FAC_NUMERO = models.AutoField(primary_key=True)
     FAC_FECHA_VENTA = models.DateTimeField()
     FAC_TOTAL = models.DecimalField(decimal_places=3, max_digits=10)
+    FAC_VIGENCIA = models.BooleanField()
+    USU_USERNAME = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
 class Det_Fact_Proveedor(models.Model):
     FAC_NUMERO = models.ForeignKey(Fact_Proveedor, on_delete=models.CASCADE)

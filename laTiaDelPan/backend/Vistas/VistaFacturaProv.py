@@ -47,24 +47,24 @@ def realizarFactura(request):
         body = request.body
         obj = json.loads(body)
         
-        Boleta = modelsApp.Boleta()
-        Boleta.FechaVenta = timezone.now()
-        Boleta.Subtotal = obj["subtotal"]
-        Boleta.Vigencia = True
-        Boleta.Vendedor = modelsApp.Usuario(user=request.session["username"])
-        Boleta.Detalle = []
+        FacturaProveedor = modelsApp.FacturaProveedor()
+        FacturaProveedor.FechaVenta = timezone.now()
+        FacturaProveedor.Total = obj["subtotal"]
+        FacturaProveedor.Vigencia = True
+        FacturaProveedor.Vendedor = modelsApp.Usuario(user=request.session["username"])
+        FacturaProveedor.Detalle = []
 
         for detalle in obj["datos"]:
-            Boleta.Detalle.append(modelsApp.DetalleBoleta(modelsApp.Producto(detalle["codigo"]), detalle["cantidad"], detalle["valor"]))
+            FacturaProveedor.Detalle.append(modelsApp.DetalleFacturaProveedor(modelsApp.Producto(detalle["codigo"]), detalle["cantidad"], detalle["valor"]))
 
-        res = ControladorFacturasProveedor.RealizarVenta(Boleta)
+        res = ControladorFacturasProveedor.AgregarFactura(FacturaProveedor)
 
         if res.CodigoOperacion == 200:
             messages.success(request, res.Mensaje)
         else:
             messages.error(request, res.Mensaje)
 
-    return HttpResponseRedirect('/venta/')
+    return HttpResponseRedirect('/facturaProveedor/')
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'

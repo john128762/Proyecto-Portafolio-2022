@@ -113,11 +113,14 @@ class FacturaProveedor():
     Numero = 0
     FechaVenta = datetime.min
     Total = 0
+    Vigencia = False
+    Vendedor = Usuario()
     Detalle = []
-    def __init__(self, numero = 0, fechaventa: datetime = datetime.min, total = 0, detalle = []):
+    def __init__(self, numero = 0, fechaventa: datetime = datetime.min, total = 0, vigencia = False, vendedor = Usuario(), detalle = []):
         self.Numero = numero
         self.FechaVenta = fechaventa
         self.Total = total
+        self.Vendedor = vendedor
         self.Detalle = detalle
 
 class VistaVentasPorMes:

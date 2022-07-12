@@ -47,7 +47,7 @@
               <label>¿Esta seguro de cancelar la Factura?</label>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Aceptar</button>
+            <button type="button" class="btn btn-primary" onclick="cancelarFact()">Aceptar</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancelar</button>
           </div>
         </div>
@@ -159,16 +159,23 @@
       }
 
       $(window).on('load', function (){
-        //document.getElementById("subtotal").value = "$ 0";
-        //document.getElementById("iva").value = "$ 0";
         document.getElementById("factTotal").value = "$ 0";
       });
 
-      function actualizarTotales(){
+      $("input[type=number]").change(function(){
+        console.log("event fired");
+      });
+
+      function cancelarFact(){
+        document.querySelectorAll('[id^=producto-]').forEach(function (e){e.remove()});
+        $("#productos-form").trigger('reset');
+        actualizarTotal();
+        $("#cancelarFact").modal('hide');
+      }
+
+      function actualizarTotal(){
         var table = document.getElementById("tablaFactura");
         var subTotal = 0
-        //var IVA = 0
-        //var total = 0
         for (var i = 1, row; i < table.rows.length - 1 ; i++){
           //Columna 2 para cantidad y 3 valor por cantidad
           row = table.rows[i]
@@ -177,17 +184,13 @@
 
           subTotal += cantidad * valor;
         }
-        //IVA = Math.round(subTotal * 0.19);
-        //total = subTotal;
         
         document.getElementById("factInTotal").value = "$ " + subTotal;
-        //document.getElementById("iva").value = "$ " + IVA;
-        //document.getElementById("total").value = "$ " + total;
       }
 
       $("#tablaFactura").on('click', '.close', function(){
         $(this).closest('tr').remove();
-        actualizarTotales()
+        actualizarTotal()
       });
 
       function generarDatosTabla(){
@@ -212,7 +215,6 @@
           rows[i - 1][headers[2]] = valor;
         }
 
-        console.log(document.getElementById("factInTotal").value.replace("$", "").trim());
         var subtotal = document.getElementById("factInTotal").value.replace("$", "").trim();
         //var iva = document.getElementById("iva").value.replace("$", "").trim();
 
@@ -232,7 +234,7 @@
           data: tabla,
           success: function(response){
             document.querySelectorAll('[id^=prodCod-]').forEach(function (e){e.remove()});
-            actualizarTotales();
+            actualizarTotal();
             $("#realizarFact").modal('hide');
             document.getElementById("mensaje").innerHTML = "Factura realizada.";
             $("#infoRespuesta").modal('show');
@@ -264,7 +266,7 @@
           data: serializeData,
           success: function(response){
             //alert(response["instance"]);
-            $("#producto.form").trigger('reset');
+            $("#productos.form").trigger('reset');
             $("venCodigoPro").focus();
             if (response["instance"]){
               var instance = JSON.parse(response["instance"]);
@@ -283,8 +285,7 @@
                   <td><button class='close' arial-label='Close' ><span aria-hidden="true">&times;</span></button></td>
                 </tr>`);
               }
-
-              actualizarTotales();
+              actualizarTotal();
             }
             else if (response["error"] == "doesNotExist"){
               $("#productos-form").trigger('reset');

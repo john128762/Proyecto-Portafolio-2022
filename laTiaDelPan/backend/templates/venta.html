@@ -169,6 +169,7 @@
         document.querySelectorAll('[id^=prodCod-]').forEach(function (e){e.remove()});
         $("#producto-form").trigger('reset');
         actualizarTotales();
+        console.log(actualizarTotales());
         $("#cancelarVenta").modal('hide');
       }
 

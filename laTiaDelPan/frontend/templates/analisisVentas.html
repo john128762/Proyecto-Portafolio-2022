@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Analisis Venta</title>
+    <title>Tabla Ventas</title>
 </head>
 <body>
     <!-- Navbar -->
@@ -40,21 +40,27 @@
         <table class="table table-striped table-bordered table-hover" id="tablaAnalisis">
             <thead style="background-color: #00aae4; color: white;">
                 <tr>
+                    <th>Numero Boleta</th>
+                    <th>Nombre Empleado</th>
                     <th>Nombre Producto</th>
-                    <th>Cantidad Vendido</th>
-                    <th>Dinero Generado</th>
-                    <th>Mes</th>
-                    <th>Año</th>
+                    <th>Cantidad Vendidos</th>
+                    <th>Dinero Venta</th>
+                    <th>día de venta</th>
+                    <th>acciones</th>
                 </tr>
             </thead>
             <tbody style="background-color: white; color: black;">
+              {% for venta in venta %}
                 <tr>
-                    <td>hola</td>
-                    <td>5</td>
-                    <td>500</td>
-                    <td>loco</td>
+                    <td>{venta.Numero}</td>
+                    <td>{venta.Vendedor}</td>
+                    <td>{venta.Prod}</td>
+                    <td>{venta.Cantidad}</td>
+                    <td>{venta.Valor}</td>
+                    <td>{venta.FechaVenta}</td>
                     <td>2020</td>
                 </tr>
+              {% endfor %}
             </tbody>
         </table>
         <hr>

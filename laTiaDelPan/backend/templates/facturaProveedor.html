@@ -53,26 +53,6 @@
         </div>
       </div>
     </div>
-    <!-- Modal Realizar factura -->
-    <div class="modal fade" id="realizarFact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Realizar Factura</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-              <label>¿Esta seguro de realizar la factura?</label>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Aceptar</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancelar</button>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- input para ungresar codigo de producto -->
     <div class="container">
@@ -90,25 +70,74 @@
     </div>
     
     <!-- Tabla factura -->
-    <div class="container" style="margin-top: 20px">
-        <table class="table table-striped table-bordered table-hover" id="tablaFactura">
-            <thead style="background-color: #00aae4; color: white;">
-                <tr>
-                    <th>Nombre Producto</th>
-                    <th>Categoría</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody style="background-color: white; color: black;">
+    <form id ="factura-form">
+      {% csrf_token %}
+      <div class="container" style="margin-top: 20px">
+          <table class="table table-striped table-bordered table-hover" id="tablaFactura">
+              <thead style="background-color: #00aae4; color: white;">
+                  <tr>
+                      <th>Nombre Producto</th>
+                      <th>Categoría</th>
+                      <th>Cantidad</th>
+                      <th>Precio</th>
+                      <th>Acciones</th>
+                  </tr>
+              </thead>
+              <tbody style="background-color: white; color: black;">
               
-            </tbody>
-        </table>
-        <hr>
-        <div class="container">
+              </tbody>
+          </table>
+          <hr>
+          <div class="container">
             <label for="total" id="factTotal">Total:</label>&nbsp;<input type="text" class="textValor" value="$ 0" id="factInTotal" readonly>
+          </div>
+      </div>
+      <!-- Modal Realizar factura -->
+      <div class="modal fade" id="realizarFact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Realizar Factura</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>¿Esta seguro de realizar la factura?</label>
+            </div>
+            <div class="modal-footer">
+              <input type="submit" class="btn btn-primary" value="Aceptar"></input>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancelar</button>
+            </div>
+          </div>
         </div>
+      </div>
+
+        <!-- Modal Informacion -->
+      <div class="modal fade" id="infoRespuesta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {% if messages %}
+                  {% for message in messages %}
+                    {{ message }}
+                  {% endfor %}
+              {% endif %}
+              <p id="mensaje">Prueba</p>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
         <!-- botones Volver, Realizar y Cancelar --> 
         <div class="container">
           <button class="btn btn-outline-success btn-lg active" id="factRealizar" data-toggle="modal" data-target="#realizarFact">Realizar Factura</button>
@@ -144,14 +173,14 @@
           //Columna 2 para cantidad y 3 valor por cantidad
           row = table.rows[i]
           var cantidad = row.cells[2].querySelectorAll('input[type=number]')[0].value;
-          var valor = row.cells[3].innerText.replace("$", "").trim();
+          var valor = row.cells[3].querySelectorAll('input[type=number]')[0].value;
 
           subTotal += cantidad * valor;
         }
         //IVA = Math.round(subTotal * 0.19);
         //total = subTotal;
-        console.log(subTotal);
-        document.getElementById("factTotal").value = "$ " + subTotal;
+        
+        document.getElementById("factInTotal").value = "$ " + subTotal;
         //document.getElementById("iva").value = "$ " + IVA;
         //document.getElementById("total").value = "$ " + total;
       }
@@ -183,10 +212,11 @@
           rows[i - 1][headers[2]] = valor;
         }
 
-        var subtotal = document.getElementById("subtotal").value.replace("$", "").trim();
+        console.log(document.getElementById("factInTotal").value.replace("$", "").trim());
+        var subtotal = document.getElementById("factInTotal").value.replace("$", "").trim();
         //var iva = document.getElementById("iva").value.replace("$", "").trim();
 
-        var obj = {"datos": rows, "subtotal": subtotal};
+        var obj = {"datos": rows, "factInTotal": subtotal};
         return JSON.stringify(obj);
       }
 
@@ -195,16 +225,22 @@
         var tabla = generarDatosTabla();
         console.log(tabla);
         var serializeData = $(this).serialize();
-        //console.log(serializeData);
+        $("#productos-form").trigger('reset');
         $.ajax({
           type: 'POST',
-          url: "{% url 'post_venta' %}",
+          url: "{% url 'post_factura' %}",
           data: tabla,
           success: function(response){
-            alert("success");
+            document.querySelectorAll('[id^=prodCod-]').forEach(function (e){e.remove()});
+            actualizarTotales();
+            $("#realizarFact").modal('hide');
+            document.getElementById("mensaje").innerHTML = "Factura realizada.";
+            $("#infoRespuesta").modal('show');
           },
           error: function(response){
-            alert("error");
+            $("#realizarFact").modal('hide');
+            document.getElementById("mensaje").innerHTML = "Error al realizar la factura.";
+            $("#infoRespuesta").modal('show');
           }
         });
       });
@@ -230,27 +266,40 @@
             //alert(response["instance"]);
             $("#producto.form").trigger('reset');
             $("venCodigoPro").focus();
-            var instance = JSON.parse(response["instance"]);
-            var fields = instance[0]["fields"];
-            var fila = document.getElementById(`producto-${fields["Codigo"]}`);
-            if(fila){
-              fila.cells[2].querySelectorAll('input[type=number]')[0].value++;
-            }
-            else{
-              $("#tablaFactura tbody").prepend(
-              `<tr id='producto-${fields["Codigo"]}'>
-                <td id='nombre'>${fields["Nombre"]||""}</td>
-                <td id='categoria'>${fields["Cat"]["Nombre"]||""}</td>
-                <td id='cantidad'><input type='number' id='cantidad' value="1" class='form-control col-6'/></td>
-                <td id='valor'>$ ${fields["Valor"]||""}</td>
-                <td><button class='close' arial-label='Close' ><span aria-hidden="true">&times;</span></button></td>
-              </tr>`);
-            }
+            if (response["instance"]){
+              var instance = JSON.parse(response["instance"]);
+              var fields = instance[0]["fields"];
+              var fila = document.getElementById(`producto-${fields["Codigo"]}`);
+              if(fila){
+                fila.cells[2].querySelectorAll('input[type=number]')[0].value++;
+              }
+              else{
+                $("#tablaFactura tbody").prepend(
+                `<tr id='producto-${fields["Codigo"]}'>
+                  <td id='nombre'>${fields["Nombre"]||""}</td>
+                  <td id='categoria'>${fields["Cat"]["Nombre"]||""}</td>
+                  <td id='cantidad'><input type='number' id='cantidad' min="0" value="1" class='form-control col-6'/></td>
+                  <td id='valor'><input type='number' id='valor' value="1000" min="1000" step="100" class='form-control col-6'/></td>
+                  <td><button class='close' arial-label='Close' ><span aria-hidden="true">&times;</span></button></td>
+                </tr>`);
+              }
 
-            actualizarTotales();
+              actualizarTotales();
+            }
+            else if (response["error"] == "doesNotExist"){
+              $("#productos-form").trigger('reset');
+              document.getElementById("mensaje").innerHTML = "El producto no existe.";
+              $("#infoRespuesta").modal('show');
+            }
+            else if (response["error"] == "noStock"){
+              $("#productos-form").trigger('reset');
+              document.getElementById("mensaje").innerHTML = "El producto no se encuentra disponible.";
+              $("#infoRespuesta").modal('show');             
+            }
           },
           error: function(response){
-            alert(response["responseJSON"]["error"]);
+            document.getElementById("mensaje").innerHTML = "Sucedio un error al realizar la consulta.";
+            $("#infoRespuesta").modal('show'); 
           }
         });
       });

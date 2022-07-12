@@ -46,7 +46,7 @@
               <label>¿Esta seguro de cancelar la venta?</label>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Aceptar</button>
+            <button type="button" class="btn btn-primary" onclick="cancelarVenta()">Aceptar</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancelar</button>
           </div>
         </div>
@@ -164,6 +164,13 @@
       $("input[type=number]").change(function(){
         console.log("event fired");
       });
+
+      function cancelarVenta(){
+        document.querySelectorAll('[id^=prodCod-]').forEach(function (e){e.remove()});
+        $("#producto-form").trigger('reset');
+        actualizarTotales();
+        $("#cancelarVenta").modal('hide');
+      }
 
       function actualizarTotales(){
         var table = document.getElementById("tablaVenta");

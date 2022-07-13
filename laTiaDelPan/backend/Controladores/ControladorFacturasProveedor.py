@@ -26,7 +26,6 @@ class ControladorFacturasProveedor:
                     nuevoDetalle.DFT_CANTIDAD = detalle.Cantidad
                     nuevoDetalle.DFT_VALOR = detalle.Valor
                     nuevoDetalle.save()
-                    ControladorProductos.DisminuirStockProducto(detalle.Prod.Codigo, detalle.Cantidad)
 
                 except Exception as ex:
                     obj: models.Det_Fact_Proveedor

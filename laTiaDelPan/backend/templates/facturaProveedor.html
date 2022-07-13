@@ -208,7 +208,7 @@
 
           var codigo = row.id.split("-")[1];
           var cantidad = row.cells[2].querySelectorAll('input[type=number]')[0].value;
-          var valor = row.cells[3].innerText.replace("$", "").trim();
+          var valor = row.cells[3].querySelectorAll('input[type=number]')[0].value;
 
           rows[i - 1][headers[0]] = codigo;
           rows[i - 1][headers[1]] = cantidad;
@@ -281,7 +281,7 @@
                   <td id='nombre'>${fields["Nombre"]||""}</td>
                   <td id='categoria'>${fields["Cat"]["Nombre"]||""}</td>
                   <td id='cantidad'><input type='number' id='cantidad' min="0" value="1" class='form-control col-6'/></td>
-                  <td id='valor'><input type='number' id='valor' value="1000" min="1000" step="100" class='form-control col-6'/></td>
+                  <td id='valor'><input type='number' id='valor' value="1000" min="0" class='form-control col-6'/></td>
                   <td><button class='close' arial-label='Close' ><span aria-hidden="true">&times;</span></button></td>
                 </tr>`);
               }

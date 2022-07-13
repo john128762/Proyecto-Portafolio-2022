@@ -105,8 +105,8 @@ class DetalleFacturaProveedor:
     Cantidad = 0
     Valor = 0
     def __init__(self, producto: Producto = Producto(), cantidad = 0, valor = 0):
-        self.Prod = producto,
-        self.Cantidad = cantidad,
+        self.Prod = producto
+        self.Cantidad = cantidad
         self.Valor = valor
 
 class FacturaProveedor():

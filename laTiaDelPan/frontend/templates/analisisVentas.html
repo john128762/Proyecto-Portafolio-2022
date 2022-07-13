@@ -44,22 +44,26 @@
                     <th>Nombre Empleado</th>
                     <th>Nombre Producto</th>
                     <th>Cantidad Vendidos</th>
-                    <th>Dinero Venta</th>
+                    <th>Dinero de Venta</th>
+                    <th>Dinero de Compra</th>
                     <th>día de venta</th>
                     <th>acciones</th>
                 </tr>
             </thead>
             <tbody style="background-color: white; color: black;">
               {% for venta in venta %}
-                <tr>
-                    <td>{venta.Numero}</td>
-                    <td>{venta.Vendedor}</td>
-                    <td>{venta.Prod}</td>
-                    <td>{venta.Cantidad}</td>
-                    <td>{venta.Valor}</td>
-                    <td>{venta.FechaVenta}</td>
-                    <td>2020</td>
-                </tr>
+                {% for factura in factura %}
+                  <tr>
+                      <td>{venta.Numero}</td>
+                      <td>{venta.Vendedor}</td>
+                      <td>{venta.Prod}</td>
+                      <td>{venta.Cantidad}</td>
+                      <td>{venta.Valor}</td>
+                      <td>{factura.Valor}</td>
+                      <td>{venta.FechaVenta}</td>
+                      <td>2020</td>
+                  </tr>
+                {% endfor %}
               {% endfor %}
             </tbody>
         </table>

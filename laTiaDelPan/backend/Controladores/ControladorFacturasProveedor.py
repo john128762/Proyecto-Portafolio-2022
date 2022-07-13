@@ -8,7 +8,6 @@ class ControladorFacturasProveedor:
     def AgregarFactura(factura: modelsApp.FacturaProveedor):
         res = modelsApp.Resultado()
         nuevaFactura = models.Fact_Proveedor()
-
         nuevaFactura.FAC_NUMERO = factura.Numero
         nuevaFactura.FAC_FECHA_VENTA = factura.FechaVenta
         nuevaFactura.FAC_TOTAL = factura.Total
@@ -30,8 +29,8 @@ class ControladorFacturasProveedor:
                     ControladorProductos.DisminuirStockProducto(detalle.Prod.Codigo, detalle.Cantidad)
 
                 except Exception as ex:
-                    obj: models.Detalle_Boleta
-                    for obj in models.Detalle_Boleta.objects.filter(BOL_NUMERO = nuevaFactura.BOL_NUMERO) :
+                    obj: models.Det_Fact_Proveedor
+                    for obj in models.Det_Fact_Proveedor.objects.filter(FAC_NUMERO = nuevaFactura.FAC_NUMERO) :
                         obj.delete()
                     nuevaFactura.delete()
 

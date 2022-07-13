@@ -12,6 +12,7 @@ from django.core import serializers
 from django.utils import timezone
 
 def factura(request):
+    request.session['username'] = "username"
     form = FormFactura()
     return render(request, 'facturaProveedor.html', {"form": form})
 
@@ -49,7 +50,7 @@ def realizarFactura(request):
         
         FacturaProveedor = modelsApp.FacturaProveedor()
         FacturaProveedor.FechaVenta = timezone.now()
-        FacturaProveedor.Total = obj["subtotal"]
+        FacturaProveedor.Total = obj["factInTotal"]
         FacturaProveedor.Vigencia = True
         FacturaProveedor.Vendedor = modelsApp.Usuario(user=request.session["username"])
         FacturaProveedor.Detalle = []

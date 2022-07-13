@@ -233,7 +233,7 @@
           url: "{% url 'post_factura' %}",
           data: tabla,
           success: function(response){
-            document.querySelectorAll('[id^=prodCod-]').forEach(function (e){e.remove()});
+            document.querySelectorAll('[id^=producto-]').forEach(function (e){e.remove()});
             actualizarTotal();
             $("#realizarFact").modal('hide');
             document.getElementById("mensaje").innerHTML = "Factura realizada.";

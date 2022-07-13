@@ -120,6 +120,7 @@ class FacturaProveedor():
         self.Numero = numero
         self.FechaVenta = fechaventa
         self.Total = total
+        self.Vigencia = vigencia
         self.Vendedor = vendedor
         self.Detalle = detalle
 

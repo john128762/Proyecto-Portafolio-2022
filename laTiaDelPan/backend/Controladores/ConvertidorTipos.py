@@ -35,7 +35,7 @@ class ConvertidorTipos:
     
     @staticmethod
     def ConvertirBoleta(boletaBDD: models.Boleta) -> modelsApp.Boleta:
-        boleta = modelsApp.Boleta(boletaBDD.BOL_NUMERO, boletaBDD.BOL_FECHA_VENTA, boletaBDD.BOL_SUBTOTAL, boletaBDD.BOL_IVA, boletaBDD.BOL_VIGENCIA, ConvertidorTipos.ConvertirUsuario(models.Usuario.objects.get(USU_USUARIO = boletaBDD.USU_USERNAME)))
+        boleta = modelsApp.Boleta(boletaBDD.BOL_NUMERO, boletaBDD.BOL_FECHA_VENTA, boletaBDD.BOL_SUBTOTAL, boletaBDD.BOL_IVA, boletaBDD.BOL_VIGENCIA, ConvertidorTipos.ConvertirUsuario(boletaBDD.USU_USERNAME))
         return boleta
     
     @staticmethod

@@ -19,7 +19,7 @@ class Categoria(models.Model):
 class Usuario (models.Model):
     USU_RUT = models.IntegerField()
     USU_DV = models.CharField(max_length=1)
-    USU_USERNAME = models.CharField(primary_key=True, max_length = 20)
+    USU_USERNAME = models.CharField(primary_key=True, max_length = 20, default="default")
     USU_NOMBRES = models.CharField(max_length = 40)
     USU_APELLIDOS = models.CharField(max_length = 40)
     USU_PASSWORD = models.CharField(max_length = 40)
@@ -31,8 +31,8 @@ class Usuario (models.Model):
 class Boleta (models.Model):
     BOL_NUMERO = models.AutoField(primary_key=True)
     BOL_FECHA_VENTA = models.DateTimeField()
-    BOL_SUBTOTAL = models.DecimalField(decimal_places=3, max_digits=10)
-    BOL_IVA = models.DecimalField(decimal_places=3, max_digits=10)
+    BOL_SUBTOTAL = models.DecimalField(decimal_places=0, max_digits=10)
+    BOL_IVA = models.DecimalField(decimal_places=0, max_digits=10)
     BOL_VIGENCIA = models.BooleanField()
     USU_USERNAME = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
@@ -51,18 +51,18 @@ class Detalle_Boleta(models.Model):
     BOL_NUMERO = models.ForeignKey(Boleta, on_delete=models.CASCADE)
     PROD_CODIGO = models.ForeignKey(Producto, on_delete=models.CASCADE)
     DET_CANTIDAD = models.IntegerField()
-    DET_VALOR = models.DecimalField(decimal_places=3, max_digits=10)
+    DET_VALOR = models.DecimalField(decimal_places=0, max_digits=10)
 
 class Fact_Proveedor(models.Model):
     FAC_NUMERO = models.AutoField(primary_key=True)
     FAC_FECHA_VENTA = models.DateTimeField()
-    FAC_TOTAL = models.DecimalField(decimal_places=3, max_digits=10)
-    FAC_VIGENCIA = models.BooleanField()
+    FAC_TOTAL = models.DecimalField(decimal_places=0, max_digits=10)
+    FAC_VIGENCIA = models.BooleanField(default=False)
     USU_USERNAME = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
 class Det_Fact_Proveedor(models.Model):
     FAC_NUMERO = models.ForeignKey(Fact_Proveedor, on_delete=models.CASCADE)
     PROD_CODIGO = models.ForeignKey(Producto, on_delete=models.CASCADE)
     DFT_CANTIDAD = models.IntegerField()
-    DFT_VALOR = models.DecimalField(decimal_places=3, max_digits=10)
+    DFT_VALOR = models.DecimalField(decimal_places=0, max_digits=10)
 

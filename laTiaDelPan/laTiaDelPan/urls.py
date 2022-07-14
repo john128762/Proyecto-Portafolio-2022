@@ -23,7 +23,7 @@ from backend.Vistas import VistaUsuario
 from backend.Vistas import VistasProducto
 from backend.Vistas import VistaVenta
 from backend.Vistas import VistaFacturaProv
-from backend.Vistas import VistaAnularBoleta
+from backend.Vistas import VistaAdminBoletas
 
 
 urlpatterns = [
@@ -57,5 +57,8 @@ urlpatterns = [
     path('venta/', VistaVenta.venta),
     path('venta/obtenerProducto', VistaVenta.postProducto, name="post_producto"),
     path('realizarVenta/', VistaVenta.realizarVenta, name="post_venta"),
-    path('anularBoleta/', VistaAnularBoleta.anular)
+
+    path('adminBoletas/', VistaAdminBoletas.adminBoletas),
+    path('adminBoletas/obtenerDetalle', VistaAdminBoletas.postBoleta, name="post_boleta"),
+    path('adminBoletas/anularBoleta', VistaAdminBoletas.anularBoleta, name="post_anular")
 ]

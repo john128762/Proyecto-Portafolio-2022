@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var selected = [];
-    var tabla= $('#tablaAnularBoleta').DataTable({
-        pageLength: '25',
+    var tabla= $('#tablaBoletas').DataTable({
+        pageLength: '10',
         destroy: true,
         autoWidth: false,
         columnDefs:[
@@ -12,7 +12,7 @@ $(document).ready(function() {
              style:    'os',
              selector: 'td:first-child'
          },
-         order: [[ 0, 'asc' ]],
+         order:[[3, 'desc'], [0, 'asc']],
 
          "columns":[
           {"data":"numBoleta"},

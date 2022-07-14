@@ -71,4 +71,5 @@ def serializarProducto(producto: modelsApp.Producto):
     strPK = '"pk": ' + str(producto.Codigo) + ','
     strFields = '"fields": ' + json.dumps(producto, cls=modelsApp.ProductoEncoder) + "}]"
     serializado = '[{"model": "backend.Producto", ' + strPK + strFields
+    print(serializado)
     return serializado

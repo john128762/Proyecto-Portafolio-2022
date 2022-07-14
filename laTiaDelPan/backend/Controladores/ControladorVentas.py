@@ -56,19 +56,21 @@ class ControladorVentas():
     def LeerVenta(nroBoleta: int):
         res = modelsApp.Resultado()
         try:
-            respuesta = models.Boleta(models.Boleta.objects.get(BOL_NUMERO = nroBoleta))
+            respuesta = models.Boleta.objects.get(BOL_NUMERO = nroBoleta)
             resBoleta = ConvertidorTipos.ConvertirBoleta(respuesta)
             resBoleta.Detalle = ControladorVentas.__ObtenerDetalleVenta(nroBoleta)
             return resBoleta
-        except models.Usuario.DoesNotExist:
+        
+        except Exception as ex:
             res.CodigoOperacion = -2
-            res.Mensaje = "Boleta no existe"
+            res.Mensaje = "Boleta no existe " + str(ex) 
             return res
 
     def AnularVenta(nroBoleta: int):
         res = modelsApp.Resultado()
+        resBoleta: models.Boleta
         try:
-            resBoleta = models.Boleta(models.Boleta.objects.get(BOL_NUMERO = nroBoleta))
+            resBoleta = models.Boleta.objects.get(BOL_NUMERO = nroBoleta)
             resBoleta.BOL_VIGENCIA = False
 
             resBoleta.save()

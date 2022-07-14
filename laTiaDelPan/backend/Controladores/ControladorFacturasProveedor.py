@@ -8,7 +8,7 @@ class ControladorFacturasProveedor:
     def AgregarFactura(factura: modelsApp.FacturaProveedor):
         res = modelsApp.Resultado()
         nuevaFactura = models.Fact_Proveedor()
-        nuevaFactura.FAC_NUMERO = factura.Numero
+        
         nuevaFactura.FAC_FECHA_VENTA = factura.FechaVenta
         nuevaFactura.FAC_TOTAL = factura.Total
         nuevaFactura.FAC_VIGENCIA = factura.Vigencia
@@ -82,6 +82,16 @@ class ControladorFacturasProveedor:
         try:
             resFacturas = map(ConvertidorTipos.ConvertirFacturaProveedor, list(models.Fact_Proveedor.objects.all()))
             return resFacturas
+        except Exception as e:
+            res.CodigoOperacion = -9
+            res.Mensaje = str(e)
+            return res
+
+    def ListarDetalleFacturas():
+        res = modelsApp.Resultado()
+        try:
+            resDetalleFacturas = map(ConvertidorTipos.ConvertirDetalleFacturaProveedor, list(models.Det_Fact_Proveedor.objects.all()))
+            return resDetalleFacturas
         except Exception as e:
             res.CodigoOperacion = -9
             res.Mensaje = str(e)

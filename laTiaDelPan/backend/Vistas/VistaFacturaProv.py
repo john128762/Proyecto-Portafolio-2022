@@ -42,7 +42,6 @@ def postProducto(request):
     return JsonResponse({"error": ""}, status=400)
 
 def realizarFactura(request):
-    print("realizarFactura")
     if is_ajax(request) and request.method == "POST":
         print(request.session)
         body = request.body

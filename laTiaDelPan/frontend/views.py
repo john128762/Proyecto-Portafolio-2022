@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from backend import modelsApp
 from backend.Controladores.ControladorVentas import ControladorVentas
 from backend.Controladores.ControladorFacturasProveedor import ControladorFacturasProveedor
 
@@ -11,7 +12,8 @@ def paginaPrincipal(request):
     return render(request, 'paginaPrincipal.html')
 
 def analisisVenta(request):
-    dataV = ControladorVentas.ListarVentas()
-    dataF = ControladorFacturasProveedor.ListarFacturas()
-    tabla = {'venta': dataV, 'factura':dataF}
-    return render(request, 'analisisVentas.html', tabla)
+    request.session['username'] = "username"
+    detV = ControladorVentas.ListarDetalleVentas()
+    detF = ControladorFacturasProveedor.ListarDetalleFacturas()
+    data = {'detalleV':detV, 'detalleF': detF}
+    return render(request, 'analisisVentas.html', data)

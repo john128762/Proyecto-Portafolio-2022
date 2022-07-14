@@ -91,3 +91,13 @@ class ControladorVentas():
             res.CodigoOperacion = -9
             res.Mensaje = str(e)
             return res
+
+    def ListarDetalleVentas():
+        res = modelsApp.Resultado()
+        try:
+            resDetalleBoletas = map(ConvertidorTipos.ConvertirDetalleBoleta, list(models.Detalle_Boleta.objects.all()))
+            return resDetalleBoletas
+        except Exception as e:
+            res.CodigoOperacion = -9
+            res.Mensaje = str(e)
+            return res

@@ -34,14 +34,14 @@ class ControladorUsuarios():
             try: 
                 nuevoUsuario.save()
                 if nuevoUsuario.USU_ADMINISTRADOR and ControladorUsuarios.ExistenMultiplesAdmin() and models.Usuario.objects.filter(USU_USERNAME = "admin").count() > 0:
-                        usrAdmin = models.Usuario.objects.get(USU_USERNAME = "adminTemporalTiaDelPan")
+                        usrAdmin = models.Usuario.objects.get(USU_USERNAME = "adminTemp999")
                         usrAdmin.delete()
                 res.CodigoOperacion = 200
                 res.Mensaje = "Usuario ingresado."
                 return res
-            except:
+            except Exception as ex:
                 res.CodigoOperacion = -1
-                res.Mensaje = "Error al ingresar el usuario."
+                res.Mensaje = "Error al ingresar el usuario: " + str(ex)
                 return res
         else:
             raise TypeError("El parametro usuario no es del tipo esperado")

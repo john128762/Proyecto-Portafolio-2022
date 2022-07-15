@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from backend.Controladores.ControladorUsuarios import ControladorUsuarios
 from backend.modelsApp import Usuario
+#from django.utils.timezone import ti
 
 class Command(BaseCommand):
     help = 'Crea usuario administrador en caso de que no existan usuarios'
@@ -13,10 +14,10 @@ class Command(BaseCommand):
                 res = ControladorUsuarios.ListarUsuarios()
                 if isinstance(res, list):
                     if len(res) == 0:                        
-                        usrAdmin = Usuario(rut="1-1", user="adminTemporalTiaDelPan", nombres="Administrador", apellidos="", password=options['password'][0], vigencia=True, administrador=True)
+                        usrAdmin = Usuario(rut="1-1", user="adminTemp999", nombres="Administrador", apellidos="", password=options['password'][0], vigencia=True, administrador=True)
                         res = ControladorUsuarios.AgregarUsuario(usrAdmin)
                         if res.CodigoOperacion != 200:
-                            raise CommandError('Error al ingresar el usuario')
+                            raise CommandError('Error al ingresar el usuario: ' + res.Mensaje)
                         else:
                             self.stdout.write(self.style.SUCCESS('Usuario administrador agregado con nombre de usuario "adminTemporalTiaDelPan"'))
                     else:

@@ -8,7 +8,8 @@ from django.contrib import messages
 
 
 def proveedor(request, respuesta=None):
-
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     list(messages.get_messages(request))
     dataP = MantenedorProveedores.ListarProveedores()
     if(isinstance(dataP, modelsApp.Resultado)):
@@ -22,6 +23,8 @@ def proveedor(request, respuesta=None):
     return render(request, 'proveedor.html', prov)
 
 def nuevoProv(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     if request.method=='POST':
         rutProv = request.POST["rutProveedor"]
         nombreProv = request.POST["nombreProveedor"]
@@ -43,6 +46,8 @@ def nuevoProv(request):
         return HttpResponseRedirect("/proveedor/")
 
 def editarProv(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     if request.method=='POST':
 
         rutProv = request.POST["rutProveedorEdit"]

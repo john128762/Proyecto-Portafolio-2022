@@ -13,11 +13,15 @@ from django.utils import timezone
 
 
 def venta(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     request.session['username'] = "username"
     form = FormVenta()
     return render(request, 'venta.html', {"form": form})
 
 def postProducto(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     if is_ajax(request) and request.method == "POST":
         form = FormVenta(request.POST)
         if form.is_valid():
@@ -39,6 +43,8 @@ def postProducto(request):
     return JsonResponse({"error": ""}, status=400)
 
 def realizarVenta(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     if is_ajax(request) and request.method == "POST":
         body = request.body
         obj = json.loads(body)

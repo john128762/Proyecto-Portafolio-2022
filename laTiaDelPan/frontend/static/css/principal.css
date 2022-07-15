@@ -30,6 +30,14 @@
     padding: 35px 40px;
 }
 
+#adminBoletas{
+    font-size: 30px;
+    text-align: center;
+    margin: 30px;
+    width: 300px;
+    padding: 35px 40px;
+}
+
 #venta{
     font-size: 30px;
     text-align: center;
@@ -53,3 +61,4 @@
     width: 300px;
     padding: 35px 20px;
 }
+

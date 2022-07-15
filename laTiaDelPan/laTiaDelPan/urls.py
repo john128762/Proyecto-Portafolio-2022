@@ -28,8 +28,12 @@ from backend.Vistas import VistaAdminBoletas
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', frontend_views.login),
+    path('', frontend_views.loginView),
+    path('iniciarSesion/', frontend_views.iniciarSesion, name="iniciarSesion"),
+    path('cerrarSesion/', frontend_views.cerrarSesion, name="cerrarSesion"),
     path('principal/', frontend_views.paginaPrincipal),
+    path('principal/esAdmin', frontend_views.esAdmin, name="esAdmin"),
+    path('nombreCompleto/', frontend_views.obtenerNombre, name="obtenerNombre"),
     path('analisis/', frontend_views.analisisVenta),
 
     path('usuario/', VistaUsuario.usuario),

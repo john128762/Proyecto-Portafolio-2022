@@ -8,11 +8,15 @@ from django.contrib import messages
 # Create your views here.
 
 def categoria(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     data = MantenedorCategorias.ListarCategorias()
     cat = {'categoriaT':data}
     return render(request, 'categoria.html', cat)
 
 def nuevaCategoria(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     if request.method=='POST':
         nombre = request.POST["nombreCategoria"]
         descripcion = request.POST["categoriaDescripcion"]
@@ -30,6 +34,8 @@ def nuevaCategoria(request):
         return HttpResponseRedirect('/categoria/')
 
 def editarCategoria(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     if request.method=='POST':
         idCat = request.POST["idEdit"]
         #catAntigua = MantenedorCategorias.MantenedorCategorias.LeerCategoria(idCat)
@@ -51,6 +57,8 @@ def editarCategoria(request):
         return HttpResponseRedirect('/categoria/')
 
 def eliminarCategoria(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     if request.method =='POST':
         idCat = request.POST["idCategoria"]
         respuesta = MantenedorCategorias.EliminarCategoria(idCat)

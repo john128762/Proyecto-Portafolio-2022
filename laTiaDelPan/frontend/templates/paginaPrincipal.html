@@ -7,44 +7,73 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/principal.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <title>Pagina Principal</title>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" href="/principal/">La tía del pan</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>  
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/principal/">Principal <span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <button class="btn btn-danger my-2 my-sm-0" type="submit">Cerrar Sesión</button>
-        </form>
-      </div>
-    </nav>
-    <h1 style="color: white; text-align: center;">La tía del pan</h1>
+    {% include 'navbar.html' %}
+
     <!-- Botones Pagina Principal -->
-    <div class="container" style="margin-top: 40px;">
+    <div class="container" style="margin-top: 20px;">
       <div class="d-grid gap-2 d-md-block">
-        <a href="/categoria/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="agCategoria">Agregar Categoría</a>
-        <a href="/proveedor/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="agProveedor">Agregar Proveedor</a>
-        <a href="/producto/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="agProducto">Agregar Producto</a>
-        <a href="/usuario/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="agUsuario">Agregar Usuario</a>
-        <a href="/facturaProveedor/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="facProv">Factura Proveedor</a>
-        <a href="/venta/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="venta">Realizar Venta</a>
-        <a href="/adminBoletas/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="analisis">Administrar Boletas</a>
-        <a href="/analisis/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="analisis">Tabla Ventas</a>
-        
+        <div id="botonesAdmin" style="display:none;" class="container">
+          <h1 class="text-lg-center">Administracion</h1>
+          <a href="/categoria/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="agCategoria">Administrar Categorías</a>
+          <a href="/proveedor/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="agProveedor">Administrar Proveedores</a>
+          <a href="/producto/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="agProducto">Administrar Productos</a>
+          <a href="/usuario/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="agUsuario">Administrar Usuarios</a>
+          <a href="/facturaProveedor/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="facProv">Admin Facturas de Proveedor</a>
+          <span id="borde"></span>
+        </div>
+      </div>
+      <div class="d-grid gap-2 d-md-block">
+        <div class="container" style="display:inline;">
+          <h1 class="text-lg-center">Ventas</h1>
+          <a href="/venta/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="venta">Realizar <br> Venta</a>
+          <a href="/analisis/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="analisis">Revisar <br> Ventas</a>
+          <a href="/adminBoletas/" role="button" class="btn btn-outline-primary btn-rounded btn-lg active" id="adminBoletas" style="display:none;">Administrar Boletas</a>
+        </div>
       </div>
     </div>
+    <script>
+      const csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+      function csrfSafeMethod(method) {
+          // these HTTP methods do not require CSRF protection
+          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+      $.ajaxSetup({
+          beforeSend: function(xhr, settings){
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+          }
+        });
+
+
+      $(document).ready(function() {
+        $.ajax({
+          type: "POST",
+          url: "{% url 'esAdmin' %}",
+          data: { "myvar" : "somedata" },
+          success: function(response){
+            if (response["esAdmin"]){
+              console.log(response["esAdmin"]);
+              if (response["esAdmin"] == "True"){
+                document.getElementById("botonesAdmin").style.display="inline";
+                document.getElementById("adminBoletas").style.display="inline-block";
+              }
+              else{
+                document.getElementById("botonesAdmin").style.display="none";
+                document.getElementById("adminBoletas").style.display="none";
+              }
+            }
+          }
+        });
+      });
+    </script>
     
 </body>
 </html>

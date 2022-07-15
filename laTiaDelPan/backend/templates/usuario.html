@@ -15,23 +15,7 @@
     <title>Agregar Usuaro</title>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="/principal/">La tía del pan</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>  
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="/principal/">Principal <span class="sr-only">(current)</span></a>
-            </li>
-          </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <button class="btn btn-danger my-2 my-sm-0" type="submit">Cerrar Sesión</button>
-          </form>
-        </div>
-    </nav>
+  {% include 'navbar.html' %}
     <div class="container">
          <h1 style=" margin-top: 10px; text-align: center;">Agregar Usuario</h1>
          <hr>
@@ -55,11 +39,13 @@
             <label style="margin-top: 10px;">Nombre de Usuario:</label>
             <input type="text" class="form-control" id="userName" pattern="^[A-z0-9À-ž]+$" placeholder="Ingrese Nombre de Usuario" name="userName" required>
             <label style="margin-top: 10px;">Nombre:</label>
-            <input type="text" class="form-control" pattern="^[A-zÀ-ž\s]+$" id="nombreUsu" placeholder="Ingrese Nombre del Usuario" name="nombreUsu" required>
+            <input type="text" class="form-control" pattern="^[A-zÀ-ž\s]+$" id="nombreUsu" placeholder="Ingrese Nombres" name="nombreUsu" required>
             <label style="margin-top: 10px;">Apellido:</label>
-            <input type="text" class="form-control" pattern="^[A-zÀ-ž\s]+$" id="ApellidoUsu" placeholder="Ingrese Apellido del Usuario" name="ApellidoUsu" required>
+            <input type="text" class="form-control" pattern="^[A-zÀ-ž\s]+$" id="ApellidoUsu" placeholder="Ingrese Apellidos" name="ApellidoUsu" required>
             <label style="margin-top: 10px;">Contraseña:</label>
-            <input type="text" class="form-control" id="password" pattern="^[A-z0-9À-ž]+$" placeholder="Ingrese una Contraseña" name="password" required>
+            <input type="password" class="form-control" id="password" pattern="^[A-z0-9À-ž]+$" placeholder="Ingrese Contraseña" name="password" required>
+            <p></p>
+            <input type="checkbox" id="usuAdmin" name="usuAdmin" style="height:unset; margin-right: 5px;"><label for ="usuAdmin">¿Es un administrador?</label>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Crear usuario</button>
@@ -86,11 +72,11 @@
             <label style="margin-top: 10px;">Nombre de Usuario:</label>
             <input type="text" class="form-control" id="userNameEdit" pattern="^[A-z0-9À-ž]+$" placeholder="Ingrese Nombre de Usuario" name="userNameEdit" required readonly>
             <label style="margin-top: 10px;">Nombre:</label>
-            <input type="text" class="form-control" id="nombreUsuEdit" pattern="^[A-zÀ-ž\s]+$" placeholder="Ingrese Nombre del Usuario" name="nombreUsuEdit" required>
+            <input type="text" class="form-control" id="nombreUsuEdit" pattern="^[A-zÀ-ž\s]+$" placeholder="Ingrese Nombres" name="nombreUsuEdit" required>
             <label style="margin-top: 10px;">Apellido:</label>
-            <input type="text" class="form-control" id="apellidoUsuEdit" pattern="^[A-zÀ-ž\s]+$" placeholder="Ingrese Nombre del Usuario" name="apellidoUsuEdit" required>
+            <input type="text" class="form-control" id="apellidoUsuEdit" pattern="^[A-zÀ-ž\s]+$" placeholder="Ingrese Apellidos" name="apellidoUsuEdit" required>
             <label style="margin-top: 10px;">Contraseña:</label>
-            <input type="text" class="form-control" id="passwordEdit" pattern="^[A-z0-9À-ž]+$" placeholder="Ingrese una Contraseña" name="passwordEdit" required>
+            <input type="password" class="form-control" id="passwordEdit" pattern="^[A-z0-9À-ž]+$" placeholder="Ingrese Contraseña" name="passwordEdit" required>
             <p></p>
             <input type="checkbox" id="usuVigenciaEdit" name="usuVigenciaEdit" style="height:unset; margin-right: 5px;"><label for ="usuVigenciaEdit">¿Se encuentra vigente?</label>
             <p></p>
@@ -119,7 +105,7 @@
         <div class="modal-footer">
           <form id="formEliminarUsu" method="POST" action="/eliminarUsu/">
             {% csrf_token %}
-            <button type="submit" id ="btnEliminarUsuario" name="idUsuario" class="btn btn-primary" >Eliminar Categoría</button>
+            <button type="submit" id ="btnEliminarUsuario" name="idUsuario" class="btn btn-primary" >Eliminar Usuario</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Cancelar</button>
           </form>
         </div>
@@ -158,7 +144,6 @@
                     <th>Usuario </th>
                     <th>Nombre Usuario</th>
                     <th>Apellido Usuario</th>
-                    <th>Contraseña Usuario</th>
                     <th>Vigencia</th>
                     <th>Administrador</th>
                     <th>Acciones</th>
@@ -171,7 +156,6 @@
                     <td>{{usuario.Username}}</td>
                     <td>{{usuario.Nombres}}</td>
                     <td>{{usuario.Apellidos}}</td>
-                    <td>{{usuario.Password}}</td>
                     <td>{% if usuario.Vigencia %}
                           Vigente
                         {% endif %}

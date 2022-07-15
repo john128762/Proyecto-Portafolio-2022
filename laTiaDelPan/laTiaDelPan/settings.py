@@ -57,6 +57,16 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'laTiaDelPan.urls'
 
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.ScryptPasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+]
+
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend', 'backend.Controladores.ControladorUsuarios.ControladorUsuarios',]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

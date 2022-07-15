@@ -13,11 +13,14 @@ from django.contrib import messages
 
 
 def adminBoletas(request):
-    request.session['username'] = "username"
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     dataBoleta = ControladorVentas.ListarVentas()
     return render(request, 'adminBoletas.html', {"dataBoletaT":dataBoleta})
 
 def postBoleta(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     if is_ajax(request) and request.method == "POST":
         NroBoleta = int(json.loads(request.body)["nro_boleta"])
         try:
@@ -33,26 +36,11 @@ def postBoleta(request):
     return JsonResponse({"error": ""}, status=400)
 
 def anularBoleta(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     if request.method == "POST":
         numBoleta = int(request.POST["numBoleta"])
         res = ControladorVentas.AnularVenta(numBoleta)
-
-        #return HttpResponseRedirect('/adminBoletas/')
-        #body = request.body
-        #obj = json.loads(body)
-        
-        #Boleta = modelsApp.Boleta()
-        #Boleta.FechaVenta = timezone.now()
-        #Boleta.Subtotal = Decimal(obj["subtotal"])
-        #Boleta.Iva = Decimal(obj["iva"])
-        #Boleta.Vigencia = True
-        #Boleta.Detalle = []
-
-        #for detalle in obj["datos"]:
-        #    Boleta.Detalle.append(modelsApp.DetalleBoleta(modelsApp.Producto(detalle["codigo"]), int(detalle["cantidad"]), Decimal(detalle["valor"])))
-
-        #res = ControladorVentas.RealizarVenta(Boleta)
-        #res = modelsApp.Resultado()
         if isinstance(res, modelsApp.Resultado):
             if res.CodigoOperacion == 200:
                 messages.success(request, f"La boleta N°{numBoleta} fue anulada.")

@@ -10,6 +10,8 @@ from django.contrib import messages
 from backend.Vistas.VistaProveedor import proveedor
 
 def producto(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     dataProv = MantenedorProveedores.ListarProveedores()
     dataPro = ControladorProductos.ListarProductos()
     dataCat = MantenedorCategorias.ListarCategorias()
@@ -18,6 +20,8 @@ def producto(request):
     return render(request, 'producto.html', prod)
 
 def nuevoProducto(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     if request.method=='POST':
         nombre = request.POST["nombreProducto"]
         stock = request.POST["stockProducto"]
@@ -41,6 +45,8 @@ def nuevoProducto(request):
         return HttpResponseRedirect('/producto/')
 
 def editProducto(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     if request.method=='POST':
         codigo = request.POST["codigoProductoEdit"]
         nombre = request.POST["nombreProductoEdit"]

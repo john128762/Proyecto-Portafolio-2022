@@ -7,7 +7,7 @@ $(document).ready(function() {
           columnDefs:[
               {targets:2,ordenable:true,width:'14%'},
               {targets:4,ordenable:true,width:'5%'},
-              {targets:7,ordenable:false,width: '15%'},
+              {targets:6,ordenable:false,width: '15%'},
             ],
           select: {
                style:    'os',
@@ -20,7 +20,6 @@ $(document).ready(function() {
             {"data":"username"},
             {"data":"nombreUsuario"},
             {"data":"apellidoUsuario"},
-            {"data":"password"},
             {"data":"vigencia"},
             {"data":"administrador"},
           ],

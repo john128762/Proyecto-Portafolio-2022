@@ -12,11 +12,15 @@ from django.core import serializers
 from django.utils import timezone
 
 def factura(request):
-    request.session['username'] = "username"
+
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     form = FormFactura()
     return render(request, 'facturaProveedor.html', {"form": form})
 
 def postProducto(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     if is_ajax(request) and request.method == "POST":
         form = FormFactura(request.POST)
         if form.is_valid():
@@ -42,6 +46,8 @@ def postProducto(request):
     return JsonResponse({"error": ""}, status=400)
 
 def realizarFactura(request):
+    if "username" not in request.session:
+        return HttpResponseRedirect("/")
     if is_ajax(request) and request.method == "POST":
         print(request.session)
         body = request.body

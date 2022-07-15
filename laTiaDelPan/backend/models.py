@@ -19,10 +19,11 @@ class Categoria(models.Model):
 class Usuario (models.Model):
     USU_RUT = models.IntegerField()
     USU_DV = models.CharField(max_length=1)
-    USU_USERNAME = models.CharField(primary_key=True, max_length = 20, default="default")
+    USU_USERNAME = models.CharField(primary_key=True, max_length = 20)
     USU_NOMBRES = models.CharField(max_length = 40)
     USU_APELLIDOS = models.CharField(max_length = 40)
-    USU_PASSWORD = models.CharField(max_length = 40)
+    USU_PASSWORD = models.CharField(max_length = 256)
+    #USU_PASSWORD = models.BinaryField(editable=True)
     USU_VIGENCIA = models.BooleanField()
     USU_ADMINISTRADOR = models.BooleanField()
     USU_FECHA_INGRESO = models.DateTimeField()

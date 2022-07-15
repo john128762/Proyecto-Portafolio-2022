@@ -33,7 +33,7 @@ class ControladorUsuarios():
 
             try: 
                 nuevoUsuario.save()
-                if nuevoUsuario.USU_ADMINISTRADOR and ControladorUsuarios.ExistenMultiplesAdmin() and models.Usuario.objects.filter(USU_USERNAME = "admin").count() > 0:
+                if nuevoUsuario.USU_ADMINISTRADOR and ControladorUsuarios.ExistenMultiplesAdmin() and models.Usuario.objects.filter(USU_USERNAME = "adminTemp999").count() > 0:
                         usrAdmin = models.Usuario.objects.get(USU_USERNAME = "adminTemp999")
                         usrAdmin.delete()
                 res.CodigoOperacion = 200

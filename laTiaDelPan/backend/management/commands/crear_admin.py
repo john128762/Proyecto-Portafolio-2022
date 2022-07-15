@@ -13,13 +13,13 @@ class Command(BaseCommand):
             try:
                 res = ControladorUsuarios.ListarUsuarios()
                 if isinstance(res, list):
-                    if len(res) == 0:                        
+                    if len(res) == 0:
                         usrAdmin = Usuario(rut="1-1", user="adminTemp999", nombres="Administrador", apellidos="", password=options['password'][0], vigencia=True, administrador=True)
                         res = ControladorUsuarios.AgregarUsuario(usrAdmin)
                         if res.CodigoOperacion != 200:
                             raise CommandError('Error al ingresar el usuario: ' + res.Mensaje)
                         else:
-                            self.stdout.write(self.style.SUCCESS('Usuario administrador agregado con nombre de usuario "adminTemporalTiaDelPan"'))
+                            self.stdout.write(self.style.SUCCESS('Usuario administrador agregado con nombre de usuario "adminTemp999"'))
                     else:
                         raise CommandError('Ya existe un usuario administrador')
                 else:

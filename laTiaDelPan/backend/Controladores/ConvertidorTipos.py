@@ -50,6 +50,6 @@ class ConvertidorTipos:
     
     @staticmethod
     def ConvertirDetalleFacturaProveedor(detalleBDD: models.Det_Fact_Proveedor) -> modelsApp.DetalleFacturaProveedor:
-        detalle = modelsApp.DetalleFacturaProveedor(ConvertidorTipos.ConvertirProducto(ConvertidorTipos.ConvertirProducto(detalleBDD.PROD_CODIGO)), detalleBDD.DFT_CANTIDAD, detalleBDD.DFT_VALOR)
+        detalle = modelsApp.DetalleFacturaProveedor(ConvertidorTipos.ConvertirProducto(detalleBDD.PROD_CODIGO), detalleBDD.DFT_CANTIDAD, detalleBDD.DFT_VALOR)
         return detalle
     

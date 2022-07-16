@@ -73,6 +73,9 @@ class ControladorUsuarios():
         else:
             raise TypeError("El parametro username no es del tipo esperado")
     
+    def UsuarioExiste(username):
+        return models.Usuario.objects.filter(USU_USERNAME = username).count() > 0
+
     def ActualizarUsuario(usuario: modelsApp.Usuario):
         res = modelsApp.Resultado()
         if isinstance(usuario, modelsApp.Usuario):
@@ -85,7 +88,8 @@ class ControladorUsuarios():
                 else:
                     resUsuario.USU_RUT = usuario.RUT.split("-")[0].replace(".","")
                     resUsuario.USU_DV = usuario.RUT.split("-")[1].replace(".","")
-                    resUsuario.USU_PASSWORD = make_password(usuario.Password)
+                    if usuario.Password:
+                        resUsuario.USU_PASSWORD = make_password(usuario.Password)                    
                     resUsuario.USU_NOMBRES = usuario.Nombres
                     resUsuario.USU_APELLIDOS = usuario.Apellidos
                     resUsuario.USU_VIGENCIA = usuario.Vigencia

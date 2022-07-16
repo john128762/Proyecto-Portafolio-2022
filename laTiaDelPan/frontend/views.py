@@ -51,6 +51,8 @@ def esAdmin(request):
 def obtenerNombre(request):
     if "nombreCompleto" in request.session:
         return JsonResponse(status=200, data={"nombreCompleto":request.session["nombreCompleto"]})
+    else:
+        return JsonResponse(status=200, data={"error":"error"})
 
 def analisisVenta(request):
     if "username" not in request.session:

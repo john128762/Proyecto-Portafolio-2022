@@ -15,7 +15,6 @@ from django.utils import timezone
 def venta(request):
     if "username" not in request.session:
         return HttpResponseRedirect("/")
-    request.session['username'] = "username"
     form = FormVenta()
     return render(request, 'venta.html', {"form": form})
 

@@ -262,7 +262,7 @@
                 `<tr id='prodCod-${fields["Codigo"]}'>
                   <td id='nombre'>${fields["Nombre"]||""}</td>
                   <td id='categoria'>${fields["Cat"]["Nombre"]||""}</td>
-                  <td id='cantidad'><input type='number' id='cantidad' value='1' min='1' max=${fields["Stock"]} class='form-control col-6' /></td>
+                  <td id='cantidad'><input type='number' id='cantidad' value='1' min='1' max=${fields["Stock"]} class='form-control col-6' onkeyup='actualizarTotales()' onchange='actualizarTotales()'/></td>
                   <td id='valor'>$ ${fields["Valor"]||""}</td>
                   <td><button class='close' arial-label='Close' ><span aria-hidden="true">&times;</span></button></td>
                 </tr>`);

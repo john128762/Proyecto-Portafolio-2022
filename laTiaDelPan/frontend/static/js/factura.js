@@ -16,9 +16,10 @@ $(document).ready(function() {
          order: [[ 0, 'asc' ]],
 
          "columns":[
-          {"data":"nombreCategoria"},
-          {"data":"descripcionCategoria"},
-          {"data":"estadoCategoria"},
+          {"data":"nombreProducto"},
+          {"data":"categoriaProducto"},
+          {"data":"cantidad"},
+          {"data":"valor"},
           ],
 
           language : {

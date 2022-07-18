@@ -264,8 +264,8 @@
                 `<tr id='producto-${fields["Codigo"]}'>
                   <td id='nombre'>${fields["Nombre"]||""}</td>
                   <td id='categoria'>${fields["Cat"]["Nombre"]||""}</td>
-                  <td id='cantidad'><input type='number' id='cantidad' min="0" value="1" class='form-control col-6'/></td>
-                  <td id='valor'><input type='number' id='valor' value="1000" min="0" class='form-control col-6'/></td>
+                  <td id='cantidad'><input type='number' id='cantidad' min="0" value="1" class='form-control col-6' onkeyup='actualizarTotal()' onchange='actualizarTotal()'/></td>
+                  <td id='valor'><input type='number' id='valor' value="1000" min="0" class='form-control col-6' onkeyup='actualizarTotal()' onchange='actualizarTotal()'/></td>
                   <td><button class='close' arial-label='Close' ><span aria-hidden="true">&times;</span></button></td>
                 </tr>`);
               }
